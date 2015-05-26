@@ -146,6 +146,7 @@ namespace ScreenAppWinForms
                 {
                     btnZapiszScreenaObszaru.Location = new Point(rect.X + rect.Width - 55, rect.Y + rect.Height + 5);
                 }
+                
                 string sourceAcceptImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\accept2.png";
                 btnZapiszScreenaObszaru.Image = Image.FromFile(sourceAcceptImage);
                 btnZapiszScreenaObszaru.Width = 27;
@@ -267,7 +268,8 @@ namespace ScreenAppWinForms
         /// </summary>
         private void SprawdzCzyPrzyciskiPoZaEkranem()
         {
-            if (btnZapiszScreenaObszaru.Location.Y + btnZapiszScreenaObszaru.Height + 30 > this.Height-btnZapiszScreenaObszaru.Height)
+            Point tempPoint = new Point(rect.X + rect.Width, rect.Y + rect.Height);
+            if (tempPoint.Y + 35 > this.Height)
             {
                 CzyPrzyciskiPoZaEkranem = true;
             }
