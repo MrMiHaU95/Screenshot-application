@@ -10,3 +10,15 @@ c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppW
 C:\Users\Win7\Documents\Visual Studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Tło.resources
 C:\Users\Win7\Documents\Visual Studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\accept2.png
 C:\Users\Win7\Documents\Visual Studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\decline3.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\ScreenAppWinForms.exe.config
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.exe
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.pdb
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\accept2.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\decline3.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\ScreenAppWinForms.exe
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\ScreenAppWinForms.pdb
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.csprojResolveAssemblyReference.cache
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Form1.resources
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Properties.Resources.resources
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Tło.resources
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.csproj.GenerateResource.Cache

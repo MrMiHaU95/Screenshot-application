@@ -25,6 +25,7 @@ namespace ScreenAppWinForms
         private Button btnUsunZaznaczenieObszaru;
 
         private bool CzyUserNarysowalZaznaczenie;
+        private bool CzyPrzyciskiPoZaEkranem;
 
         public Tło()
         {
@@ -106,8 +107,8 @@ namespace ScreenAppWinForms
 
                 PunktStartowyPrzesuwania = e.Location;
                 this.Invalidate();
-                
-            
+
+                SprawdzCzyPrzyciskiPoZaEkranem();
 
                 
             }
@@ -137,7 +138,14 @@ namespace ScreenAppWinForms
             if (CzyUserNarysowalZaznaczenie)
             {
                 btnZapiszScreenaObszaru = new Button();
-                btnZapiszScreenaObszaru.Location = new Point(rect.X + rect.Width - 55, rect.Y + rect.Height + 5);
+                if (CzyPrzyciskiPoZaEkranem)
+                {
+                    btnZapiszScreenaObszaru.Location = new Point(rect.X + rect.Width - 55, rect.Y - 30);
+                }
+                else
+                {
+                    btnZapiszScreenaObszaru.Location = new Point(rect.X + rect.Width - 55, rect.Y + rect.Height + 5);
+                }
                 string sourceAcceptImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\accept2.png";
                 btnZapiszScreenaObszaru.Image = Image.FromFile(sourceAcceptImage);
                 btnZapiszScreenaObszaru.Width = 27;
@@ -251,6 +259,22 @@ namespace ScreenAppWinForms
 
         private void Tło_MouseEnter(object sender, EventArgs e)
         {
+
+        }
+
+        /// <summary>
+        /// metoda sprawdzająca czy przyciski są po za ekranem 
+        /// </summary>
+        private void SprawdzCzyPrzyciskiPoZaEkranem()
+        {
+            if (btnZapiszScreenaObszaru.Location.Y + btnZapiszScreenaObszaru.Height + 30 > this.Height-btnZapiszScreenaObszaru.Height)
+            {
+                CzyPrzyciskiPoZaEkranem = true;
+            }
+            else
+            {
+                CzyPrzyciskiPoZaEkranem = false;
+            }
 
         }
     }
