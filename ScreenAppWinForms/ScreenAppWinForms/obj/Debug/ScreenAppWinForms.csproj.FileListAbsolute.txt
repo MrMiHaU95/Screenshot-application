@@ -1,0 +1,12 @@
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\ScreenAppWinForms.exe.config
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\ScreenAppWinForms.exe
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\ScreenAppWinForms.pdb
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.csprojResolveAssemblyReference.cache
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Form1.resources
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Properties.Resources.resources
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.csproj.GenerateResource.Cache
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.exe
+c:\users\win7\documents\visual studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.pdb
+C:\Users\Win7\Documents\Visual Studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Tło.resources
+C:\Users\Win7\Documents\Visual Studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\accept2.png
+C:\Users\Win7\Documents\Visual Studio 2013\Projects\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\decline3.png
