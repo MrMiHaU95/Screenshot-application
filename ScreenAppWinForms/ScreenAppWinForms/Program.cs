@@ -10,6 +10,17 @@ namespace ScreenAppWinForms
     static class Program
     {
         //http://stackoverflow.com/questions/2450373/set-global-hotkeys-using-c-sharp
+        //register hotkey
+        //https://msdn.microsoft.com/en-us/library/ms646309(v=vs.85).aspx
+
+        //http://www.codeproject.com/Articles/7294/Processing-Global-Mouse-and-Keyboard-Hooks-in-C
+
+        //http://www.fluxbytes.com/csharp/how-to-register-a-global-hotkey-for-your-application-in-c/
+
+        //http://www.dreamincode.net/forums/topic/180436-global-hotkeys/
+
+        private static NotifyIcon notifyIcon;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -19,10 +30,10 @@ namespace ScreenAppWinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            NotifyIcon notifyIcon = new NotifyIcon();
-            notifyIcon.ContextMenuStrip = GetContext();
-            notifyIcon.Icon = new Icon(@"Images\screenShoot3.ico");
-            notifyIcon.Visible = true;
+            Program.notifyIcon = new NotifyIcon();
+            Program.notifyIcon.ContextMenuStrip = GetContext();
+            Program.notifyIcon.Icon = new Icon(@"Images\screenShoot3.ico");
+            Program.notifyIcon.Visible = true;
             
             Application.Run();
         }
@@ -64,6 +75,12 @@ namespace ScreenAppWinForms
             noweTło.BackgroundImage = screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             noweTło.TopMost = true;
             noweTło.Show();
+
+            //czemu tak długo to trwa !?
+            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano do ... Kliknij aby otworzyć folder zapisu";
+            Program.notifyIcon.BalloonTipTitle = "Screen App";
+            Program.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+            Program.notifyIcon.ShowBalloonTip(2000);
         }
 
         private static void ScreenCalegoEkranu_Click(object sender, EventArgs e)
@@ -82,6 +99,12 @@ namespace ScreenAppWinForms
             
 
             screenshotObject.ZapiszScreena(screenShotFullScreen,null);
+
+            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano do ... Kliknij aby otworzyć folder zapisu";
+            Program.notifyIcon.BalloonTipTitle = "Screen App";
+            Program.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+            Program.notifyIcon.ShowBalloonTip(2000);
+            
         }
     }
 }
