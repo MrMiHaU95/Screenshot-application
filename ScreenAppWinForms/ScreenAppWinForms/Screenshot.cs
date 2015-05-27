@@ -32,7 +32,6 @@ namespace ScreenAppWinForms
 
             Graphics g = Graphics.FromImage(ScreenKawałkaEkranu as Image);
 
-            //usunąć czerwoną ramkę
             
             g.CopyFromScreen(rect.X+1,rect.Y+1, 0, 0, rect.Size);
 

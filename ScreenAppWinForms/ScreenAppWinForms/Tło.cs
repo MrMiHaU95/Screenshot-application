@@ -206,7 +206,7 @@ namespace ScreenAppWinForms
             }
 
             //przyciemnienie okna
-            using (Brush b = new SolidBrush(Color.FromArgb(150, 0, 0, 0)))
+            using (Brush b = new SolidBrush(Color.FromArgb(125, 0, 0, 0)))
             {
                 Rectangle lewyObszarZaciemnienia = new Rectangle(0, 0, rect.X, this.Height);
                 Rectangle prawyObszarZaciemnienia = new Rectangle(rect.X + rect.Width +1, 0, this.Width - lewyObszarZaciemnienia.Width, this.Height);
