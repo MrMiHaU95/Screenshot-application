@@ -32,3 +32,4 @@ D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Imag
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\rectScreen2.ico
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\browse.ico
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\screenShoot3.ico
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.HiddenFormcs.resources

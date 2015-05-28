@@ -1,8 +1,10 @@
-﻿using System;
+﻿using registerHotkey;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +23,8 @@ namespace ScreenAppWinForms
         //http://www.dreamincode.net/forums/topic/180436-global-hotkeys/
 
         private static NotifyIcon notifyIcon;
+
+        
         
         /// <summary>
         /// The main entry point for the application.
@@ -30,13 +34,17 @@ namespace ScreenAppWinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
 
             Program.notifyIcon = new NotifyIcon();
             Program.notifyIcon.ContextMenuStrip = GetContext();
             Program.notifyIcon.Icon = new Icon(@"Images\screenShoot3.ico");
             Program.notifyIcon.Visible = true;
-            
-            Application.Run();
+
+            Application.Run(new HiddenFormcs());
+
+           
+
         }
 
         private static ContextMenuStrip GetContext()
@@ -121,5 +129,7 @@ namespace ScreenAppWinForms
                 }
             
         }
+
+        
     }
 }

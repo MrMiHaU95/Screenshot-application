@@ -80,11 +80,7 @@ namespace ScreenAppWinForms
                 
             }
 
-            if (form1 != null)
-            {
-                form1.WindowState = FormWindowState.Normal;
-
-            }
+            
 
             
         }
