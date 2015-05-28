@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +21,7 @@ namespace ScreenAppWinForms
         //http://www.dreamincode.net/forums/topic/180436-global-hotkeys/
 
         private static NotifyIcon notifyIcon;
-
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -77,9 +78,10 @@ namespace ScreenAppWinForms
             noweTło.Show();
 
             //czemu tak długo to trwa !?
-            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano do ... Kliknij aby otworzyć folder zapisu";
+            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano jako " +Path.GetFileName(InfoAboutScreenshot.FolderPath) +" Kliknij aby otworzyć folder zapisu";
             Program.notifyIcon.BalloonTipTitle = "Screen App";
             Program.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+            Program.notifyIcon.BalloonTipClicked += notifyIcon_BalloonTipClicked;
             Program.notifyIcon.ShowBalloonTip(2000);
         }
 
@@ -87,6 +89,7 @@ namespace ScreenAppWinForms
         {
             Screenshot screenshotObject = new Screenshot();
             Bitmap screenShotFullScreen;
+            
 
             System.Threading.Thread.Sleep(270);
 
@@ -100,10 +103,22 @@ namespace ScreenAppWinForms
 
             screenshotObject.ZapiszScreena(screenShotFullScreen,null);
 
-            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano do ... Kliknij aby otworzyć folder zapisu";
+            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
             Program.notifyIcon.BalloonTipTitle = "Screen App";
             Program.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+            Program.notifyIcon.BalloonTipClicked += notifyIcon_BalloonTipClicked;
             Program.notifyIcon.ShowBalloonTip(2000);
+            
+        }
+
+        static void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            
+                if (File.Exists(InfoAboutScreenshot.FolderPath))
+                {
+                    string argument = @"/select, " + InfoAboutScreenshot.FolderPath;
+                    System.Diagnostics.Process.Start("explorer.exe", argument);
+                }
             
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,7 @@ namespace ScreenAppWinForms
         {
             //refactor utworzyć klasę z tą metodą
             SaveFileDialog sfd = new SaveFileDialog();
+            
             sfd.Title = "Zapisz screena jako...";
             sfd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
             sfd.ShowDialog();
@@ -50,6 +52,9 @@ namespace ScreenAppWinForms
             {
                 if (screen != null)
                 {
+                    InfoAboutScreenshot.FileName = Path.GetFileName(sfd.FileName);
+                    InfoAboutScreenshot.FolderPath = sfd.FileName;
+
                     switch (sfd.FilterIndex)
                     {
                         case 1:
@@ -66,9 +71,13 @@ namespace ScreenAppWinForms
 
                         case 4:
                             screen.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                            
                             break;
                     }
                 }
+
+                
+                
             }
 
             if (form1 != null)
@@ -76,6 +85,8 @@ namespace ScreenAppWinForms
                 form1.WindowState = FormWindowState.Normal;
 
             }
+
+            
         }
     }
 }
