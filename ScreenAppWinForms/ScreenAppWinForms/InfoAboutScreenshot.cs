@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ScreenAppWinForms
 {
+    /// <summary>
+    /// prosta klasa statyczna zawierające informacje o screenie, nazwę oraz ścieżkę do pliku
+    /// </summary>
     static class InfoAboutScreenshot
     {
         private static string fileName;

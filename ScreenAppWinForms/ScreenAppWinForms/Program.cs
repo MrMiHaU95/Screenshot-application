@@ -12,20 +12,20 @@ namespace ScreenAppWinForms
 {
     static class Program
     {
-        //http://stackoverflow.com/questions/2450373/set-global-hotkeys-using-c-sharp
-        //register hotkey
-        //https://msdn.microsoft.com/en-us/library/ms646309(v=vs.85).aspx
-
-        //http://www.codeproject.com/Articles/7294/Processing-Global-Mouse-and-Keyboard-Hooks-in-C
-
-        //http://www.fluxbytes.com/csharp/how-to-register-a-global-hotkey-for-your-application-in-c/
-
-        //http://www.dreamincode.net/forums/topic/180436-global-hotkeys/
-
         private static NotifyIcon notifyIcon;
+        // klasa Program też ma z tego korzystać
+        public static NotifyIcon NotifyIconObject
+        {
+            get
+            {
+                return notifyIcon;
+            }
+            private set
+            {
+                notifyIcon = value;
+            }
+        }
 
-        
-        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -86,7 +86,7 @@ namespace ScreenAppWinForms
             noweTło.Show();
 
             //czemu tak długo to trwa !?
-            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano jako " +Path.GetFileName(InfoAboutScreenshot.FolderPath) +" Kliknij aby otworzyć folder zapisu";
+            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano jako " +InfoAboutScreenshot.FileName +" Kliknij aby otworzyć folder zapisu";
             Program.notifyIcon.BalloonTipTitle = "Screen App";
             Program.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
             Program.notifyIcon.BalloonTipClicked += notifyIcon_BalloonTipClicked;
@@ -121,13 +121,11 @@ namespace ScreenAppWinForms
 
         static void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
         {
-            
-                if (File.Exists(InfoAboutScreenshot.FolderPath))
-                {
-                    string argument = @"/select, " + InfoAboutScreenshot.FolderPath;
-                    System.Diagnostics.Process.Start("explorer.exe", argument);
-                }
-            
+            if (File.Exists(InfoAboutScreenshot.FolderPath))
+            {
+                 string argument = @"/select, " + InfoAboutScreenshot.FolderPath;
+                 System.Diagnostics.Process.Start("explorer.exe", argument);
+            }
         }
 
         

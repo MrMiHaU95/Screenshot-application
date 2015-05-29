@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -194,7 +195,23 @@ namespace ScreenAppWinForms
 
                 screenshotObject.ZapiszScreena(screen);
 
+                Program.NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
+                Program.NotifyIconObject.BalloonTipTitle = "Screen App";
+                Program.NotifyIconObject.BalloonTipIcon = ToolTipIcon.Info;
+                Program.NotifyIconObject.BalloonTipClicked += notifyIcon_BalloonTipClicked;
+                Program.NotifyIconObject.ShowBalloonTip(2000);
+
                 this.Close();
+            }
+        }
+
+        //event handler ballon tip
+        static void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            if (File.Exists(InfoAboutScreenshot.FolderPath))
+            {
+                string argument = @"/select, " + InfoAboutScreenshot.FolderPath;
+                System.Diagnostics.Process.Start("explorer.exe", argument);
             }
         }
 

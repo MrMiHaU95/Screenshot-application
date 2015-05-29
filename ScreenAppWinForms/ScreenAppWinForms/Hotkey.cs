@@ -8,21 +8,52 @@ using System.Windows.Forms;
 
 namespace registerHotkey
 {
+    /// <summary>
+    /// klasa do rejestrowania i wyrejestrowania globalnych skrótów klawiszowych klasa wykorzystuje WindowsAPI
+    /// </summary>
     class Hotkey
     {
+
+        /// <summary>
+        /// window handle 
+        /// </summary>
+        private readonly IntPtr _hwnd;
+
+        #region deklaracje metod windows API 
+        /// <summary>
+        /// metoda służąca do rejestrowania skrótów klawiszowych
+        /// </summary>
+        /// <param name="hWnd">window handle uchwyt do okna do którego mają zostać przypisane skróty</param>
+        /// <param name="id">id skrótu po id można odróżnić skróty dla pierwszego skrótu 1 dla drugiego 2 itd</param>
+        /// <param name="fsModifiers">jeśli chcesz aby user musiał wcisnąć jeszce dodatkowo np ctrl to podaj wartość z enuma odpowiadającą danemu przyciskowi</param>
+        /// <param name="vk">klawisz do którego zostaje przypisany skrót</param>
+        /// <returns></returns>
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
 
+        /// <summary>
+        /// metoda służąca do wyrejestrowywania skrótów 
+        /// </summary>
+        /// <param name="hWnd">window handle uchwyt okna do jakiego przypisany jest dany skrót</param>
+        /// <param name="id">id skrótu do wyrejestrowania</param>
+        /// <returns></returns>
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        #endregion
 
-        private readonly IntPtr _hwnd;
-
+        /// <summary>
+        /// w konstruktorze trzeba podać uchwy okna do którego mają zostać przypisane skróty
+        /// </summary>
+        /// <param name="hwnd">window handle</param>
         public Hotkey(IntPtr hwnd)
         {
             _hwnd = hwnd;
         }
+        
 
+        /// <summary>
+        /// enum dla podstawowych klawiszy takich jak alt ctrl shift itd
+        /// </summary>
         public enum WindowKeys
         {
             None = 0x000,
@@ -32,12 +63,18 @@ namespace registerHotkey
             Window = 0x0008,
         }
 
+        /// <summary>
+        /// metoda rejestrująca wszystkie skróty dla aplikacji
+        /// </summary>
         public void RegisterHotKeys()
         {
             RegisterHotKey(_hwnd, 1, (int)WindowKeys.None, (uint)Keys.F10);
             RegisterHotKey(_hwnd, 2,(int)WindowKeys.None, (uint)Keys.F11);
         }
 
+        /// <summary>
+        /// metoda powinna zostać dodana do eventu Form_Closed wyrejestrowuje skróty dla aplikacji
+        /// </summary>
         public void UnregisterHotKeys()
         {
             UnregisterHotKey(_hwnd, 1);
