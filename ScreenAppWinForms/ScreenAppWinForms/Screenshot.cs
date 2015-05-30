@@ -45,7 +45,7 @@ namespace ScreenAppWinForms
         /// </summary>
         /// <param name="screen">obiekt klasy Bitmap zostanie skonwertowany do formatu wybranego przez usera</param>
         /// <returns></returns>
-        public DialogResult ZapiszScreena(Bitmap screen)
+        public void ZapiszScreena(Bitmap screen)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Title = "Zapisz screena jako...";
@@ -80,7 +80,6 @@ namespace ScreenAppWinForms
                     }
                 }
             }
-            return result;
         }
     }
 }

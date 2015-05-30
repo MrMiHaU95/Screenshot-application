@@ -23,7 +23,7 @@ namespace ScreenAppWinForms
             
             //tworzenie nowego notify icon 
             NotifyIconHelper.CreateNotifyIcon();
-
+            
             Application.Run(new HiddenFormcs());
         }
     }

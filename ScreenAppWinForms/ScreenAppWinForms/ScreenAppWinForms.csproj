@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonsHelper.cs" />
     <Compile Include="ContextMenuStripHelper.cs" />
     <Compile Include="HiddenFormcs.cs">
       <SubType>Form</SubType>

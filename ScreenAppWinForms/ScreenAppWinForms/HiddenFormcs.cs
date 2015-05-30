@@ -91,14 +91,14 @@ namespace ScreenAppWinForms
             base.WndProc(ref m);
         }
 
-        private DialogResult ZróbScreenaCałegoEkranu()
+        private void ZróbScreenaCałegoEkranu()
         {
             Bitmap screenCałegoEkranu;
             Screenshot screenshotObject = new Screenshot();
 
             screenCałegoEkranu = screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height) as Bitmap;
-            DialogResult result = screenshotObject.ZapiszScreena(screenCałegoEkranu);
-            return result;
+            screenshotObject.ZapiszScreena(screenCałegoEkranu);
+            
         }
 
         private  void WczytajEkranDoRysowaniaZaznaczenia()

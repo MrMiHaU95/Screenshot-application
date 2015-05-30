@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace ScreenAppWinForms
 {
+    /// <summary>
+    /// klasa pomocnicza tworzy obiekt NotifyIcon oraz wywołuje BallonTip
+    /// </summary>
     static class NotifyIconHelper
     {
         private static NotifyIcon notifyIcon;
@@ -23,7 +26,9 @@ namespace ScreenAppWinForms
                 notifyIcon = value;
             }
         }
-
+        /// <summary>
+        /// Przypisuje wartości do pól obiektu klasy NotifyIcon 
+        /// </summary>
         public static void CreateNotifyIcon()
         {
             NotifyIconObject = new NotifyIcon();
@@ -31,7 +36,9 @@ namespace ScreenAppWinForms
             NotifyIconObject.Icon = new Icon(@"Images\screenShoot3.ico");
             NotifyIconObject.Visible = true;
         }
-
+        /// <summary>
+        /// pokazuje BallonTip wykorzystuje statyczną klasę InfoAboutScreenshot
+        /// </summary>
         public static void ShowBallonTip()
         {
             NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";

@@ -12,10 +12,11 @@ namespace ScreenAppWinForms
     /// </summary>
     static class InfoAboutScreenshot
     {
+        #region prywatne pola
         private static string fileName;
         private static string folderPath;
         private static bool czyUserZapisalScreena;
-
+        #endregion
         #region właściwości
         public static bool CzyUserZapisalScreena
         {
@@ -54,6 +55,10 @@ namespace ScreenAppWinForms
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="result">Parametr uzyskany z ofd.ShowDialog opisuje interakcje usera z okienkiem czy anulował zapis czy zapisał itd... </param>
         public static void SprawdzCzyUserZapisalScreena(DialogResult result)
         {
             if(result != DialogResult.Cancel && result != DialogResult.Abort)
@@ -66,6 +71,9 @@ namespace ScreenAppWinForms
             }
         }
 
+        /// <summary>
+        /// Metoda czyszcząca pola klasy InfoAboutScreenshot przed przypisaniem nowych danych pola są czyszczone
+        /// </summary>
         public static void WyczyscDane()
         {
             InfoAboutScreenshot.CzyUserZapisalScreena = false;
