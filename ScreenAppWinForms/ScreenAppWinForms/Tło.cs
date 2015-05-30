@@ -186,8 +186,7 @@ namespace ScreenAppWinForms
             if (punktPoczatkowyKursora != null && punkGdzieAktualnieZnajdujeSieKurosor != null)
             {
                 screenshotObject = new Screenshot();
-                Bitmap screen = screenshotObject.ZróbScreenaCzęściEkranu(punktPoczatkowyKursora.X, punktPoczatkowyKursora.Y,
-                     punkGdzieAktualnieZnajdujeSieKurosor.X, punkGdzieAktualnieZnajdujeSieKurosor.Y, rect);
+                Bitmap screen = screenshotObject.ZróbScreenaCzęściEkranu(rect);
 
                 toolTip1.Hide(this);
                 toolTip1.Active = false;
@@ -197,11 +196,7 @@ namespace ScreenAppWinForms
 
                 if (InfoAboutScreenshot.CzyUserZapisalScreena)
                 {
-                    Program.NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
-                    Program.NotifyIconObject.BalloonTipTitle = "Screen App";
-                    Program.NotifyIconObject.BalloonTipIcon = ToolTipIcon.Info;
-                    Program.NotifyIconObject.BalloonTipClicked += notifyIcon_BalloonTipClicked;
-                    Program.NotifyIconObject.ShowBalloonTip(2000);
+                    NotifyIconHelper.ShowBallonTip();
                 }
 
                 this.Close();
@@ -262,8 +257,7 @@ namespace ScreenAppWinForms
                 if (punktPoczatkowyKursora != null && punkGdzieAktualnieZnajdujeSieKurosor != null)
                 {
                     screenshotObject = new Screenshot();
-                    Bitmap screen = screenshotObject.ZróbScreenaCzęściEkranu(punktPoczatkowyKursora.X, punktPoczatkowyKursora.Y,
-                         punkGdzieAktualnieZnajdujeSieKurosor.X, punkGdzieAktualnieZnajdujeSieKurosor.Y, rect);
+                    Bitmap screen = screenshotObject.ZróbScreenaCzęściEkranu(rect);
 
                     toolTip1.Hide(this);
                     toolTip1.Active = false;
@@ -273,11 +267,7 @@ namespace ScreenAppWinForms
 
                     if (InfoAboutScreenshot.CzyUserZapisalScreena)
                     {
-                        Program.NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
-                        Program.NotifyIconObject.BalloonTipTitle = "Screen App";
-                        Program.NotifyIconObject.BalloonTipIcon = ToolTipIcon.Info;
-                        Program.NotifyIconObject.BalloonTipClicked += notifyIcon_BalloonTipClicked;
-                        Program.NotifyIconObject.ShowBalloonTip(2000);
+                        NotifyIconHelper.ShowBallonTip();
                     }
 
                     this.Close();

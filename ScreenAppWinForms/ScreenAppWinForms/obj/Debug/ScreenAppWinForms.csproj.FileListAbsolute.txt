@@ -18,7 +18,6 @@ D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Imag
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\ScreenAppWinForms.exe
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\ScreenAppWinForms.pdb
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.csprojResolveAssemblyReference.cache
-D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Form1.resources
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Properties.Resources.resources
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Tło.resources
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.csproj.GenerateResource.Cache

@@ -75,6 +75,7 @@ namespace ScreenAppWinForms
                 //screen całego ekranu
                 if (id == 1)
                 {
+                    ZróbScreenaCałegoEkranu();
                     if(InfoAboutScreenshot.CzyUserZapisalScreena)
                     {
                         PokażBalloonTip();
@@ -111,11 +112,7 @@ namespace ScreenAppWinForms
 
         private  void PokażBalloonTip()
         {
-            Program.NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
-            Program.NotifyIconObject.BalloonTipTitle = "Screen App";
-            Program.NotifyIconObject.BalloonTipIcon = ToolTipIcon.Info;
-            Program.NotifyIconObject.BalloonTipClicked += notifyIcon_BalloonTipClicked;
-            Program.NotifyIconObject.ShowBalloonTip(2000);
+            NotifyIconHelper.ShowBallonTip();
         }
 
         //event handler ballon tip
