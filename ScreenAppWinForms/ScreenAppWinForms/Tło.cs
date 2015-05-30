@@ -195,11 +195,14 @@ namespace ScreenAppWinForms
 
                 screenshotObject.ZapiszScreena(screen);
 
-                Program.NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
-                Program.NotifyIconObject.BalloonTipTitle = "Screen App";
-                Program.NotifyIconObject.BalloonTipIcon = ToolTipIcon.Info;
-                Program.NotifyIconObject.BalloonTipClicked += notifyIcon_BalloonTipClicked;
-                Program.NotifyIconObject.ShowBalloonTip(2000);
+                if (InfoAboutScreenshot.CzyUserZapisalScreena)
+                {
+                    Program.NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
+                    Program.NotifyIconObject.BalloonTipTitle = "Screen App";
+                    Program.NotifyIconObject.BalloonTipIcon = ToolTipIcon.Info;
+                    Program.NotifyIconObject.BalloonTipClicked += notifyIcon_BalloonTipClicked;
+                    Program.NotifyIconObject.ShowBalloonTip(2000);
+                }
 
                 this.Close();
             }
@@ -267,6 +270,15 @@ namespace ScreenAppWinForms
                     
 
                     screenshotObject.ZapiszScreena(screen);
+
+                    if (InfoAboutScreenshot.CzyUserZapisalScreena)
+                    {
+                        Program.NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
+                        Program.NotifyIconObject.BalloonTipTitle = "Screen App";
+                        Program.NotifyIconObject.BalloonTipIcon = ToolTipIcon.Info;
+                        Program.NotifyIconObject.BalloonTipClicked += notifyIcon_BalloonTipClicked;
+                        Program.NotifyIconObject.ShowBalloonTip(2000);
+                    }
 
                     this.Close();
                 }

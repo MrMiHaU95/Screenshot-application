@@ -75,28 +75,29 @@ namespace ScreenAppWinForms
                 //screen całego ekranu
                 if (id == 1)
                 {
-                    ZróbScreenaCałegoEkranu();
-                    PokażBalloonTip();
+                    if(InfoAboutScreenshot.CzyUserZapisalScreena)
+                    {
+                        PokażBalloonTip();
+                    }
                     UkryjOkno();
                 }
                     //screen zanaczenia
                 else if(id == 2)
                 {
                     WczytajEkranDoRysowaniaZaznaczenia();
-                    //czemu tak długo!?
-                    PokażBalloonTip();
                 }
             }
             base.WndProc(ref m);
         }
 
-        private void ZróbScreenaCałegoEkranu()
+        private DialogResult ZróbScreenaCałegoEkranu()
         {
             Bitmap screenCałegoEkranu;
             Screenshot screenshotObject = new Screenshot();
 
             screenCałegoEkranu = screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height) as Bitmap;
-            screenshotObject.ZapiszScreena(screenCałegoEkranu);
+            DialogResult result = screenshotObject.ZapiszScreena(screenCałegoEkranu);
+            return result;
         }
 
         private  void WczytajEkranDoRysowaniaZaznaczenia()

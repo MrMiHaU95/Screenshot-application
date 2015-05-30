@@ -35,7 +35,7 @@ namespace ScreenAppWinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-
+            //tworzenie nowego notify icon 
             Program.notifyIcon = new NotifyIcon();
             Program.notifyIcon.ContextMenuStrip = GetContext();
             Program.notifyIcon.Icon = new Icon(@"Images\screenShoot3.ico");
@@ -47,6 +47,7 @@ namespace ScreenAppWinForms
 
         }
 
+        //contextMenuStrip wyświetlane gdy user kliknie prawym przyciskiem myszy na notify icon
         private static ContextMenuStrip GetContext()
         {
             ContextMenuStrip CMS = new ContextMenuStrip();
@@ -64,13 +65,13 @@ namespace ScreenAppWinForms
             return CMS;
         }
 
-        
 
+        #region event handlery ContextMenuStrip
         private static void Wyjscie_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
+        //nowa funkcja jeszce nie dodana
         private static void PrzeglądanieScreenów_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
@@ -84,40 +85,26 @@ namespace ScreenAppWinForms
             noweTło.BackgroundImage = screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             noweTło.TopMost = true;
             noweTło.Show();
-
-            //czemu tak długo to trwa !?
-            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano jako " +InfoAboutScreenshot.FileName +" Kliknij aby otworzyć folder zapisu";
-            Program.notifyIcon.BalloonTipTitle = "Screen App";
-            Program.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
-            Program.notifyIcon.BalloonTipClicked += notifyIcon_BalloonTipClicked;
-            Program.notifyIcon.ShowBalloonTip(2000);
         }
 
         private static void ScreenCalegoEkranu_Click(object sender, EventArgs e)
         {
             Screenshot screenshotObject = new Screenshot();
             Bitmap screenShotFullScreen;
-            
 
-            System.Threading.Thread.Sleep(270);
+            screenShotFullScreen = (Bitmap)screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            screenshotObject.ZapiszScreena(screenShotFullScreen);
 
-            screenShotFullScreen = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-
-            Graphics g = Graphics.FromImage(screenShotFullScreen as Image);
-
-            g.CopyFromScreen(0, 0, 0, 0, screenShotFullScreen.Size);
-
-            
-
-            screenshotObject.ZapiszScreena(screenShotFullScreen,null);
-
-            Program.notifyIcon.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
-            Program.notifyIcon.BalloonTipTitle = "Screen App";
-            Program.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
-            Program.notifyIcon.BalloonTipClicked += notifyIcon_BalloonTipClicked;
-            Program.notifyIcon.ShowBalloonTip(2000);
-            
+            if (InfoAboutScreenshot.CzyUserZapisalScreena)
+            {
+                Program.notifyIcon.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
+                Program.notifyIcon.BalloonTipTitle = "Screen App";
+                Program.notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+                Program.notifyIcon.BalloonTipClicked += notifyIcon_BalloonTipClicked;
+                Program.notifyIcon.ShowBalloonTip(2000);
+            }
         }
+        #endregion
 
         static void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
         {

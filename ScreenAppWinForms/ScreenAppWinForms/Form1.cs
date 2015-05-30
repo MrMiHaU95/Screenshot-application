@@ -35,7 +35,7 @@ namespace ScreenAppWinForms
 
             this.WindowState = FormWindowState.Normal;
 
-            screenshotObject.ZapiszScreena(screenShotFullScreen,this);
+            screenshotObject.ZapiszScreena(screenShotFullScreen);
         }
 
         private void buttonCaptureArea_Click(object sender, EventArgs e)

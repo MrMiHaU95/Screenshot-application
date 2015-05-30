@@ -13,7 +13,7 @@ namespace ScreenAppWinForms
     {
         public Image ZróbScreenaCałegoEkranu(int width, int height)
         {
-            System.Threading.Thread.Sleep(270);
+            //System.Threading.Thread.Sleep(270);
 
             Bitmap fullScreen = new Bitmap(width, height);
 
@@ -21,13 +21,13 @@ namespace ScreenAppWinForms
 
             g.CopyFromScreen(0, 0, 0, 0, fullScreen.Size);
 
-            return fullScreen as Image;
+            return fullScreen;
 
         }
 
         public Bitmap ZróbScreenaCzęściEkranu(int xSource, int ySource, int xDestination, int yDestination, Rectangle rect)
         {
-            System.Threading.Thread.Sleep(270);
+            //System.Threading.Thread.Sleep(270);
 
             Bitmap ScreenKawałkaEkranu = new Bitmap(rect.Width-1,rect.Height-1);
 
@@ -39,26 +39,32 @@ namespace ScreenAppWinForms
             return ScreenKawałkaEkranu;
         }
 
-        public void ZapiszScreena(Bitmap screen, Form form1 = null)
+        public DialogResult ZapiszScreena(Bitmap screen)
         {
             //refactor utworzyć klasę z tą metodą
             SaveFileDialog sfd = new SaveFileDialog();
             
             sfd.Title = "Zapisz screena jako...";
             sfd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
-            sfd.ShowDialog();
+            DialogResult result = sfd.ShowDialog();
+
+            InfoAboutScreenshot.WyczyscDane();
+            InfoAboutScreenshot.FileName = Path.GetFileName(sfd.FileName);
+            InfoAboutScreenshot.FolderPath = sfd.FileName;
+            InfoAboutScreenshot.SprawdzCzyUserZapisalScreena(result);
 
             if (sfd.FileName != "")
             {
                 if (screen != null)
                 {
-                    InfoAboutScreenshot.FileName = Path.GetFileName(sfd.FileName);
-                    InfoAboutScreenshot.FolderPath = sfd.FileName;
+                    
+                    
 
                     switch (sfd.FilterIndex)
                     {
                         case 1:
                             screen.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            
                             break;
 
                         case 2:
@@ -71,14 +77,15 @@ namespace ScreenAppWinForms
 
                         case 4:
                             screen.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                            
                             break;
                     }
+                    
                 }
 
                 
                 
             }
+            return result;
 
             
 
