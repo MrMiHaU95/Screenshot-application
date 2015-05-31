@@ -13,15 +13,7 @@ namespace ScreenAppWinForms
 {
     public partial class Tło : Form
     {
-        //public Rectangle rect;
-        //private Point punktPoczatkowyKursora;
-        //private Point punkGdzieAktualnieZnajdujeSieKurosor;
-
-        //private Point PunktStartowyPrzesuwania;
-
         private bool CzyToolTipBylWyswietlony;
-
-        //private bool CzyUserNarysowalZaznaczenie;
 
         public Tło()
         {
@@ -36,16 +28,8 @@ namespace ScreenAppWinForms
         //rysowanie obszaru screena
         private void Tło_MouseDown(object sender, MouseEventArgs e)
         {
-            //punktPoczatkowyKursora = e.Location;
             UserSelectionHelper.StartUpCursorPosition = e.Location;
-            
             ButtonsHelper.DisposeButtons();
-
-            //przesuwanie zaznaczenia
-            //if (e.Button == MouseButtons.Right && e.X > rect.X && e.X < rect.X + rect.Width && e.Y > rect.Y && e.Y < rect.Y + rect.Height)
-            //{
-            //    PunktStartowyPrzesuwania = e.Location;
-            //}
             UserSelectionHelper.SetMoveSelectionCursorPosition(e);
 
             this.Invalidate();
@@ -53,42 +37,29 @@ namespace ScreenAppWinForms
 
         private void Tło_MouseMove(object sender, MouseEventArgs e)
         {
+            //rysowanie zaznaczenia
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                punkGdzieAktualnieZnajdujeSieKurosor = e.Location;
-                int x = Math.Min(punktPoczatkowyKursora.X, punkGdzieAktualnieZnajdujeSieKurosor.X);
-                int y = Math.Min(punktPoczatkowyKursora.Y, punkGdzieAktualnieZnajdujeSieKurosor.Y);
-                int width = Math.Abs(punkGdzieAktualnieZnajdujeSieKurosor.X - punktPoczatkowyKursora.X);
-                int height = Math.Abs(punkGdzieAktualnieZnajdujeSieKurosor.Y - punktPoczatkowyKursora.Y);
-                rect = new Rectangle(x, y, width, height);
-                this.Invalidate();
-
+                UserSelectionHelper.CurrentCursorPosition = e.Location;
+                UserSelectionHelper.DrawSelection();
+                UserSelectionHelper.SelectionDrawn = true;
                 Cursor.Current = Cursors.SizeNWSE;
 
-                CzyUserNarysowalZaznaczenie = true;
-            }
-
-                //przesuwanie zaznaczenia
-            if (e.Button == MouseButtons.Right && e.X > rect.X && e.X < rect.X + rect.Width && e.Y > rect.Y && e.Y < rect.Y + rect.Height)
-            {
-                toolTip1.Hide(this);
-
-                //blokowanie zaznaczenia aby nie wychodziło po za obszar ekranu
-                Point tempPoint = new Point((e.X - PunktStartowyPrzesuwania.X) + rect.Left, (e.Y - PunktStartowyPrzesuwania.Y) + rect.Top);
-
-                if (tempPoint.Y > 0 && tempPoint.X > 0 && tempPoint.X + rect.Width < this.Width && tempPoint.Y + rect.Height < this.Height)
-                {
-                    rect.Location = new Point((e.X - PunktStartowyPrzesuwania.X) + rect.Left, (e.Y - PunktStartowyPrzesuwania.Y) + rect.Top);
-                    
-                }
-                PunktStartowyPrzesuwania = e.Location;
-                ButtonsHelper.CheckIfButtonsOffScreen(rect, Screen.PrimaryScreen.Bounds.Height);
-                ButtonsHelper.DisposeButtons();
                 this.Invalidate();
-                
+            }
+                //przesuwanie zaznaczenia
+            //nie zmieniać kolejności bo przestanie działać
+            if (UserSelectionHelper.CheckIfCursorIsInsideOfUserSelectionAndMouseButtonRightIsPressed(e))
+            {
+                ButtonsHelper.DisposeButtons();
+                toolTip1.Hide(this);
+                UserSelectionHelper.DontAllowUserSelectionToGoOutsideOfScreenBounds(e, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                ButtonsHelper.CheckIfButtonsOffScreen(UserSelectionHelper.UserSelection, Screen.PrimaryScreen.Bounds.Height);
+                UserSelectionHelper.StartUpMoveSelectionCursorPosition = e.Location;
+                this.Invalidate();
             }
                 //zmiana kursora na krzyzyk gdy kursor jest w obszarze zaznaczenia 
-            else if(e.X > rect.X && e.X < rect.X + rect.Width && e.Y > rect.Y && e.Y < rect.Y + rect.Height)
+            else if (UserSelectionHelper.CheckIfCursorIsInsideOfUserSelection(e))
             {
                 Cursor.Current = Cursors.SizeAll;
 
@@ -96,7 +67,7 @@ namespace ScreenAppWinForms
                 if (!CzyToolTipBylWyswietlony)
                 {
                     Point tempPoint = new Point(e.X, e.Y - 50);
-                    toolTip1.Show("naciśnij i przytrzymaj prawy przycisk myszy i przesun mysz aby utworzyć zaznaczenie",this,e.X,e.Y);
+                    toolTip1.Show("naciśnij i przytrzymaj prawy przycisk myszy i przesun mysz aby utworzyć zaznaczenie", this, e.X, e.Y);
                     CzyToolTipBylWyswietlony = true;
                 }
             }
@@ -105,30 +76,22 @@ namespace ScreenAppWinForms
         //dodawanie przycisków do obszarów zaznaczenia
         private void Tło_MouseUp(object sender, MouseEventArgs e)
         {
-            if (CzyUserNarysowalZaznaczenie)
+            if (UserSelectionHelper.SelectionDrawn)
             {
-                ButtonsHelper.DrawAndMoveButtons(rect);
+                ButtonsHelper.DrawAndMoveButtons(UserSelectionHelper.UserSelection);
             }
         }
 
-        //event handler ballon tip
-        static void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
-        {
-            if (File.Exists(InfoAboutScreenshot.FolderPath))
-            {
-                string argument = @"/select, " + InfoAboutScreenshot.FolderPath;
-                System.Diagnostics.Process.Start("explorer.exe", argument);
-            }
-        }
-
+        //paint event
         private void Tło_Paint(object sender, PaintEventArgs e)
         {
             using (Pen p = new Pen(Color.Red, 1))
             {
-                e.Graphics.DrawRectangle(p, rect);
+                //rysowanie zaznaczenia
+                e.Graphics.DrawRectangle(p, UserSelectionHelper.UserSelection);
             }
             //przyciemnienie okna
-            BackgroundHelper.AddTransparentBlackColor(e, rect, Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width);
+            BackgroundHelper.AddTransparentBlackColor(e, UserSelectionHelper.UserSelection, Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width);
         }
 
         //zamknięcie tego trybu ESC
@@ -136,17 +99,19 @@ namespace ScreenAppWinForms
         {
             if (e.KeyCode == Keys.Escape)
             {
+                UserSelectionHelper.ResetUserSelection();
                 this.Close();
             }
             //zapis screena do pliku
             if (e.KeyCode == Keys.Enter)
             {
-                if (punktPoczatkowyKursora != null && punkGdzieAktualnieZnajdujeSieKurosor != null)
+                if (UserSelectionHelper.StartUpCursorPosition != null && UserSelectionHelper.CurrentCursorPosition != null)
                 {
+                    //ukrywanie tooltipa
                     toolTip1.Hide(this);
                     toolTip1.Active = false;
 
-                    Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(rect);
+                    Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(UserSelectionHelper.UserSelection);
                     ScreenshotHelper.SaveScreenshot(screen);
 
                     if (InfoAboutScreenshot.CzyUserZapisalScreena)

@@ -139,13 +139,15 @@ namespace ScreenAppWinForms
         static void btnUsunZaznaczenieObszaru_Click(object sender, EventArgs e)
         {
             DisposeButtons();
-            Background.rect = new Rectangle(0, 0, 0, 0);
+            //Background.rect = new Rectangle(0, 0, 0, 0);
+            UserSelectionHelper.UserSelection = new Rectangle(0, 0, 0, 0);
             Background.Invalidate();
         }
         //event handler btn zapiszscreena
         static void btnZapiszScreenaObszaru_Click(object sender, EventArgs e)
         {
-                Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(Background.rect);
+                //Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(Background.rect);
+            Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(UserSelectionHelper.UserSelection);
 
                 Background.toolTip1.Hide(Background);
                 Background.toolTip1.Active = false;
@@ -155,6 +157,7 @@ namespace ScreenAppWinForms
                 {
                     NotifyIconHelper.ShowBallonTip();
                 }
+                UserSelectionHelper.ResetUserSelection();
                 Background.Close();
         }
         #endregion
