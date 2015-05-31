@@ -15,18 +15,18 @@ namespace ScreenAppWinForms
         #region prywatne pola
         private static string fileName;
         private static string folderPath;
-        private static bool czyUserZapisalScreena;
+        private static bool didUserSavedScreenshot;
         #endregion
         #region właściwości
-        public static bool CzyUserZapisalScreena
+        public static bool DidUserSavedScreenshot
         {
             get
             {
-                return czyUserZapisalScreena;
+                return didUserSavedScreenshot;
             }
             set
             {
-                czyUserZapisalScreena = value;
+                didUserSavedScreenshot = value;
             }
         }
 
@@ -56,27 +56,27 @@ namespace ScreenAppWinForms
         #endregion
 
         /// <summary>
-        /// 
+        /// metoda sprawdzająca czy user zapisał screena (potrzebne do wyświetlania tooltipa)
         /// </summary>
         /// <param name="result">Parametr uzyskany z ofd.ShowDialog opisuje interakcje usera z okienkiem czy anulował zapis czy zapisał itd... </param>
-        public static void SprawdzCzyUserZapisalScreena(DialogResult result)
+        public static void CheckIfUserSavedScreenshot(DialogResult result)
         {
             if(result != DialogResult.Cancel && result != DialogResult.Abort)
             {
-                InfoAboutScreenshot.CzyUserZapisalScreena = true;
+                InfoAboutScreenshot.DidUserSavedScreenshot = true;
             }
             else
             {
-                InfoAboutScreenshot.CzyUserZapisalScreena = false;
+                InfoAboutScreenshot.DidUserSavedScreenshot = false;
             }
         }
 
         /// <summary>
         /// Metoda czyszcząca pola klasy InfoAboutScreenshot przed przypisaniem nowych danych pola są czyszczone
         /// </summary>
-        public static void WyczyscDane()
+        public static void ClearFieldsData()
         {
-            InfoAboutScreenshot.CzyUserZapisalScreena = false;
+            InfoAboutScreenshot.DidUserSavedScreenshot = false;
             InfoAboutScreenshot.FileName = "";
             InfoAboutScreenshot.FolderPath = "";
         }

@@ -53,10 +53,10 @@ namespace ScreenAppWinForms
             DialogResult result = sfd.ShowDialog();
 
             //ustawianie wartości klasy zawierającej informacje o screenie
-            InfoAboutScreenshot.WyczyscDane();
+            InfoAboutScreenshot.ClearFieldsData();
             InfoAboutScreenshot.FileName = Path.GetFileName(sfd.FileName);
             InfoAboutScreenshot.FolderPath = sfd.FileName;
-            InfoAboutScreenshot.SprawdzCzyUserZapisalScreena(result);
+            InfoAboutScreenshot.CheckIfUserSavedScreenshot(result);
 
             //switch w zależności od wyboru użytkownika formatu screena
             if (sfd.FileName != "")

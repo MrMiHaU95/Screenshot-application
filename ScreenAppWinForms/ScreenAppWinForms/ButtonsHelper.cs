@@ -14,7 +14,7 @@ namespace ScreenAppWinForms
         private static Button btnSaveSelectedArea;
         private static Button btnDeleteSelectedArea;
         private static bool buttonsOfScreen;
-        private static Tło background;
+        private static Background background;
         #endregion
 
         #region właściwości klasy
@@ -54,7 +54,7 @@ namespace ScreenAppWinForms
             }
         }
 
-        private static Tło Background
+        private static Background Background
         {
             get
             {
@@ -153,7 +153,7 @@ namespace ScreenAppWinForms
                 Background.toolTip1.Active = false;
                 ScreenshotHelper.SaveScreenshot(screen);
             //pokazywanie ballon tipa
-                if (InfoAboutScreenshot.CzyUserZapisalScreena)
+                if (InfoAboutScreenshot.DidUserSavedScreenshot)
                 {
                     NotifyIconHelper.ShowBallonTip();
                 }
@@ -172,7 +172,7 @@ namespace ScreenAppWinForms
         }
 
         //ustawia wartość pola klasy pobranie obiektu klasy Tło jest wymagane aby klasa ButtonHelper mogła działać
-        public static void SetBackgroundObject(Tło tlo)
+        public static void SetBackgroundObject(Background tlo)
         {
             Background = tlo;
         }   

@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace ScreenAppWinForms
 {
-    public partial class Tło : Form
+    public partial class Background : Form
     {
-        private bool CzyToolTipBylWyswietlony;
+        private bool ToolTipShown;
 
-        public Tło()
+        public Background()
         {
             InitializeComponent();
             //podwójne buforowanie zmiejsza migotanie rysowanych obiektów tooltipów itd
@@ -26,7 +26,7 @@ namespace ScreenAppWinForms
         }
 
         //rysowanie obszaru screena
-        private void Tło_MouseDown(object sender, MouseEventArgs e)
+        private void Background_MouseDown(object sender, MouseEventArgs e)
         {
             UserSelectionHelper.StartUpCursorPosition = e.Location;
             ButtonsHelper.DisposeButtons();
@@ -35,7 +35,7 @@ namespace ScreenAppWinForms
             this.Invalidate();
         }
 
-        private void Tło_MouseMove(object sender, MouseEventArgs e)
+        private void Background_MouseMove(object sender, MouseEventArgs e)
         {
             //rysowanie zaznaczenia
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -64,17 +64,17 @@ namespace ScreenAppWinForms
                 Cursor.Current = Cursors.SizeAll;
 
                 //tooltip
-                if (!CzyToolTipBylWyswietlony)
+                if (!ToolTipShown)
                 {
                     Point tempPoint = new Point(e.X, e.Y - 50);
                     toolTip1.Show("naciśnij i przytrzymaj prawy przycisk myszy i przesun mysz aby utworzyć zaznaczenie", this, e.X, e.Y);
-                    CzyToolTipBylWyswietlony = true;
+                    ToolTipShown = true;
                 }
             }
         }
 
         //dodawanie przycisków do obszarów zaznaczenia
-        private void Tło_MouseUp(object sender, MouseEventArgs e)
+        private void Background_MouseUp(object sender, MouseEventArgs e)
         {
             if (UserSelectionHelper.SelectionDrawn)
             {
@@ -83,7 +83,7 @@ namespace ScreenAppWinForms
         }
 
         //paint event
-        private void Tło_Paint(object sender, PaintEventArgs e)
+        private void Background_Paint(object sender, PaintEventArgs e)
         {
             using (Pen p = new Pen(Color.Red, 1))
             {
@@ -95,7 +95,7 @@ namespace ScreenAppWinForms
         }
 
         //zamknięcie tego trybu ESC
-        private void Tło_KeyDown(object sender, KeyEventArgs e)
+        private void Background_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -114,7 +114,7 @@ namespace ScreenAppWinForms
                     Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(UserSelectionHelper.UserSelection);
                     ScreenshotHelper.SaveScreenshot(screen);
 
-                    if (InfoAboutScreenshot.CzyUserZapisalScreena)
+                    if (InfoAboutScreenshot.DidUserSavedScreenshot)
                     {
                         NotifyIconHelper.ShowBallonTip();
                     }

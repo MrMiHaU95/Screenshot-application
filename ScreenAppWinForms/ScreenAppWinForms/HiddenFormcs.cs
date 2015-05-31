@@ -41,7 +41,7 @@ namespace ScreenAppWinForms
             InitializeComponent();
 
             //2 poniższe linijki minimalizują okno oraz usuwają ikonkę z paska zadań
-            UkryjOkno();
+            HideWindow();
         }
         
         //przy wczytywaniu okna od razu rejestrowane są nowe skróty oraz wyszukiwany jest uchwyt okna
@@ -75,40 +75,40 @@ namespace ScreenAppWinForms
                 //screen całego ekranu
                 if (id == 1)
                 {
-                    ZróbScreenaCałegoEkranu();
-                    if(InfoAboutScreenshot.CzyUserZapisalScreena)
+                    TakeScreenshotOfEntireScreen();
+                    if(InfoAboutScreenshot.DidUserSavedScreenshot)
                     {
-                        PokażBalloonTip();
+                        ShowBallonTip();
                     }
-                    UkryjOkno();
+                    HideWindow();
                 }
                     //screen zanaczenia
                 else if(id == 2)
                 {
-                    WczytajEkranDoRysowaniaZaznaczenia();
+                    LoadBackground();
                 }
             }
             base.WndProc(ref m);
         }
 
-        private void ZróbScreenaCałegoEkranu()
+        private void TakeScreenshotOfEntireScreen()
         {
-            Bitmap screenCałegoEkranu;
+            Bitmap fullScreenScreenshot;
 
-            screenCałegoEkranu = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height) as Bitmap;
-            ScreenshotHelper.SaveScreenshot(screenCałegoEkranu);
+            fullScreenScreenshot = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height) as Bitmap;
+            ScreenshotHelper.SaveScreenshot(fullScreenScreenshot);
             
         }
 
-        private  void WczytajEkranDoRysowaniaZaznaczenia()
+        private  void LoadBackground()
         {
-            Tło noweTło = new Tło();
-            noweTło.BackgroundImage = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            noweTło.TopMost = true;
-            noweTło.Show();
+            Background background = new Background();
+            background.BackgroundImage = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            background.TopMost = true;
+            background.Show();
         }
 
-        private  void PokażBalloonTip()
+        private  void ShowBallonTip()
         {
             NotifyIconHelper.ShowBallonTip();
         }
@@ -123,7 +123,7 @@ namespace ScreenAppWinForms
             }
         }
 
-        public void UkryjOkno()
+        public void HideWindow()
         {
             this.WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = false;

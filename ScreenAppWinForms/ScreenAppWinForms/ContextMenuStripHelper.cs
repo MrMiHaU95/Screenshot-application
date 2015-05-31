@@ -23,41 +23,41 @@ namespace ScreenAppWinForms
             Image imgWyjscie = Image.FromFile(@"Images\exit2.ico");
             Image imgPrzeglądanieScreenów = Image.FromFile(@"Images\browse.ico");
 
-            CMS.Items.Add("Screen całego ekranu", imgScreenCalegoEkranu, ScreenCalegoEkranu_Click);
-            CMS.Items.Add("Screen zaznaczenia", imgScreenZaznaczenia, ScreenZaznaczenia_Click);
-            CMS.Items.Add("Przeglądanie screenów", imgPrzeglądanieScreenów, PrzeglądanieScreenów_Click);
-            CMS.Items.Add("Wyjście", imgWyjscie, Wyjscie_Click);
+            CMS.Items.Add("Screen całego ekranu", imgScreenCalegoEkranu, ScreenshotOfEntireScreen_Click);
+            CMS.Items.Add("Screen zaznaczenia", imgScreenZaznaczenia, ScreenshotOfUserSelection_Click);
+            CMS.Items.Add("Przeglądanie screenów", imgPrzeglądanieScreenów, ScreenshotManager_Click);
+            CMS.Items.Add("Wyjście", imgWyjscie, Exit_Click);
 
             return CMS;
         }
         #region event handlery ContextMenuStrip
-        private static void Wyjscie_Click(object sender, EventArgs e)
+        private static void Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
         //nowa funkcja jeszce nie dodana
-        private static void PrzeglądanieScreenów_Click(object sender, EventArgs e)
+        private static void ScreenshotManager_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
         }
 
-        private static void ScreenZaznaczenia_Click(object sender, EventArgs e)
+        private static void ScreenshotOfUserSelection_Click(object sender, EventArgs e)
         {
-            Tło noweTło = new Tło();
+            Background noweTło = new Background();
             System.Threading.Thread.Sleep(270);
             noweTło.BackgroundImage = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             noweTło.TopMost = true;
             noweTło.Show();
         }
 
-        private static void ScreenCalegoEkranu_Click(object sender, EventArgs e)
+        private static void ScreenshotOfEntireScreen_Click(object sender, EventArgs e)
         {
             Bitmap screenShotFullScreen;
 
             screenShotFullScreen = (Bitmap)ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             ScreenshotHelper.SaveScreenshot(screenShotFullScreen);
 
-            if (InfoAboutScreenshot.CzyUserZapisalScreena)
+            if (InfoAboutScreenshot.DidUserSavedScreenshot)
             {
                 NotifyIconHelper.ShowBallonTip();
             }
