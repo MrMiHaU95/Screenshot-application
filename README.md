@@ -14,3 +14,6 @@ Simple application for taking screenshots.
 For example add text to existing screenshot or draw a line, shape, or change size of screenshot.
 - upload screenshot on server 
 - dual monitor support
+
+Screenshot-application is fully written in C#. RegisterHotkey functions and couple more from WindowsAPI. Application tested on Windows 7 64-bit.
+
