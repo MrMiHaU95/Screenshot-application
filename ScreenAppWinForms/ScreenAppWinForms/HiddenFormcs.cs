@@ -94,18 +94,16 @@ namespace ScreenAppWinForms
         private void ZróbScreenaCałegoEkranu()
         {
             Bitmap screenCałegoEkranu;
-            Screenshot screenshotObject = new Screenshot();
 
-            screenCałegoEkranu = screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height) as Bitmap;
-            screenshotObject.ZapiszScreena(screenCałegoEkranu);
+            screenCałegoEkranu = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height) as Bitmap;
+            ScreenshotHelper.SaveScreenshot(screenCałegoEkranu);
             
         }
 
         private  void WczytajEkranDoRysowaniaZaznaczenia()
         {
             Tło noweTło = new Tło();
-            Screenshot screenshotObject = new Screenshot();
-            noweTło.BackgroundImage = screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            noweTło.BackgroundImage = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             noweTło.TopMost = true;
             noweTło.Show();
         }

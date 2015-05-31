@@ -13,20 +13,15 @@ namespace ScreenAppWinForms
 {
     public partial class Tło : Form
     {
-        public Rectangle rect;
-        private Point punktPoczatkowyKursora;
-        private Point punkGdzieAktualnieZnajdujeSieKurosor;
-        internal Screenshot screenshotObject;
+        //public Rectangle rect;
+        //private Point punktPoczatkowyKursora;
+        //private Point punkGdzieAktualnieZnajdujeSieKurosor;
 
-        private Point PunktStartowyPrzesuwania;
+        //private Point PunktStartowyPrzesuwania;
 
         private bool CzyToolTipBylWyswietlony;
 
-        //private Button btnZapiszScreenaObszaru;
-        //private Button btnUsunZaznaczenieObszaru;
-
-        private bool CzyUserNarysowalZaznaczenie;
-        private bool CzyPrzyciskiPoZaEkranem;
+        //private bool CzyUserNarysowalZaznaczenie;
 
         public Tło()
         {
@@ -41,22 +36,19 @@ namespace ScreenAppWinForms
         //rysowanie obszaru screena
         private void Tło_MouseDown(object sender, MouseEventArgs e)
         {
-            punktPoczatkowyKursora = e.Location;
-            this.Invalidate();
-
-            //usuwanie buttonów
-            //if (btnZapiszScreenaObszaru != null && btnUsunZaznaczenieObszaru != null)
-            //{
-            //    btnZapiszScreenaObszaru.Dispose();
-            //    btnUsunZaznaczenieObszaru.Dispose();
-            //}
-            ButtonsHelper.HideButtons();
+            //punktPoczatkowyKursora = e.Location;
+            UserSelectionHelper.StartUpCursorPosition = e.Location;
+            
+            ButtonsHelper.DisposeButtons();
 
             //przesuwanie zaznaczenia
-            if (e.Button == MouseButtons.Right && e.X > rect.X && e.X < rect.X + rect.Width && e.Y > rect.Y && e.Y < rect.Y + rect.Height)
-            {
-                PunktStartowyPrzesuwania = e.Location;
-            }
+            //if (e.Button == MouseButtons.Right && e.X > rect.X && e.X < rect.X + rect.Width && e.Y > rect.Y && e.Y < rect.Y + rect.Height)
+            //{
+            //    PunktStartowyPrzesuwania = e.Location;
+            //}
+            UserSelectionHelper.SetMoveSelectionCursorPosition(e);
+
+            this.Invalidate();
         }
 
         private void Tło_MouseMove(object sender, MouseEventArgs e)
@@ -79,14 +71,6 @@ namespace ScreenAppWinForms
                 //przesuwanie zaznaczenia
             if (e.Button == MouseButtons.Right && e.X > rect.X && e.X < rect.X + rect.Width && e.Y > rect.Y && e.Y < rect.Y + rect.Height)
             {
-                //usuwanie buttonów
-                //if (btnZapiszScreenaObszaru != null && btnUsunZaznaczenieObszaru != null)
-                //{
-                //    btnZapiszScreenaObszaru.Dispose();
-                //    btnUsunZaznaczenieObszaru.Dispose();
-                //}
-                ButtonsHelper.HideButtons();
-
                 toolTip1.Hide(this);
 
                 //blokowanie zaznaczenia aby nie wychodziło po za obszar ekranu
@@ -97,13 +81,10 @@ namespace ScreenAppWinForms
                     rect.Location = new Point((e.X - PunktStartowyPrzesuwania.X) + rect.Left, (e.Y - PunktStartowyPrzesuwania.Y) + rect.Top);
                     
                 }
-
                 PunktStartowyPrzesuwania = e.Location;
-                this.Invalidate();
-
-                //SprawdzCzyPrzyciskiPoZaEkranem();
                 ButtonsHelper.CheckIfButtonsOffScreen(rect, Screen.PrimaryScreen.Bounds.Height);
-
+                ButtonsHelper.DisposeButtons();
+                this.Invalidate();
                 
             }
                 //zmiana kursora na krzyzyk gdy kursor jest w obszarze zaznaczenia 
@@ -126,71 +107,7 @@ namespace ScreenAppWinForms
         {
             if (CzyUserNarysowalZaznaczenie)
             {
-                //btnZapiszScreenaObszaru = new Button();
-                //if (CzyPrzyciskiPoZaEkranem)
-                //{
-                //    btnZapiszScreenaObszaru.Location = new Point(rect.X + rect.Width - 55, rect.Y - 30);
-                //}
-                //else
-                //{
-                //    btnZapiszScreenaObszaru.Location = new Point(rect.X + rect.Width - 55, rect.Y + rect.Height + 5);
-                //}
-                
-                //string sourceAcceptImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\accept2.png";
-                //btnZapiszScreenaObszaru.Image = Image.FromFile(sourceAcceptImage);
-                //btnZapiszScreenaObszaru.Width = 27;
-                //btnZapiszScreenaObszaru.Height = 27;
-                //btnZapiszScreenaObszaru.Click += btnZapiszScreenaObszaru_Click;
-
-                //btnUsunZaznaczenieObszaru = new Button();
-                //btnUsunZaznaczenieObszaru.Location = new Point(btnZapiszScreenaObszaru.Location.X + btnZapiszScreenaObszaru.Width, btnZapiszScreenaObszaru.Location.Y);
-                //string sourceDeleteImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\decline3.png";
-                //btnUsunZaznaczenieObszaru.Image = Image.FromFile(sourceDeleteImage);
-                //btnUsunZaznaczenieObszaru.Width = 27;
-                //btnUsunZaznaczenieObszaru.Height = 27;
-                //btnUsunZaznaczenieObszaru.Click += btnUsunZaznaczenieObszaru_Click;
-
-                //this.Controls.Add(btnZapiszScreenaObszaru);
-                //this.Controls.Add(btnUsunZaznaczenieObszaru);
-
-                ButtonsHelper.MoveButtons(rect);
-            }
-        }
-
-        //event handler buttonów obszaru zaznaczenia
-        void btnUsunZaznaczenieObszaru_Click(object sender, EventArgs e)
-        {
-            //if (btnZapiszScreenaObszaru != null && btnUsunZaznaczenieObszaru != null)
-            //{
-            //    btnZapiszScreenaObszaru.Dispose();
-            //    btnUsunZaznaczenieObszaru.Dispose();
-            //}
-            ButtonsHelper.HideButtons();
-
-            rect = new Rectangle(0, 0, 0, 0);
-            this.Invalidate();
-        }
-
-        //event handler buttonów obszaru zaznaczenia
-        void btnZapiszScreenaObszaru_Click(object sender, EventArgs e)
-        {
-            if (punktPoczatkowyKursora != null && punkGdzieAktualnieZnajdujeSieKurosor != null)
-            {
-                screenshotObject = new Screenshot();
-                Bitmap screen = screenshotObject.ZróbScreenaCzęściEkranu(rect);
-
-                toolTip1.Hide(this);
-                toolTip1.Active = false;
-
-
-                screenshotObject.ZapiszScreena(screen);
-
-                if (InfoAboutScreenshot.CzyUserZapisalScreena)
-                {
-                    NotifyIconHelper.ShowBallonTip();
-                }
-
-                this.Close();
+                ButtonsHelper.DrawAndMoveButtons(rect);
             }
         }
 
@@ -210,27 +127,8 @@ namespace ScreenAppWinForms
             {
                 e.Graphics.DrawRectangle(p, rect);
             }
-
             //przyciemnienie okna
-            using (Brush b = new SolidBrush(Color.FromArgb(125, 0, 0, 0)))
-            {
-                Rectangle lewyObszarZaciemnienia = new Rectangle(0, 0, rect.X, this.Height);
-                Rectangle prawyObszarZaciemnienia = new Rectangle(rect.X + rect.Width +1, 0, this.Width - lewyObszarZaciemnienia.Width, this.Height);
-                Rectangle dolnyObszarZaciemnienia = new Rectangle(rect.X, rect.Y + rect.Height+1, rect.Width, this.Height - (rect.Y + rect.Height));
-                Rectangle górnyObszarZaciemnienia = new Rectangle(rect.X, 0, rect.Width, this.Height - rect.Height - dolnyObszarZaciemnienia.Height);
-
-                e.Graphics.FillRectangle(b, lewyObszarZaciemnienia);
-                e.Graphics.FillRectangle(b, prawyObszarZaciemnienia);
-                e.Graphics.FillRectangle(b, dolnyObszarZaciemnienia);
-                e.Graphics.FillRectangle(b, górnyObszarZaciemnienia);
-
-                //uzupelnienienie 1px
-                Rectangle górneUzupelnienie = new Rectangle(rect.X + rect.Width, 0, 1, this.Height - rect.Height - dolnyObszarZaciemnienia.Height);
-                Rectangle dolneUzupelnienie = new Rectangle(rect.X + rect.Width, rect.Y + rect.Height, 1, this.Height - (rect.Y + rect.Height));
-
-                e.Graphics.FillRectangle(b, górneUzupelnienie);
-                e.Graphics.FillRectangle(b, dolneUzupelnienie);
-            }
+            BackgroundHelper.AddTransparentBlackColor(e, rect, Screen.PrimaryScreen.Bounds.Height, Screen.PrimaryScreen.Bounds.Width);
         }
 
         //zamknięcie tego trybu ESC
@@ -240,21 +138,16 @@ namespace ScreenAppWinForms
             {
                 this.Close();
             }
-
             //zapis screena do pliku
             if (e.KeyCode == Keys.Enter)
             {
-                
                 if (punktPoczatkowyKursora != null && punkGdzieAktualnieZnajdujeSieKurosor != null)
                 {
-                    screenshotObject = new Screenshot();
-                    Bitmap screen = screenshotObject.ZróbScreenaCzęściEkranu(rect);
-
                     toolTip1.Hide(this);
                     toolTip1.Active = false;
-                    
 
-                    screenshotObject.ZapiszScreena(screen);
+                    Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(rect);
+                    ScreenshotHelper.SaveScreenshot(screen);
 
                     if (InfoAboutScreenshot.CzyUserZapisalScreena)
                     {
@@ -263,28 +156,6 @@ namespace ScreenAppWinForms
                     this.Close();
                 }
             }
-        }
-
-        private void Tło_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// metoda sprawdzająca czy przyciski są po za ekranem 
-        /// </summary>
-        private void SprawdzCzyPrzyciskiPoZaEkranem()
-        {
-            Point tempPoint = new Point(rect.X + rect.Width, rect.Y + rect.Height);
-            if (tempPoint.Y + 35 > this.Height)
-            {
-                CzyPrzyciskiPoZaEkranem = true;
-            }
-            else
-            {
-                CzyPrzyciskiPoZaEkranem = false;
-            }
-
         }
     }
 }

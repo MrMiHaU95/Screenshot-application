@@ -43,21 +43,19 @@ namespace ScreenAppWinForms
 
         private static void ScreenZaznaczenia_Click(object sender, EventArgs e)
         {
-            Screenshot screenshotObject = new Screenshot();
             Tło noweTło = new Tło();
             System.Threading.Thread.Sleep(270);
-            noweTło.BackgroundImage = screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            noweTło.BackgroundImage = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             noweTło.TopMost = true;
             noweTło.Show();
         }
 
         private static void ScreenCalegoEkranu_Click(object sender, EventArgs e)
         {
-            Screenshot screenshotObject = new Screenshot();
             Bitmap screenShotFullScreen;
 
-            screenShotFullScreen = (Bitmap)screenshotObject.ZróbScreenaCałegoEkranu(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            screenshotObject.ZapiszScreena(screenShotFullScreen);
+            screenShotFullScreen = (Bitmap)ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            ScreenshotHelper.SaveScreenshot(screenShotFullScreen);
 
             if (InfoAboutScreenshot.CzyUserZapisalScreena)
             {

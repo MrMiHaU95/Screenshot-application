@@ -10,11 +10,14 @@ namespace ScreenAppWinForms
 {
     static class ButtonsHelper
     {
+        #region prywatne pola klasy
         private static Button btnSaveSelectedArea;
         private static Button btnDeleteSelectedArea;
         private static bool buttonsOfScreen;
         private static Tło background;
+        #endregion
 
+        #region właściwości klasy
         public static Button BtnSaveSelectedArea
         {
             get
@@ -62,6 +65,7 @@ namespace ScreenAppWinForms
                 background = value;
             }
         }
+        #endregion
 
         //usuwa buttony ze aby je przesunąć nie powodując migotania (flickering)
         public static void HideButtons()
@@ -91,32 +95,28 @@ namespace ScreenAppWinForms
                 ButtonsOfScreen = false;
             }
         }
-
-        public static void MoveButtons(Rectangle selectedArea)
+        /// <summary>
+        /// Przesuwa przyciski wraz z zaznaczeniem, mało wydajny sposób wymagający usuwania i tworzenia na nowo obiektów klasy Button
+        /// </summary>
+        /// <param name="selectedArea">obiekt klasy Rectangle odpowiadający zaznaczeniu narysowanemu przez usera</param>
+        public static void DrawAndMoveButtons(Rectangle selectedArea)
         {
-
-            if (BtnSaveSelectedArea != null && BtnDeleteSelectedArea != null)
-            {
-                const int minusX = 55;
+            #region stałe
+            const int minusX = 55;
                 const int minusYOffScreen = 30;
                 const int plusOnScreen = 5;
+            #endregion
+                BtnSaveSelectedArea = new Button();
+                BtnDeleteSelectedArea = new Button();
+            //jeśli przyciski po za ekranem to ustawia nową lokalizację w zależności od położenia zaznaczenia
                 if (ButtonsOfScreen)
                 {
                     BtnSaveSelectedArea.Location = new Point(selectedArea.X + selectedArea.Width - minusX, selectedArea.Y - minusYOffScreen);
-                    BtnDeleteSelectedArea.Location = new Point(BtnSaveSelectedArea.Location.X + BtnSaveSelectedArea.Width, BtnSaveSelectedArea.Location.Y);
-                    SetButtonsVisibleToTrue();
                 }
                 else
                 {
                     BtnSaveSelectedArea.Location = new Point(selectedArea.X + selectedArea.Width - minusX, selectedArea.Y + selectedArea.Height + plusOnScreen);
-                    BtnDeleteSelectedArea.Location = new Point(BtnSaveSelectedArea.Location.X + BtnSaveSelectedArea.Width, BtnSaveSelectedArea.Location.Y);
-                    SetButtonsVisibleToTrue();
                 }
-            }
-            else
-            {
-                BtnSaveSelectedArea = new Button();
-                BtnDeleteSelectedArea = new Button();
 
                 string sourceAcceptImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\accept2.png";
                 BtnSaveSelectedArea.Image = Image.FromFile(sourceAcceptImage);
@@ -130,50 +130,48 @@ namespace ScreenAppWinForms
                 BtnDeleteSelectedArea.Width = 27;
                 BtnDeleteSelectedArea.Height = 27;
                 BtnDeleteSelectedArea.Click += btnUsunZaznaczenieObszaru_Click;
-                SetButtonsVisibleToTrue();
+                
                 Background.Controls.Add(BtnSaveSelectedArea);
                 Background.Controls.Add(BtnDeleteSelectedArea);
-            }
         }
-
+        #region event handlery buttonów
         //event handler buttonów obszaru zaznaczenia
         static void btnUsunZaznaczenieObszaru_Click(object sender, EventArgs e)
         {
-            SetButtonsVisibleToTrue();
+            DisposeButtons();
             Background.rect = new Rectangle(0, 0, 0, 0);
             Background.Invalidate();
         }
-
+        //event handler btn zapiszscreena
         static void btnZapiszScreenaObszaru_Click(object sender, EventArgs e)
         {
-            //if (punktPoczatkowyKursora != null && punkGdzieAktualnieZnajdujeSieKurosor != null)
-            //{
-                Background.screenshotObject = new Screenshot();
-                Bitmap screen = Background.screenshotObject.ZróbScreenaCzęściEkranu(Background.rect);
+                Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(Background.rect);
 
                 Background.toolTip1.Hide(Background);
                 Background.toolTip1.Active = false;
-                Background.screenshotObject.ZapiszScreena(screen);
+                ScreenshotHelper.SaveScreenshot(screen);
             //pokazywanie ballon tipa
                 if (InfoAboutScreenshot.CzyUserZapisalScreena)
                 {
                     NotifyIconHelper.ShowBallonTip();
                 }
                 Background.Close();
-            //}
         }
-
-        public static void SetButtonsVisibleToTrue()
+        #endregion
+        //usuwa przyciski
+        public static void DisposeButtons()
         {
-            BtnSaveSelectedArea.Visible = true;
-            BtnDeleteSelectedArea.Visible = true;
+            if(BtnSaveSelectedArea != null && BtnDeleteSelectedArea != null)
+            {
+                BtnDeleteSelectedArea.Dispose();
+                BtnSaveSelectedArea.Dispose();
+            }
         }
 
-        //ustawia wartość pola klasy Tło
+        //ustawia wartość pola klasy pobranie obiektu klasy Tło jest wymagane aby klasa ButtonHelper mogła działać
         public static void SetBackgroundObject(Tło tlo)
         {
             Background = tlo;
-        }
-            
+        }   
     }
 }
