@@ -9,11 +9,32 @@ Simple application for taking screenshots.
 - global hotkeys (via RegisterHotKey)
 - notifications (BallonTip)
 
-### To do List:
+### To do List: (here you can help)
 - new feature called Screenshot Manager where user will be able to see previously done screenshots and edit them.
 For example add text to existing screenshot or draw a line, shape, or change size of screenshot.
 - upload screenshot on server 
 - dual monitor support
 
 Screenshot-application is fully written in C#. RegisterHotkey functions and couple more from WindowsAPI. Application tested on Windows 7 64-bit.
+
+# Screenshot-application
+Prosta aplikacja do robienia screenshotów.
+
+###Funkcje 
+- scrrenshot calego ekranu
+- screenshot zaznaczenia narysowanego przez usera na ekranie (user może rysować i przesuwać narysowane zanzaczenie na ekranie)
+- zapis screenshota do pliku (dostepne 4 formaty .bmp, .png, .gif, .jpeg)
+- aplikacja domyslnie uruchamia sie w system trayu
+- "globalne" skrótky klawiszowe tzn applikacja nie musi być zaznaczona aby skrót dzialal cokolwiek robisz wystarczy nacisnac F10 aby zrobić screena calego ekranu lub F11 aby narysować zaznaczenie (RegisterHotKey)
+- powiadomienia w postaci BallonTip
+
+
+### Lista funkcji które zostan dodane w przyszlosci: (tutaj możesz pomóc)
+- nowa funkcja nazwana roboczo Menedżer Screenshotów, gdzie user bedzie mógl przegladać poprzednie screeny oraz je edytować dodać linie ksztaty tekst czy kadrować
+- funkcja wyslania screena na serwer aby mozna bylo w latwy sposób przeslac screena innej osobie po prostu podajac linka do screena
+- wsparcie dla dwóch monitorów
+
+Aplikacja cakowicie napisana w C#. Zawiera bogate komentarze. RegisterHotKey i cala funkcjonalnosc globalnych skrótów klawiszowych zrobiona przy pomocy WindowsAPI. Aplikacja testowana na Windows 7 64-bit.
+
+To nie jest finalna wersja aplikacji używasz na wlasna odpowiedzialnosc.
 
