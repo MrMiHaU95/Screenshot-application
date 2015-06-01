@@ -67,7 +67,7 @@ namespace ScreenAppWinForms
                 if (!ToolTipShown)
                 {
                     Point tempPoint = new Point(e.X, e.Y - 50);
-                    toolTip1.Show("naciśnij i przytrzymaj prawy przycisk myszy i przesun mysz aby utworzyć zaznaczenie", this, e.X, e.Y);
+                    toolTip1.Show("press right mouse button and move mouse to move selection", this, e.X, e.Y);
                     ToolTipShown = true;
                 }
             }

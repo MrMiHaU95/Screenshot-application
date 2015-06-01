@@ -23,10 +23,10 @@ namespace ScreenAppWinForms
             Image imgWyjscie = Image.FromFile(@"Images\exit2.ico");
             Image imgPrzeglądanieScreenów = Image.FromFile(@"Images\browse.ico");
 
-            CMS.Items.Add("Screen całego ekranu", imgScreenCalegoEkranu, ScreenshotOfEntireScreen_Click);
-            CMS.Items.Add("Screen zaznaczenia", imgScreenZaznaczenia, ScreenshotOfUserSelection_Click);
-            CMS.Items.Add("Przeglądanie screenów", imgPrzeglądanieScreenów, ScreenshotManager_Click);
-            CMS.Items.Add("Wyjście", imgWyjscie, Exit_Click);
+            CMS.Items.Add("Screenshot of entire screen", imgScreenCalegoEkranu, ScreenshotOfEntireScreen_Click);
+            CMS.Items.Add("Screenshot of user selection", imgScreenZaznaczenia, ScreenshotOfUserSelection_Click);
+            CMS.Items.Add("Screenshot Manager", imgPrzeglądanieScreenów, ScreenshotManager_Click);
+            CMS.Items.Add("Exit", imgWyjscie, Exit_Click);
 
             return CMS;
         }
