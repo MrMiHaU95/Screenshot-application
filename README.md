@@ -3,7 +3,7 @@ Simple application for taking screenshots.
 
 ContextMenuStrip:
 
-![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ContextMenuStrip.png)
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ContextMenuStripEng.png)
 
 ### Features:
 - screenshot of entire screen
