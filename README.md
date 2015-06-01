@@ -1,6 +1,10 @@
 # Screenshot-application
 Simple application for taking screenshots.
 
+ContextMenuStrip:
+
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ContextMenuStrip.png)
+
 ### Features:
 - screenshot of entire screen
 - screenshot of user selection drawn on screen (user can draw and move selection on screen)
@@ -8,6 +12,10 @@ Simple application for taking screenshots.
 - application stars in system tray 
 - global hotkeys (via RegisterHotKey)
 - notifications (BallonTip)
+
+User Selection Drawn on screen:
+
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection.png)
 
 ### To do List: (here you can help)
 - new feature called Screenshot Manager where user will be able to see previously done screenshots and edit them.
@@ -20,6 +28,10 @@ Screenshot-application is fully written in C#. RegisterHotkey functions and coup
 # Screenshot-application
 Prosta aplikacja do robienia screenshotów.
 
+ContextMenuStrip:
+
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ContextMenuStrip.png)
+
 ###Funkcje 
 - scrrenshot calego ekranu
 - screenshot zaznaczenia narysowanego przez usera na ekranie (user może rysować i przesuwać narysowane zanzaczenie na ekranie)
@@ -28,6 +40,9 @@ Prosta aplikacja do robienia screenshotów.
 - "globalne" skrótky klawiszowe tzn applikacja nie musi być zaznaczona aby skrót dzialal cokolwiek robisz wystarczy nacisnac F10 aby zrobić screena calego ekranu lub F11 aby narysować zaznaczenie (RegisterHotKey)
 - powiadomienia w postaci BallonTip
 
+Zaznaczenie narysowane przez usera którego aplikacja może zrobić screena:
+
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection.png)
 
 ### Lista funkcji które zostan dodane w przyszlosci: (tutaj możesz pomóc)
 - nowa funkcja nazwana roboczo Menedżer Screenshotów, gdzie user bedzie mógl przegladać poprzednie screeny oraz je edytować dodać linie ksztaty tekst czy kadrować
