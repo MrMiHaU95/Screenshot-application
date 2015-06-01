@@ -1,0 +1,25 @@
+Sreenshot-Application v0.4
+
+- To start this app double click the .exe file. Black camera should be visible in system tray. Right click to show menu. 
+- Left click Screenshot of entire screen - dialog will pop up to choose to save file location, file name and format.
+- Left click Screenshot of user selection - Background window will be loaded you will notice this when screen turns a little darker. Now press left mouse button and move to draw a selection. If you move mouse over selection cursor will change to cross, then press right mouse button and move to move selection. Press enter to save screenshot or click the tip button. Clicking cross button will delete selection. Hit ESC to close Background window.
+- Keyboard shortcuts 
+F10 - Screenshot of entire screen
+F11 - Screenshot of user selection
+
+If you notice bugs or any kind of issues feel free to report this in issues section of the repo. 
+
+----
+polska wersja
+
+Sreenshot-Application v0.4
+
+- Aby w³¹czyæ program naciœnij lewym przyciskiem myszy dwa  razy na .exe. Ikona programu to czarny aparat powinien byæ widoczny w system trayu. Naciœnij prawym przyciskiem myszy na ikonce aby wywo³aæ meu aplikacji.
+- Naciœnij lewym przyciskiem myszy na Screenshot of entire screen aby zrobiæ screena ca³ego ekranu.
+- Naciœnij lewym przyciskiem myszy na Screenshot of user selection - wtedy wczyta siê ekran t³a, odró¿nisz go od zwyk³ego tym ¿e obraz lekko siê œciemni. Przytrzymaj lewy przycisk myszy i przesuñ kursor aby narysowaæ zaznaczenie. Gdy to zrobisz, najedŸ kursorem na obszar zaznaczenia i wciœnij prawy przycisk myszy aby ruszyæ zaznaczenie. Naciœnij enter aby zapisaæ screena zaznaczenia albo naciœnij przycisk przy zaznaczeniu. Drugi przycisk anuluje zaznaczenie. Naciœnij ESC aby zamkn¹æ obszar rysowania.
+- skróty klawiszowe 
+F10 - screen ca³ego ekranu
+F11 - screen zaznaczenia
+
+Jeœli zauwa¿ysz jakieœ b³êdy lub problemy z dzia³aniem aplikacji. Dodaj to do issues w repo. 
+
