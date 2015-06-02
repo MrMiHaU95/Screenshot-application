@@ -35,10 +35,14 @@ namespace ScreenAppWinForms
         {
             Application.Exit();
         }
-        //nowa funkcja jeszce nie dodana
+        
         private static void ScreenshotManager_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            ScreenshotManager screenManager = new ScreenshotManager();
+            screenManager.Width = Screen.PrimaryScreen.Bounds.Width;
+            screenManager.Height = Screen.PrimaryScreen.Bounds.Height - 40;
+            screenManager.StartPosition = FormStartPosition.CenterScreen;
+            screenManager.Show();
         }
 
         private static void ScreenshotOfUserSelection_Click(object sender, EventArgs e)
