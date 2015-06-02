@@ -125,6 +125,9 @@
     <Content Include="Images\fullscreen2.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\imgur.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\rectScreen2.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

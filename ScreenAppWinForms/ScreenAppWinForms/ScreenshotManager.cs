@@ -18,6 +18,10 @@ namespace ScreenAppWinForms
             InitializeComponent();
         }
 
+       //http://stackoverflow.com/questions/2073519/uploading-to-imgur-com
+
+        //http://stackoverflow.com/questions/2073519/uploading-to-imgur-com
+
         private void ScreenshotManager_Load(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(InfoAboutScreenshot.FolderPath))

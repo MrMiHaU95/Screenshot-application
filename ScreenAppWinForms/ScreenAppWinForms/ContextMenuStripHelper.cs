@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ScreenAppWinForms
 {
@@ -18,19 +22,51 @@ namespace ScreenAppWinForms
         {
             ContextMenuStrip CMS = new ContextMenuStrip();
 
-            Image imgScreenZaznaczenia = Image.FromFile(@"Images\rectScreen2.ico");
-            Image imgScreenCalegoEkranu = Image.FromFile(@"Images\fullscreen2.ico");
-            Image imgWyjscie = Image.FromFile(@"Images\exit2.ico");
-            Image imgPrzeglądanieScreenów = Image.FromFile(@"Images\browse.ico");
+            Image imgScreenOfUserSelection = Image.FromFile(@"Images\rectScreen2.ico");
+            Image imgFullScreenScreenshot = Image.FromFile(@"Images\fullscreen2.ico");
+            Image imgExit = Image.FromFile(@"Images\exit2.ico");
+            Image imgScreenshotManager = Image.FromFile(@"Images\browse.ico");
+            Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
 
-            CMS.Items.Add("Screenshot of entire screen", imgScreenCalegoEkranu, ScreenshotOfEntireScreen_Click);
-            CMS.Items.Add("Screenshot of user selection", imgScreenZaznaczenia, ScreenshotOfUserSelection_Click);
-            CMS.Items.Add("Screenshot Manager", imgPrzeglądanieScreenów, ScreenshotManager_Click);
-            CMS.Items.Add("Exit", imgWyjscie, Exit_Click);
+            CMS.Items.Add("Screenshot of entire screen", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
+            CMS.Items.Add("Upload Screenshot of entire screen to Imgur", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
+            CMS.Items.Add("Screenshot of user selection", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
+            CMS.Items.Add("Screenshot Manager", imgScreenshotManager, ScreenshotManager_Click);
+            CMS.Items.Add("Exit", imgExit, Exit_Click);
 
             return CMS;
         }
+
+        
         #region event handlery ContextMenuStrip
+        private static void UploadScreenshotOfEntireScreen_Click(object sender, EventArgs e)
+        {
+            Bitmap screenShotFullScreen;
+            screenShotFullScreen = (Bitmap)ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            screenShotFullScreen.Save(@"D:\tempData from Screenshot-Application\\1.png", System.Drawing.Imaging.ImageFormat.Png);
+
+            using (var w = new WebClient())
+            {
+                string clientID = "e780af3f12ba2d5";
+                w.Headers.Add("Authorization", "Client-ID " + clientID);
+                var values = new NameValueCollection
+                {
+                     { "image", Convert.ToBase64String(File.ReadAllBytes(@"D:\tempData from Screenshot-Application\\1.png")) }
+                };
+
+                byte[] response = w.UploadValues("https://api.imgur.com/3/upload.xml", values);
+                XDocument responseData = XDocument.Load(new MemoryStream(response));
+                Console.WriteLine(responseData);
+                XElement element = responseData.Root.Element("link");
+                string url = element.Value;
+                Process.Start(@"chrome.exe", url);
+                if(File.Exists(@"D:\tempData from Screenshot-Application\\1.png"))
+                {
+                    File.Delete(@"D:\tempData from Screenshot-Application\\1.png");
+                }
+            }
+        }
+
         private static void Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -47,11 +83,11 @@ namespace ScreenAppWinForms
 
         private static void ScreenshotOfUserSelection_Click(object sender, EventArgs e)
         {
-            Background noweTło = new Background();
+            Background newBackground = new Background();
             System.Threading.Thread.Sleep(270);
-            noweTło.BackgroundImage = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            noweTło.TopMost = true;
-            noweTło.Show();
+            newBackground.BackgroundImage = ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            newBackground.TopMost = true;
+            newBackground.Show();
         }
 
         private static void ScreenshotOfEntireScreen_Click(object sender, EventArgs e)
