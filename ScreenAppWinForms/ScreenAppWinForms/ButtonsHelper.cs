@@ -13,6 +13,7 @@ namespace ScreenAppWinForms
         #region prywatne pola klasy
         private static Button btnSaveSelectedArea;
         private static Button btnDeleteSelectedArea;
+        private static Button btnUploadToImgur;
         private static bool buttonsOfScreen;
         private static Background background;
         #endregion
@@ -39,6 +40,18 @@ namespace ScreenAppWinForms
             set
             {
                 btnDeleteSelectedArea = value;
+            }
+        }
+
+        private static Button BtnUploadToImgur
+        {
+            get
+            {
+                return btnUploadToImgur;
+            }
+            set
+            {
+                btnUploadToImgur = value;
             }
         }
 
@@ -102,11 +115,12 @@ namespace ScreenAppWinForms
         public static void DrawAndMoveButtons(Rectangle selectedArea)
         {
             #region stałe
-            const int minusX = 55;
+            const int minusX = 82;
                 const int minusYOffScreen = 30;
                 const int plusOnScreen = 5;
             #endregion
                 BtnSaveSelectedArea = new Button();
+                BtnUploadToImgur = new Button();
                 BtnDeleteSelectedArea = new Button();
             //jeśli przyciski po za ekranem to ustawia nową lokalizację w zależności od położenia zaznaczenia
                 if (ButtonsOfScreen)
@@ -124,7 +138,14 @@ namespace ScreenAppWinForms
                 BtnSaveSelectedArea.Height = 27;
                 BtnSaveSelectedArea.Click += btnZapiszScreenaObszaru_Click;
 
-                BtnDeleteSelectedArea.Location = new Point(BtnSaveSelectedArea.Location.X + BtnSaveSelectedArea.Width, BtnSaveSelectedArea.Location.Y);
+                BtnUploadToImgur.Location = new Point(BtnSaveSelectedArea.Location.X + BtnSaveSelectedArea.Width, BtnSaveSelectedArea.Location.Y);
+                string sourceUploadImage = @"D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\Images\imgurButton2.png";
+                BtnUploadToImgur.Image = Image.FromFile(sourceUploadImage);
+                BtnUploadToImgur.Height = 27;
+                BtnUploadToImgur.Width = 27;
+                BtnUploadToImgur.Click += BtnUploadToImgur_Click;
+
+                BtnDeleteSelectedArea.Location = new Point(BtnUploadToImgur.Location.X + BtnUploadToImgur.Width, BtnUploadToImgur.Location.Y);
                 string sourceDeleteImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\decline3.png";
                 BtnDeleteSelectedArea.Image = Image.FromFile(sourceDeleteImage);
                 BtnDeleteSelectedArea.Width = 27;
@@ -132,8 +153,11 @@ namespace ScreenAppWinForms
                 BtnDeleteSelectedArea.Click += btnUsunZaznaczenieObszaru_Click;
                 
                 Background.Controls.Add(BtnSaveSelectedArea);
+                Background.Controls.Add(BtnUploadToImgur);
                 Background.Controls.Add(BtnDeleteSelectedArea);
         }
+
+        
         #region event handlery buttonów
         //event handler buttonów obszaru zaznaczenia
         static void btnUsunZaznaczenieObszaru_Click(object sender, EventArgs e)
@@ -160,13 +184,24 @@ namespace ScreenAppWinForms
                 UserSelectionHelper.ResetUserSelection();
                 Background.Close();
         }
+        //event handler upload to imgur
+        static void BtnUploadToImgur_Click(object sender, EventArgs e)
+        {
+            Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(UserSelectionHelper.UserSelection);
+            screen.Save(@"D:\tempData from Screenshot-Application\\1.png");
+            UploadToImgurHelper.UploadScreenshot(@"D:\tempData from Screenshot-Application\\1.png");
+            UserSelectionHelper.ResetUserSelection();
+            Background.Close();
+        }
+
         #endregion
         //usuwa przyciski
         public static void DisposeButtons()
         {
-            if(BtnSaveSelectedArea != null && BtnDeleteSelectedArea != null)
+            if(BtnSaveSelectedArea != null && BtnDeleteSelectedArea != null && BtnUploadToImgur != null)
             {
                 BtnDeleteSelectedArea.Dispose();
+                BtnUploadToImgur.Dispose();
                 BtnSaveSelectedArea.Dispose();
             }
         }

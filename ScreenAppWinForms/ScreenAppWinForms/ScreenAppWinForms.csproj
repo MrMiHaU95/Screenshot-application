@@ -71,6 +71,7 @@
     <Compile Include="ScreenshotManager.Designer.cs">
       <DependentUpon>ScreenshotManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="UploadToImgurHelper.cs" />
     <Compile Include="UserSelectionHelper.cs" />
     <EmbeddedResource Include="HiddenFormcs.resx">
       <DependentUpon>HiddenFormcs.cs</DependentUpon>
@@ -126,6 +127,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\imgur.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\imgurButton1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\imgurButton2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\rectScreen2.ico">

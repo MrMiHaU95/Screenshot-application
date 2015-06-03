@@ -41,30 +41,12 @@ namespace ScreenAppWinForms
         #region event handlery ContextMenuStrip
         private static void UploadScreenshotOfEntireScreen_Click(object sender, EventArgs e)
         {
+            //aby zuploadować screena do imgur trzeba go najpierw zapisać na dysku 
             Bitmap screenShotFullScreen;
             screenShotFullScreen = (Bitmap)ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             screenShotFullScreen.Save(@"D:\tempData from Screenshot-Application\\1.png", System.Drawing.Imaging.ImageFormat.Png);
 
-            using (var w = new WebClient())
-            {
-                string clientID = "e780af3f12ba2d5";
-                w.Headers.Add("Authorization", "Client-ID " + clientID);
-                var values = new NameValueCollection
-                {
-                     { "image", Convert.ToBase64String(File.ReadAllBytes(@"D:\tempData from Screenshot-Application\\1.png")) }
-                };
-
-                byte[] response = w.UploadValues("https://api.imgur.com/3/upload.xml", values);
-                XDocument responseData = XDocument.Load(new MemoryStream(response));
-                Console.WriteLine(responseData);
-                XElement element = responseData.Root.Element("link");
-                string url = element.Value;
-                Process.Start(@"chrome.exe", url);
-                if(File.Exists(@"D:\tempData from Screenshot-Application\\1.png"))
-                {
-                    File.Delete(@"D:\tempData from Screenshot-Application\\1.png");
-                }
-            }
+            UploadToImgurHelper.UploadScreenshot(@"D:\tempData from Screenshot-Application\\1.png");
         }
 
         private static void Exit_Click(object sender, EventArgs e)
