@@ -70,6 +70,7 @@ namespace registerHotkey
         {
             RegisterHotKey(_hwnd, 1, (int)WindowKeys.None, (uint)Keys.F10);
             RegisterHotKey(_hwnd, 2,(int)WindowKeys.None, (uint)Keys.F11);
+            RegisterHotKey(_hwnd, 3, (int)WindowKeys.None, (uint)Keys.F9);
         }
 
         /// <summary>
@@ -79,6 +80,7 @@ namespace registerHotkey
         {
             UnregisterHotKey(_hwnd, 1);
             UnregisterHotKey(_hwnd, 2);
+            UnregisterHotKey(_hwnd, 3);
         }
     }
 }
