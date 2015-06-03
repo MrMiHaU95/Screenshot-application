@@ -12,6 +12,7 @@ ContextMenuStrip:
 - application stars in system tray 
 - global hotkeys (via RegisterHotKey)
 - notifications (BallonTip)
+- upload screenshot to imgur 
 
 User Selection Drawn on screen:
 
@@ -20,7 +21,7 @@ User Selection Drawn on screen:
 ### To do List: (here you can help)
 - new feature called Screenshot Manager where user will be able to see previously done screenshots and edit them.
 For example add text to existing screenshot or draw a line, shape, or change size of screenshot.
-- upload screenshot on server 
+~~- upload screenshot to imgur~~
 - dual monitor support
 
 Screenshot-application is fully written in C#. RegisterHotkey functions and couple more from WindowsAPI. Application tested on Windows 7 64-bit.
@@ -39,6 +40,7 @@ ContextMenuStrip:
 - aplikacja domyslnie uruchamia sie w system trayu
 - "globalne" skrótky klawiszowe tzn applikacja nie musi być zaznaczona aby skrót dzialal cokolwiek robisz wystarczy nacisnac F10 aby zrobić screena calego ekranu lub F11 aby narysować zaznaczenie (RegisterHotKey)
 - powiadomienia w postaci BallonTip
+- upload screena na imgur
 
 Zaznaczenie narysowane przez usera którego aplikacja może zrobić screena:
 
@@ -48,6 +50,7 @@ Zaznaczenie narysowane przez usera którego aplikacja może zrobić screena:
 - nowa funkcja nazwana roboczo Menedżer Screenshotów, gdzie user bedzie mógl przegladać poprzednie screeny oraz je edytować dodać linie ksztaty tekst czy kadrować
 - funkcja wyslania screena na serwer aby mozna bylo w latwy sposób przeslac screena innej osobie po prostu podajac linka do screena
 - wsparcie dla dwóch monitorów
+~~- upload screena na imgur~~
 
 Aplikacja cakowicie napisana w C#. Zawiera bogate komentarze. RegisterHotKey i cala funkcjonalnosc globalnych skrótów klawiszowych zrobiona przy pomocy WindowsAPI. Aplikacja testowana na Windows 7 64-bit.
 
