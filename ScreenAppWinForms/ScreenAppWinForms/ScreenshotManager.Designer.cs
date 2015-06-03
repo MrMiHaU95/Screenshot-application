@@ -36,6 +36,11 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadToImgurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.btnColorPicker = new System.Windows.Forms.Button();
+            this.txtBoxToolSize = new System.Windows.Forms.TextBox();
+            this.btnPenTool = new System.Windows.Forms.Button();
+            this.btnBrushTool = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +51,10 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1645, 854);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
+            this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
             // 
             // menuStrip1
             // 
@@ -99,11 +108,51 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
+            // btnColorPicker
+            // 
+            this.btnColorPicker.BackColor = System.Drawing.Color.Black;
+            this.btnColorPicker.Location = new System.Drawing.Point(106, 136);
+            this.btnColorPicker.Name = "btnColorPicker";
+            this.btnColorPicker.Size = new System.Drawing.Size(135, 52);
+            this.btnColorPicker.TabIndex = 2;
+            this.btnColorPicker.UseVisualStyleBackColor = false;
+            this.btnColorPicker.Click += new System.EventHandler(this.btnColorPicker_Click);
+            // 
+            // txtBoxToolSize
+            // 
+            this.txtBoxToolSize.Location = new System.Drawing.Point(106, 194);
+            this.txtBoxToolSize.Name = "txtBoxToolSize";
+            this.txtBoxToolSize.Size = new System.Drawing.Size(135, 20);
+            this.txtBoxToolSize.TabIndex = 3;
+            this.txtBoxToolSize.Text = "1";
+            // 
+            // btnPenTool
+            // 
+            this.btnPenTool.Location = new System.Drawing.Point(181, 220);
+            this.btnPenTool.Name = "btnPenTool";
+            this.btnPenTool.Size = new System.Drawing.Size(60, 60);
+            this.btnPenTool.TabIndex = 4;
+            this.btnPenTool.Text = "Pen";
+            this.btnPenTool.UseVisualStyleBackColor = true;
+            // 
+            // btnBrushTool
+            // 
+            this.btnBrushTool.Location = new System.Drawing.Point(106, 220);
+            this.btnBrushTool.Name = "btnBrushTool";
+            this.btnBrushTool.Size = new System.Drawing.Size(60, 60);
+            this.btnBrushTool.TabIndex = 5;
+            this.btnBrushTool.Text = "Brush";
+            this.btnBrushTool.UseVisualStyleBackColor = true;
+            // 
             // ScreenshotManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1002);
+            this.Controls.Add(this.btnBrushTool);
+            this.Controls.Add(this.btnPenTool);
+            this.Controls.Add(this.txtBoxToolSize);
+            this.Controls.Add(this.btnColorPicker);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -127,5 +176,10 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uploadToImgurToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button btnColorPicker;
+        private System.Windows.Forms.TextBox txtBoxToolSize;
+        private System.Windows.Forms.Button btnPenTool;
+        private System.Windows.Forms.Button btnBrushTool;
     }
 }
