@@ -65,11 +65,11 @@
     <Compile Include="Background.Designer.cs">
       <DependentUpon>Background.cs</DependentUpon>
     </Compile>
-    <Compile Include="ScreenshotManager.cs">
+    <Compile Include="ScreenshotEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ScreenshotManager.Designer.cs">
-      <DependentUpon>ScreenshotManager.cs</DependentUpon>
+    <Compile Include="ScreenshotEditor.Designer.cs">
+      <DependentUpon>ScreenshotEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UploadToImgurHelper.cs" />
     <Compile Include="UserSelectionHelper.cs" />
@@ -88,8 +88,8 @@
     <EmbeddedResource Include="Background.resx">
       <DependentUpon>Background.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScreenshotManager.resx">
-      <DependentUpon>ScreenshotManager.cs</DependentUpon>
+    <EmbeddedResource Include="ScreenshotEditor.resx">
+      <DependentUpon>ScreenshotEditor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -105,16 +105,31 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cursors\Ellipse.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cursors\Line.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cursors\Pencil.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cursors\PolyHandle.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cursors\Rectangle.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images for Screenshot Editor\About.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images for Screenshot Editor\black.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images for Screenshot Editor\Edit_RedoHS.png">
+    <Content Include="Images for Screenshot Editor\Redo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images for Screenshot Editor\Edit_UndoHS.png">
+    <Content Include="Images for Screenshot Editor\Undo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images for Screenshot Editor\ellipse.png">
@@ -123,25 +138,25 @@
     <Content Include="Images for Screenshot Editor\line.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images for Screenshot Editor\NewDocumentHS.png">
+    <Content Include="Images for Screenshot Editor\NewDocument.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images for Screenshot Editor\openHS.png">
+    <Content Include="Images for Screenshot Editor\open.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images for Screenshot Editor\pencil.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images for Screenshot Editor\PointerHS.png">
+    <Content Include="Images for Screenshot Editor\Pointer.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images for Screenshot Editor\PrintHS.png">
+    <Content Include="Images for Screenshot Editor\Print.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images for Screenshot Editor\rectangle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images for Screenshot Editor\saveHS.png">
+    <Content Include="Images for Screenshot Editor\save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images for Screenshot Editor\Text.png">
@@ -178,6 +193,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\imgurButton2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\imgurToolStripBtn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\openFileIcon.bmp">

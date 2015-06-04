@@ -32,8 +32,29 @@ D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Imag
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\screenShoot3.ico
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.HiddenFormcs.resources
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Background.resources
-D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.ScreenshotManager.resources
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\imgur.ico
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\imgurButton1.png
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\imgurButton2.png
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\openFileIcon.bmp
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\About.bmp
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\black.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\Redo.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\Undo.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\ellipse.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\line.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\NewDocument.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\open.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\pencil.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\Pointer.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\Print.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\rectangle.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\save.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\Text.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images for Screenshot Editor\Transparent.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Cursors\Ellipse.cur
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Cursors\Line.cur
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Cursors\Pencil.cur
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Cursors\PolyHandle.cur
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Cursors\Rectangle.cur
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.ScreenshotEditor.resources
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\imgurToolStripBtn.png

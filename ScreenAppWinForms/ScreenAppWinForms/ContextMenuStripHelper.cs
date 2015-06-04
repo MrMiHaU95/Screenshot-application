@@ -56,7 +56,7 @@ namespace ScreenAppWinForms
         
         private static void ScreenshotManager_Click(object sender, EventArgs e)
         {
-            ScreenshotManager screenManager = new ScreenshotManager();
+            ScreenshotEditor screenManager = new ScreenshotEditor();
             screenManager.Width = Screen.PrimaryScreen.Bounds.Width;
             screenManager.Height = Screen.PrimaryScreen.Bounds.Height - 40;
             screenManager.StartPosition = FormStartPosition.CenterScreen;

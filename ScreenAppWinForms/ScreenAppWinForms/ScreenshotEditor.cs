@@ -11,17 +11,17 @@ using System.Windows.Forms;
 
 namespace ScreenAppWinForms
 {
-    public partial class ScreenshotManager : Form
+    public partial class ScreenshotEditor : Form
     {
         private bool canDraw;
-        private bool drawLine;
+        private bool penTool;
         private Point startlocation = new Point(0, 0);
         private Point currentLocation;
         private Graphics g;
         private Pen pen;
         private float toolSize;
 
-        public ScreenshotManager()
+        public ScreenshotEditor()
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
@@ -36,7 +36,7 @@ namespace ScreenAppWinForms
 
         
 
-        private void ScreenshotManager_Load(object sender, EventArgs e)
+        private void ScreenshotEditor_Load(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(InfoAboutScreenshot.FolderPath))
             {
@@ -47,37 +47,54 @@ namespace ScreenAppWinForms
 
         }
 
-        //private void btnColorPicker_Click(object sender, EventArgs e)
-        //{
-        //    colorDialog1.ShowDialog();
-
-        //    btnColorPicker.BackColor = colorDialog1.Color;
-        //}
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             canDraw = true;
             startlocation = new Point(e.X, e.Y);
+
+            //if(drawLine)
+            //{
+            //    Cursor lineCursor = new Cursor(@"Cursors\Line.cur");
+            //    Cursor.Current = lineCursor;
+            //}
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-            if(canDraw)
+            if (penTool)
             {
-                if (drawLine)
+                Cursor lineCursor = new Cursor(@"Cursors\Pencil.cur");
+                Cursor.Current = lineCursor;
+            }
+
+            if (canDraw)
+            {
+                if (penTool)
                 {
                     currentLocation = new Point(e.X, e.Y);
                     pen = new Pen(toolStripBtnColor.BackColor, toolSize);
                     g.DrawLine(pen, startlocation, currentLocation);
 
                     startlocation = new Point(e.X, e.Y);
+                    this.Invalidate();
+
+
                 }
             }
+
+            
+            
         }
 
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
             canDraw = false;
+
+            //if(drawLine)
+            //{
+            //    Cursor lineCursor = new Cursor(@"Cursors\Line.cur");
+            //    Cursor.Current = lineCursor;
+            //}
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -85,14 +102,14 @@ namespace ScreenAppWinForms
             //g = e.Graphics; 
             if (canDraw)
             {
-                
+                if(penTool)
+                {
+                    //dlaczego to nie działą 
+                    pen = new Pen(toolStripBtnColor.BackColor, toolSize);
+                    g.DrawLine(pen, startlocation, currentLocation);
+                }
             }
         }
-
-        //private void btnDrawLine_Click(object sender, EventArgs e)
-        //{
-        //    drawLine = true;
-        //}
 
         private void toolStripBtnColor_Click(object sender, EventArgs e)
         {
@@ -121,17 +138,30 @@ namespace ScreenAppWinForms
 
         private void toolStripBtnDrawLine_Click(object sender, EventArgs e)
         {
-            if(toolStripBtnDrawLine.CheckState == CheckState.Unchecked)
+           
+        }
+
+        private void panel1_MouseEnter(object sender, EventArgs e)
+        {
+            //if(drawLine)
+            //{
+            //    Cursor lineCursor = new Cursor(@"Cursors\Line.cur");
+            //    Cursor.Current = lineCursor;
+            //}
+        }
+
+        private void toolStripBtnPenTool_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnPenTool.CheckState == CheckState.Unchecked)
             {
-                drawLine = true;
-                toolStripBtnDrawLine.CheckState = CheckState.Checked;
+                penTool = true;
+                toolStripBtnPenTool.CheckState = CheckState.Checked;
             }
-            else if(toolStripBtnDrawLine.CheckState == CheckState.Checked)
+            else if (toolStripBtnPenTool.CheckState == CheckState.Checked)
             {
-                drawLine = false;
-                toolStripBtnDrawLine.CheckState = CheckState.Unchecked;
+                penTool = false;
+                toolStripBtnPenTool.CheckState = CheckState.Unchecked;
             }
-            
         }
 
 
