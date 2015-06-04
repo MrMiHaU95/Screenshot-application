@@ -14,7 +14,8 @@ namespace ScreenAppWinForms
     public partial class ScreenshotManager : Form
     {
         private bool canDraw;
-        private Point startlocation;
+        private bool drawLine;
+        private Point startlocation = new Point(0, 0);
         private Point currentLocation;
         private Graphics g;
         private Pen pen;
@@ -23,6 +24,8 @@ namespace ScreenAppWinForms
         public ScreenshotManager()
         {
             InitializeComponent();
+            g = panel1.CreateGraphics();
+            this.DoubleBuffered = true;
         }
 
        //http://stackoverflow.com/questions/2073519/uploading-to-imgur-com
@@ -30,6 +33,8 @@ namespace ScreenAppWinForms
         //http://www.codeproject.com/Tips/811495/Simple-Paint-Application-in-Csharp
 
         //http://www.codeproject.com/Articles/22776/WPF-DrawTools
+
+        
 
         private void ScreenshotManager_Load(object sender, EventArgs e)
         {
@@ -56,8 +61,14 @@ namespace ScreenAppWinForms
         {
             if(canDraw)
             {
-                currentLocation = new Point(e.X, e.Y);
-                this.Invalidate();
+                if (drawLine)
+                {
+                    currentLocation = new Point(e.X, e.Y);
+                    pen = new Pen(btnColorPicker.BackColor, float.Parse(txtBoxToolSize.Text));
+                    g.DrawLine(pen, startlocation, currentLocation);
+
+                    startlocation = new Point(e.X, e.Y);
+                }
             }
         }
 
@@ -68,9 +79,16 @@ namespace ScreenAppWinForms
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            g = e.Graphics;
-            pen = new Pen(btnColorPicker.BackColor, float.Parse(txtBoxToolSize.Text));
-            g.DrawLine(pen, startlocation, currentLocation);
+            //g = e.Graphics; 
+            if (canDraw)
+            {
+                
+            }
+        }
+
+        private void btnDrawLine_Click(object sender, EventArgs e)
+        {
+            drawLine = true;
         }
 
 
