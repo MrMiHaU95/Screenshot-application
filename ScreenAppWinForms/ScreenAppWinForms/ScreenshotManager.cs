@@ -19,7 +19,7 @@ namespace ScreenAppWinForms
         private Point currentLocation;
         private Graphics g;
         private Pen pen;
-         
+        private float toolSize;
 
         public ScreenshotManager()
         {
@@ -42,14 +42,17 @@ namespace ScreenAppWinForms
             {
                 panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
             }
+
+            toolStripBtnColor.BackColor = Color.Black;
+
         }
 
-        private void btnColorPicker_Click(object sender, EventArgs e)
-        {
-            colorDialog1.ShowDialog();
+        //private void btnColorPicker_Click(object sender, EventArgs e)
+        //{
+        //    colorDialog1.ShowDialog();
 
-            btnColorPicker.BackColor = colorDialog1.Color;
-        }
+        //    btnColorPicker.BackColor = colorDialog1.Color;
+        //}
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -64,7 +67,7 @@ namespace ScreenAppWinForms
                 if (drawLine)
                 {
                     currentLocation = new Point(e.X, e.Y);
-                    pen = new Pen(btnColorPicker.BackColor, float.Parse(txtBoxToolSize.Text));
+                    pen = new Pen(toolStripBtnColor.BackColor, toolSize);
                     g.DrawLine(pen, startlocation, currentLocation);
 
                     startlocation = new Point(e.X, e.Y);
@@ -86,10 +89,51 @@ namespace ScreenAppWinForms
             }
         }
 
-        private void btnDrawLine_Click(object sender, EventArgs e)
+        //private void btnDrawLine_Click(object sender, EventArgs e)
+        //{
+        //    drawLine = true;
+        //}
+
+        private void toolStripBtnColor_Click(object sender, EventArgs e)
         {
-            drawLine = true;
+            colorDialog1.ShowDialog();
+
+            toolStripBtnColor.BackColor = colorDialog1.Color;
         }
+
+        private void toolStripComboBoxToolSize_TextChanged(object sender, EventArgs e)
+        {
+            float result;
+            if(toolStripComboBoxToolSize.Text != "Select size")
+            {
+                if (float.TryParse(toolStripComboBoxToolSize.Text,out result))
+                {
+                    toolSize = result;
+                }
+                else
+                {
+                    MessageBox.Show("invalid tool size");
+                    toolStripComboBoxToolSize.Text = "Select size";
+                }
+            }
+            
+        }
+
+        private void toolStripBtnDrawLine_Click(object sender, EventArgs e)
+        {
+            if(toolStripBtnDrawLine.CheckState == CheckState.Unchecked)
+            {
+                drawLine = true;
+                toolStripBtnDrawLine.CheckState = CheckState.Checked;
+            }
+            else if(toolStripBtnDrawLine.CheckState == CheckState.Checked)
+            {
+                drawLine = false;
+                toolStripBtnDrawLine.CheckState = CheckState.Unchecked;
+            }
+            
+        }
+
 
 
     }

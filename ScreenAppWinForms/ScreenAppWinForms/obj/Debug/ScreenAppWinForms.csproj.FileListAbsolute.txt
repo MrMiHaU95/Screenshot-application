@@ -36,3 +36,4 @@ D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\Scre
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\imgur.ico
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\imgurButton1.png
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\imgurButton2.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\openFileIcon.bmp
