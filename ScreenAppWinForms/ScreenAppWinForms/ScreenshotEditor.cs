@@ -15,6 +15,9 @@ namespace ScreenAppWinForms
     {
         private bool canDraw;
         private bool penTool;
+        private bool drawLine;
+        private bool drawRectangle;
+        private bool drawEllipse;
         private Point startlocation = new Point(0, 0);
         private Point currentLocation;
         private Graphics g;
@@ -61,16 +64,19 @@ namespace ScreenAppWinForms
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (penTool)
-            {
-                Cursor lineCursor = new Cursor(@"Cursors\Pencil.cur");
-                Cursor.Current = lineCursor;
-            }
+            //if (penTool)
+            //{
+            //    Cursor lineCursor = new Cursor(@"Cursors\Pencil.cur");
+            //    Cursor.Current = lineCursor;
+            //}
 
             if (canDraw)
             {
                 if (penTool)
                 {
+                    Cursor penToolCursor = new Cursor(@"Cursors\Pencil.cur");
+                    Cursor.Current = penToolCursor;
+
                     currentLocation = new Point(e.X, e.Y);
                     pen = new Pen(toolStripBtnColor.BackColor, toolSize);
                     g.DrawLine(pen, startlocation, currentLocation);
@@ -79,6 +85,25 @@ namespace ScreenAppWinForms
                     this.Invalidate();
 
 
+                }
+                else if(drawLine)
+                {
+                    Cursor drawLineCursor = new Cursor(@"Cursors\Line.cur");
+                    Cursor.Current = drawLineCursor;
+                }
+                else if(drawRectangle)
+                {
+                    Cursor drawRectangleCursor = new Cursor(@"Cursors\Rectangle.cur");
+                    Cursor.Current = drawRectangleCursor;
+                }
+                else if(drawEllipse)
+                {
+                    Cursor drawEllipseCursor = new Cursor(@"Cursors\Ellipse.cur");
+                    Cursor.Current = drawEllipseCursor;
+                }
+                else
+                {
+                    Cursor.Current = Cursors.Default;
                 }
             }
 
@@ -138,7 +163,17 @@ namespace ScreenAppWinForms
 
         private void toolStripBtnDrawLine_Click(object sender, EventArgs e)
         {
-           
+            if (toolStripBtnDrawLine.CheckState == CheckState.Unchecked)
+            {
+                drawLine = true;
+                toolStripBtnDrawLine.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnDrawLine);
+            }
+            else if (toolStripBtnDrawLine.CheckState == CheckState.Checked)
+            {
+                drawLine = false;
+                toolStripBtnDrawLine.CheckState = CheckState.Unchecked;
+            }
         }
 
         private void panel1_MouseEnter(object sender, EventArgs e)
@@ -156,11 +191,60 @@ namespace ScreenAppWinForms
             {
                 penTool = true;
                 toolStripBtnPenTool.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnPenTool);
             }
             else if (toolStripBtnPenTool.CheckState == CheckState.Checked)
             {
                 penTool = false;
                 toolStripBtnPenTool.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        public void UncheckRestOfButtons(ToolStripButton checkedButton)
+        {
+            List<ToolStripButton> Buttons = new List<ToolStripButton>();
+            Buttons.Add(toolStripBtnDrawLine);
+            Buttons.Add(toolStripBtnDrawRectangle);
+            Buttons.Add(toolStripBtnDrawEllipse);
+            Buttons.Add(toolStripBtnPenTool);
+            Buttons.Add(toolStripBtnAddText);
+
+            foreach(ToolStripButton btn in Buttons)
+            {
+                if(btn != checkedButton)
+                {
+                    btn.CheckState = CheckState.Unchecked;
+                }
+            }
+        }
+
+        private void toolStripBtnDrawRectangle_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnDrawRectangle.CheckState == CheckState.Unchecked)
+            {
+                drawRectangle = true;
+                toolStripBtnDrawRectangle.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnDrawRectangle);
+            }
+            else if (toolStripBtnDrawRectangle.CheckState == CheckState.Checked)
+            {
+                drawRectangle = false;
+                toolStripBtnDrawRectangle.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void toolStripBtnDrawEllipse_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnDrawEllipse.CheckState == CheckState.Unchecked)
+            {
+                drawEllipse = true;
+                toolStripBtnDrawEllipse.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnDrawEllipse);
+            }
+            else if (toolStripBtnDrawEllipse.CheckState == CheckState.Checked)
+            {
+                drawEllipse = false;
+                toolStripBtnDrawEllipse.CheckState = CheckState.Unchecked;
             }
         }
 

@@ -58,3 +58,5 @@ D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Curs
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Cursors\Rectangle.cur
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.ScreenshotEditor.resources
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\imgurToolStripBtn.png
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\screenshotEditor.ico
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\screenshotEditor2.ico

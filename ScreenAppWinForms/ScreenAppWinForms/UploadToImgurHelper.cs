@@ -69,5 +69,33 @@ namespace ScreenAppWinForms
                  */
             }
         }
+        /// <summary>
+        /// wysyłąnie na imgur obrazka dostępne formaty to jpg bmp png gif
+        /// </summary>
+        /// <param name="pathToImage">ścieżka dostepu do obrazka</param>
+        public static void UploadImageWithoutDeleting(string pathToImage)
+        { 
+            //WebClient wprowadza wspólne metody do wysyłania i otrzymywania danych z zasobów rozpoznanych po url
+            using (var w = new WebClient())
+            {
+                string clientID = "e780af3f12ba2d5";
+                w.Headers.Add("Authorization", "Client-ID " + clientID);
+                //kolekcja string keys i string values
+                var values = new NameValueCollection
+                {
+                     { "image", Convert.ToBase64String(File.ReadAllBytes(pathToImage)) }
+                };
+
+                byte[] response = w.UploadValues("https://api.imgur.com/3/upload.xml", values);
+                //kilka linijek kodu aby z response odczytać url
+                XDocument responseData = XDocument.Load(new MemoryStream(response));
+                Console.WriteLine(responseData);
+                XElement element = responseData.Root.Element("link");
+                string url = element.Value;
+                //uruchomienie domyślnej przeglądarki 
+                Process.Start(url);
+            }
+
+        }
     }
 }

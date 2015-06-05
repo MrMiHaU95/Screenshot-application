@@ -39,6 +39,8 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toImgurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -64,11 +66,9 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripBtnPrint = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripBtnInfo = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toImgurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripBtnUploadToImgur = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripBtnInfo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -154,6 +154,20 @@
             this.drawToolStripMenuItem.Name = "drawToolStripMenuItem";
             this.drawToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.drawToolStripMenuItem.Text = "Draw";
+            // 
+            // uploadToolStripMenuItem
+            // 
+            this.uploadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toImgurToolStripMenuItem});
+            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
+            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.uploadToolStripMenuItem.Text = "Upload";
+            // 
+            // toImgurToolStripMenuItem
+            // 
+            this.toImgurToolStripMenuItem.Name = "toImgurToolStripMenuItem";
+            this.toImgurToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.toImgurToolStripMenuItem.Text = "to Imgur";
             // 
             // helpToolStripMenuItem
             // 
@@ -250,6 +264,7 @@
             this.toolStripBtnDrawRectangle.Name = "toolStripBtnDrawRectangle";
             this.toolStripBtnDrawRectangle.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnDrawRectangle.Text = "toolStripButton1";
+            this.toolStripBtnDrawRectangle.Click += new System.EventHandler(this.toolStripBtnDrawRectangle_Click);
             // 
             // toolStripBtnDrawEllipse
             // 
@@ -259,6 +274,7 @@
             this.toolStripBtnDrawEllipse.Name = "toolStripBtnDrawEllipse";
             this.toolStripBtnDrawEllipse.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnDrawEllipse.Text = "toolStripButton1";
+            this.toolStripBtnDrawEllipse.Click += new System.EventHandler(this.toolStripBtnDrawEllipse_Click);
             // 
             // toolStripBtnPenTool
             // 
@@ -393,34 +409,6 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripBtnInfo
-            // 
-            this.toolStripBtnInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripBtnInfo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnInfo.Image")));
-            this.toolStripBtnInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripBtnInfo.Name = "toolStripBtnInfo";
-            this.toolStripBtnInfo.Size = new System.Drawing.Size(23, 22);
-            this.toolStripBtnInfo.Text = "toolStripButton1";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
-            // 
-            // uploadToolStripMenuItem
-            // 
-            this.uploadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toImgurToolStripMenuItem});
-            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.uploadToolStripMenuItem.Text = "Upload";
-            // 
-            // toImgurToolStripMenuItem
-            // 
-            this.toImgurToolStripMenuItem.Name = "toImgurToolStripMenuItem";
-            this.toImgurToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.toImgurToolStripMenuItem.Text = "to Imgur";
-            // 
             // toolStripBtnUploadToImgur
             // 
             this.toolStripBtnUploadToImgur.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -429,6 +417,20 @@
             this.toolStripBtnUploadToImgur.Name = "toolStripBtnUploadToImgur";
             this.toolStripBtnUploadToImgur.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnUploadToImgur.Text = "toolStripButton1";
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripBtnInfo
+            // 
+            this.toolStripBtnInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripBtnInfo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnInfo.Image")));
+            this.toolStripBtnInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBtnInfo.Name = "toolStripBtnInfo";
+            this.toolStripBtnInfo.Size = new System.Drawing.Size(23, 22);
+            this.toolStripBtnInfo.Text = "toolStripButton1";
             // 
             // toolStripSeparator8
             // 

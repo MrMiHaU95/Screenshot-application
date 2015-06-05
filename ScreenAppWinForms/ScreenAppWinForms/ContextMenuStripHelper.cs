@@ -25,20 +25,35 @@ namespace ScreenAppWinForms
             Image imgScreenOfUserSelection = Image.FromFile(@"Images\rectScreen2.ico");
             Image imgFullScreenScreenshot = Image.FromFile(@"Images\fullscreen2.ico");
             Image imgExit = Image.FromFile(@"Images\exit2.ico");
-            Image imgScreenshotEditor = Image.FromFile(@"Images\browse.ico");
+            Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
             Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
 
             CMS.Items.Add("Screenshot of entire screen", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
             CMS.Items.Add("Upload Screenshot of entire screen to Imgur", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
             CMS.Items.Add("Screenshot of user selection", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
             CMS.Items.Add("Screenshot Editor", imgScreenshotEditor, ScreenshotEditor_Click);
+            CMS.Items.Add("Upload image to Imgur", imgUploadFullScreenScreenshot, UploadImage_Click);
             CMS.Items.Add("Exit", imgExit, Exit_Click);
 
             return CMS;
         }
 
         
+
+        
         #region event handlery ContextMenuStrip
+        private static void UploadImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
+            ofd.Title = "Upload image";
+            DialogResult result =  ofd.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                UploadToImgurHelper.UploadImageWithoutDeleting(ofd.FileName);
+            }
+        }
+
         private static void UploadScreenshotOfEntireScreen_Click(object sender, EventArgs e)
         {
             //odczytuje ścieżke do wykonywanego exe
