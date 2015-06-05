@@ -3,7 +3,7 @@ Simple application for taking screenshots.
 
 ContextMenuStrip:
 
-![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ContextMenuStripEng.png)
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ContextMenuStrip2.png)
 
 ### Features:
 - screenshot of entire screen
@@ -13,16 +13,38 @@ ContextMenuStrip:
 - global hotkeys (via RegisterHotKey)
 - notifications (BallonTip)
 - upload screenshot to imgur 
+- upload images from hard drive to Imgur
 
 User Selection Drawn on screen:
 
-![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection.png)
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection2.png)
 
 ### To do List: (here you can help)
-- new feature called Screenshot Manager where user will be able to see previously done screenshots and edit them.
+- new feature called Screenshot Editor where user will be able edit Screenshots and Images loaded from hard drive.
 For example add text to existing screenshot or draw a line, shape, or change size of screenshot.
 - ~~upload screenshot to imgur~~
-- dual monitor support
+- ~~upload images from hard drive to Imgur~~
+- dual monitor support.
+
+###To do features of Screenshot Editor (here you can help)
+- load new file to drawing area
+- saving changes
+- draw line (straight)
+- draw rectangle
+- draw ellipse
+- pen tool
+- add text
+- undo 
+- redo
+- change color
+- change font
+- print
+- upload to Imgur
+
+Preview image of Screenshot Editor
+
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ScreenshotEditor.png)
+
 
 Screenshot-application is fully written in C#. RegisterHotkey functions and couple more from WindowsAPI. Application tested on Windows 7 64-bit.
 
@@ -31,7 +53,7 @@ Prosta aplikacja do robienia screenshotów.
 
 ContextMenuStrip:
 
-![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ContextMenuStrip.png)
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/ContextMenuStrip2.png)
 
 ###Funkcje 
 - scrrenshot calego ekranu
@@ -44,7 +66,7 @@ ContextMenuStrip:
 
 Zaznaczenie narysowane przez usera którego aplikacja może zrobić screena:
 
-![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection.png)
+![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection2.png)
 
 ### Lista funkcji które zostan dodane w przyszlosci: (tutaj możesz pomóc)
 - nowa funkcja nazwana roboczo Menedżer Screenshotów, gdzie user bedzie mógl przegladać poprzednie screeny oraz je edytować dodać linie ksztaty tekst czy kadrować
