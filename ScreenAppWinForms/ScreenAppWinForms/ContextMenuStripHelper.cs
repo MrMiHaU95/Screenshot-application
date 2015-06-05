@@ -25,13 +25,13 @@ namespace ScreenAppWinForms
             Image imgScreenOfUserSelection = Image.FromFile(@"Images\rectScreen2.ico");
             Image imgFullScreenScreenshot = Image.FromFile(@"Images\fullscreen2.ico");
             Image imgExit = Image.FromFile(@"Images\exit2.ico");
-            Image imgScreenshotManager = Image.FromFile(@"Images\browse.ico");
+            Image imgScreenshotEditor = Image.FromFile(@"Images\browse.ico");
             Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
 
             CMS.Items.Add("Screenshot of entire screen", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
             CMS.Items.Add("Upload Screenshot of entire screen to Imgur", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
             CMS.Items.Add("Screenshot of user selection", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
-            CMS.Items.Add("Screenshot Manager", imgScreenshotManager, ScreenshotManager_Click);
+            CMS.Items.Add("Screenshot Editor", imgScreenshotEditor, ScreenshotEditor_Click);
             CMS.Items.Add("Exit", imgExit, Exit_Click);
 
             return CMS;
@@ -41,12 +41,13 @@ namespace ScreenAppWinForms
         #region event handlery ContextMenuStrip
         private static void UploadScreenshotOfEntireScreen_Click(object sender, EventArgs e)
         {
+            //odczytuje ścieżke do wykonywanego exe
+            string directory = AppDomain.CurrentDomain.BaseDirectory;
             //aby zuploadować screena do imgur trzeba go najpierw zapisać na dysku 
             Bitmap screenShotFullScreen;
             screenShotFullScreen = (Bitmap)ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            screenShotFullScreen.Save(@"D:\tempData from Screenshot-Application\\1.png", System.Drawing.Imaging.ImageFormat.Png);
-
-            UploadToImgurHelper.UploadScreenshot(@"D:\tempData from Screenshot-Application\\1.png");
+            screenShotFullScreen.Save( directory+@"\\1.png", System.Drawing.Imaging.ImageFormat.Png);
+            UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
         }
 
         private static void Exit_Click(object sender, EventArgs e)
@@ -54,7 +55,7 @@ namespace ScreenAppWinForms
             Application.Exit();
         }
         
-        private static void ScreenshotManager_Click(object sender, EventArgs e)
+        private static void ScreenshotEditor_Click(object sender, EventArgs e)
         {
             ScreenshotEditor screenManager = new ScreenshotEditor();
             screenManager.Width = Screen.PrimaryScreen.Bounds.Width;

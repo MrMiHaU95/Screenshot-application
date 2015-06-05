@@ -90,12 +90,13 @@ namespace ScreenAppWinForms
                 //upload screena całego ekranu na imgur
                 else if(id == 3)
                 {
+                    //odczytuje ścieżkę do wykonywanego exe
+                    string directory = AppDomain.CurrentDomain.BaseDirectory;
                     //aby zuploadować screena do imgur trzeba go najpierw zapisać na dysku 
                     Bitmap screenShotFullScreen;
                     screenShotFullScreen = (Bitmap)ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-                    screenShotFullScreen.Save(@"D:\tempData from Screenshot-Application\\1.png", System.Drawing.Imaging.ImageFormat.Png);
-
-                    UploadToImgurHelper.UploadScreenshot(@"D:\tempData from Screenshot-Application\\1.png");
+                    screenShotFullScreen.Save(directory + @"\\1.png", System.Drawing.Imaging.ImageFormat.Png);
+                    UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
                 }
             }
             base.WndProc(ref m);

@@ -187,9 +187,10 @@ namespace ScreenAppWinForms
         //event handler upload to imgur
         static void BtnUploadToImgur_Click(object sender, EventArgs e)
         {
+            string directory = AppDomain.CurrentDomain.BaseDirectory;
             Bitmap screen = ScreenshotHelper.TakeScreenshotOfUserSelection(UserSelectionHelper.UserSelection);
-            screen.Save(@"D:\tempData from Screenshot-Application\\1.png");
-            UploadToImgurHelper.UploadScreenshot(@"D:\tempData from Screenshot-Application\\1.png");
+            screen.Save(directory + @"\\1.png");
+            UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
             UserSelectionHelper.ResetUserSelection();
             Background.Close();
         }
