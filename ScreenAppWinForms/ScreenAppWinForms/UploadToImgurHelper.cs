@@ -38,7 +38,10 @@ namespace ScreenAppWinForms
                 XElement element = responseData.Root.Element("link");
                 string url = element.Value;
                 //uruchamia przeglądarkę lub otwiera nową kartę z zuploudowanym screenem
-                Process.Start(@"chrome.exe", url);
+                //Process.Start(@"chrome.exe", url);
+
+                //uruchomienie domyślnej przeglądarki 
+                Process.Start(url);
                 //plik po zuploadowaniu jest usuwany z dysku
                 if (File.Exists(pathToScreenshot))
                 {
