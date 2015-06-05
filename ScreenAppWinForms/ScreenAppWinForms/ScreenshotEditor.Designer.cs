@@ -254,6 +254,7 @@
             this.toolStripBtnDrawLine.Name = "toolStripBtnDrawLine";
             this.toolStripBtnDrawLine.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnDrawLine.Text = "toolStripButton1";
+            this.toolStripBtnDrawLine.CheckStateChanged += new System.EventHandler(this.toolStripBtnDrawLine_CheckStateChanged);
             this.toolStripBtnDrawLine.Click += new System.EventHandler(this.toolStripBtnDrawLine_Click);
             // 
             // toolStripBtnDrawRectangle
@@ -264,6 +265,7 @@
             this.toolStripBtnDrawRectangle.Name = "toolStripBtnDrawRectangle";
             this.toolStripBtnDrawRectangle.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnDrawRectangle.Text = "toolStripButton1";
+            this.toolStripBtnDrawRectangle.CheckStateChanged += new System.EventHandler(this.toolStripBtnDrawRectangle_CheckStateChanged);
             this.toolStripBtnDrawRectangle.Click += new System.EventHandler(this.toolStripBtnDrawRectangle_Click);
             // 
             // toolStripBtnDrawEllipse
@@ -274,6 +276,7 @@
             this.toolStripBtnDrawEllipse.Name = "toolStripBtnDrawEllipse";
             this.toolStripBtnDrawEllipse.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnDrawEllipse.Text = "toolStripButton1";
+            this.toolStripBtnDrawEllipse.CheckStateChanged += new System.EventHandler(this.toolStripBtnDrawEllipse_CheckStateChanged);
             this.toolStripBtnDrawEllipse.Click += new System.EventHandler(this.toolStripBtnDrawEllipse_Click);
             // 
             // toolStripBtnPenTool
@@ -284,6 +287,7 @@
             this.toolStripBtnPenTool.Name = "toolStripBtnPenTool";
             this.toolStripBtnPenTool.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnPenTool.Text = "toolStripButton1";
+            this.toolStripBtnPenTool.CheckStateChanged += new System.EventHandler(this.toolStripBtnPenTool_CheckStateChanged);
             this.toolStripBtnPenTool.Click += new System.EventHandler(this.toolStripBtnPenTool_Click);
             // 
             // toolStripBtnAddText

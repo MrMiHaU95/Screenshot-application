@@ -82,7 +82,7 @@ namespace ScreenAppWinForms
                     g.DrawLine(pen, startlocation, currentLocation);
 
                     startlocation = new Point(e.X, e.Y);
-                    this.Invalidate();
+                    //this.Invalidate();
 
 
                 }
@@ -90,6 +90,11 @@ namespace ScreenAppWinForms
                 {
                     Cursor drawLineCursor = new Cursor(@"Cursors\Line.cur");
                     Cursor.Current = drawLineCursor;
+
+                    currentLocation = new Point(e.X, e.Y);
+                    pen = new Pen(toolStripBtnColor.BackColor, toolSize);
+                    g.DrawLine(pen, startlocation, currentLocation);
+                    
                 }
                 else if(drawRectangle)
                 {
@@ -101,13 +106,13 @@ namespace ScreenAppWinForms
                     Cursor drawEllipseCursor = new Cursor(@"Cursors\Ellipse.cur");
                     Cursor.Current = drawEllipseCursor;
                 }
-                else
-                {
-                    Cursor.Current = Cursors.Default;
-                }
+                //else
+                //{
+                //    Cursor.Current = Cursors.Default;
+                //}
             }
 
-            
+            panel1.Refresh();
             
         }
 
@@ -130,8 +135,14 @@ namespace ScreenAppWinForms
                 if(penTool)
                 {
                     //dlaczego to nie działą 
-                    pen = new Pen(toolStripBtnColor.BackColor, toolSize);
-                    g.DrawLine(pen, startlocation, currentLocation);
+                    //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
+                    //g.DrawLine(pen, startlocation, currentLocation);
+                }
+                else if(drawLine)
+                {
+                    //Graphics g = e.Graphics;
+                    //Pen p = new Pen(toolStripBtnColor.BackColor, toolSize);
+                    //g.DrawLine(p, startlocation, currentLocation);
                 }
             }
         }
@@ -245,6 +256,58 @@ namespace ScreenAppWinForms
             {
                 drawEllipse = false;
                 toolStripBtnDrawEllipse.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void toolStripBtnDrawLine_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if(btn.CheckState == CheckState.Checked)
+            {
+                drawLine = true;
+            }
+            else
+            {
+                drawLine = false;
+            }
+        }
+
+        private void toolStripBtnDrawRectangle_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                drawRectangle = true;
+            }
+            else
+            {
+                drawRectangle = false;
+            }
+        }
+
+        private void toolStripBtnDrawEllipse_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                drawEllipse = true;
+            }
+            else
+            {
+                drawEllipse = false;
+            }
+        }
+
+        private void toolStripBtnPenTool_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                penTool = true;
+            }
+            else
+            {
+                penTool = false;
             }
         }
 
