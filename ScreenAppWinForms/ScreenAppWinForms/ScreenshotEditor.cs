@@ -20,9 +20,12 @@ namespace ScreenAppWinForms
         private bool drawEllipse;
         private Point startlocation = new Point(0, 0);
         private Point currentLocation;
+        private Point lineStartPosition;
+        private Point lineEndPosition;
         private Graphics g;
         private Pen pen;
         private float toolSize;
+        private List<Line> LineListToDraw = new List<Line>();
 
         public ScreenshotEditor()
         {
@@ -54,6 +57,7 @@ namespace ScreenAppWinForms
         {
             canDraw = true;
             startlocation = new Point(e.X, e.Y);
+            lineStartPosition = new Point(e.X, e.Y);
 
             //if(drawLine)
             //{
@@ -78,11 +82,11 @@ namespace ScreenAppWinForms
                     Cursor.Current = penToolCursor;
 
                     currentLocation = new Point(e.X, e.Y);
-                    pen = new Pen(toolStripBtnColor.BackColor, toolSize);
-                    g.DrawLine(pen, startlocation, currentLocation);
+                    //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
+                    //g.DrawLine(pen, startlocation, currentLocation);
 
                     startlocation = new Point(e.X, e.Y);
-                    //this.Invalidate();
+                    this.Invalidate();
 
 
                 }
@@ -91,9 +95,12 @@ namespace ScreenAppWinForms
                     Cursor drawLineCursor = new Cursor(@"Cursors\Line.cur");
                     Cursor.Current = drawLineCursor;
 
-                    currentLocation = new Point(e.X, e.Y);
-                    pen = new Pen(toolStripBtnColor.BackColor, toolSize);
-                    g.DrawLine(pen, startlocation, currentLocation);
+                    //currentLocation = new Point(e.X, e.Y);
+                    //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
+                    //g.DrawLine(pen, startlocation, currentLocation);
+
+                    lineEndPosition = new Point(e.X, e.Y);
+                    panel1.Invalidate();
                     
                 }
                 else if(drawRectangle)
@@ -112,7 +119,7 @@ namespace ScreenAppWinForms
                 //}
             }
 
-            panel1.Refresh();
+            //panel1.Refresh();
             
         }
 
@@ -120,11 +127,10 @@ namespace ScreenAppWinForms
         {
             canDraw = false;
 
-            //if(drawLine)
-            //{
-            //    Cursor lineCursor = new Cursor(@"Cursors\Line.cur");
-            //    Cursor.Current = lineCursor;
-            //}
+            if (drawLine)
+            {
+                LineListToDraw.Add(new Line(new Pen(toolStripBtnColor.BackColor, toolSize), lineStartPosition, lineEndPosition));
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -137,13 +143,25 @@ namespace ScreenAppWinForms
                     //dlaczego to nie działą 
                     //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
                     //g.DrawLine(pen, startlocation, currentLocation);
+                    Graphics g = e.Graphics;
+                    pen = new Pen(toolStripBtnColor.BackColor, toolSize);
+                    g.DrawLine(pen, startlocation, currentLocation);
+                    
                 }
                 else if(drawLine)
                 {
                     //Graphics g = e.Graphics;
                     //Pen p = new Pen(toolStripBtnColor.BackColor, toolSize);
                     //g.DrawLine(p, startlocation, currentLocation);
+                    Graphics g = e.Graphics;
+                    g.DrawLine(new Pen(toolStripBtnColor.BackColor, toolSize), lineStartPosition, lineEndPosition);
+                    
                 }
+            }
+            Graphics gr = panel1.CreateGraphics();
+            foreach (Line l in LineListToDraw)
+            {
+                gr.DrawLine(l.LinePen, l.StartPoint, l.EndPoint);
             }
         }
 

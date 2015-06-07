@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="Hotkey.cs" />
     <Compile Include="InfoAboutScreenshot.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="NotifyIconHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
