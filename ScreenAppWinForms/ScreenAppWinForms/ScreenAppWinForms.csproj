@@ -44,6 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Add Text.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Add Text.Designer.cs">
+      <DependentUpon>Add Text.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddTextHelper.cs" />
     <Compile Include="BackgroundHelper.cs" />
     <Compile Include="ButtonsHelper.cs" />
     <Compile Include="ContextMenuStripHelper.cs" />
@@ -81,6 +88,9 @@
     <Compile Include="ShapesManagercs.cs" />
     <Compile Include="UploadToImgurHelper.cs" />
     <Compile Include="UserSelectionHelper.cs" />
+    <EmbeddedResource Include="Add Text.resx">
+      <DependentUpon>Add Text.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HiddenFormcs.resx">
       <DependentUpon>HiddenFormcs.cs</DependentUpon>
     </EmbeddedResource>

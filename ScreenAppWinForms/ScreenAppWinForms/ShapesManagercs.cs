@@ -16,5 +16,13 @@ namespace ScreenAppWinForms
             set { ShapesManagercs.shapeList = value; }
         }
 
+        private static List<Shape> shapeListUndo = new List<Shape>();
+
+        internal static List<Shape> ShapeListUndo
+        {
+            get { return ShapesManagercs.shapeListUndo; }
+            set { ShapesManagercs.shapeListUndo = value; }
+        }
+
     }
 }

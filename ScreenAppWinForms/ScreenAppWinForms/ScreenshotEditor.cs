@@ -35,6 +35,8 @@ namespace ScreenAppWinForms
             InitializeComponent();
             g = panel1.CreateGraphics();
             this.DoubleBuffered = true;
+            toolStripComboBoxToolSize.SelectedIndex = 0;
+            toolStripComboBoxFontSize.SelectedIndex = 0;
         }
 
        //http://stackoverflow.com/questions/2073519/uploading-to-imgur-com
@@ -54,6 +56,18 @@ namespace ScreenAppWinForms
 
             toolStripBtnColor.BackColor = Color.Black;
 
+            LoadFonts();
+
+        }
+
+        public void LoadFonts()
+        {
+            toolStripComboBoxFonts.Items.Add("Select Font");
+            foreach (FontFamily font in System.Drawing.FontFamily.Families)
+            {
+                toolStripComboBoxFonts.Items.Add(font.Name);
+            }
+            
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -320,6 +334,15 @@ namespace ScreenAppWinForms
             Buttons.Add(toolStripBtnDrawEllipse);
             Buttons.Add(toolStripBtnPenTool);
             Buttons.Add(toolStripBtnAddText);
+            Buttons.Add(toolStripBtnNewFile);
+            Buttons.Add(toolStripBtnOpenFile);
+            Buttons.Add(toolStripBtnSaveFile);
+            Buttons.Add(toolStripBtnCursor);
+            Buttons.Add(toolStripBtnUndo);
+            Buttons.Add(toolStripBtnRedo);
+            Buttons.Add(toolStripBtnPrint);
+            Buttons.Add(toolStripBtnUploadToImgur);
+            Buttons.Add(toolStripBtnInfo);
 
             foreach(ToolStripButton btn in Buttons)
             {
@@ -370,6 +393,7 @@ namespace ScreenAppWinForms
             if(btn.CheckState == CheckState.Checked)
             {
                 DrawingLineHelper.CanDrawLine = true;
+                UncheckRestOfButtons(toolStripBtnDrawLine);
             }
             else
             {
@@ -384,6 +408,7 @@ namespace ScreenAppWinForms
             {
                 //drawRectangle = true;
                 DrawingRectangleHelper.CanDrawRectangle = true;
+                UncheckRestOfButtons(toolStripBtnDrawRectangle);
             }
             else
             {
@@ -420,7 +445,180 @@ namespace ScreenAppWinForms
             }
         }
 
+        private void toolStripBtnAddText_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnAddText.CheckState == CheckState.Unchecked)
+            {
+                AddTextHelper.CanAddText = true;
+                toolStripBtnAddText.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnAddText);
+            }
+            else if (toolStripBtnAddText.CheckState == CheckState.Checked)
+            {
+                AddTextHelper.CanAddText = false;
+                toolStripBtnAddText.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void toolStripBtnAddText_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                AddTextHelper.CanAddText = true;
+            }
+            else
+            {
+                AddTextHelper.CanAddText = false;
+            }
+        }
+
+        //http://stackoverflow.com/questions/3426089/fill-combobox-with-list-of-available-fonts
+
+        //dodawania tekstu
+        private void panel1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (AddTextHelper.CanAddText)
+            {
+                Label label = new Label();
+                label.Location = new Point(e.X, e.Y);
+                Add_Text txt = new Add_Text();
+                txt.ShowDialog();
+
+                label.Text = txt.TxtToAdd;
+                label.Visible = true;
+                label.ForeColor = toolStripBtnColor.BackColor;
+                if(toolStripComboBoxFonts.SelectedText != "Select Font" && toolStripComboBoxFontSize.SelectedText != "Select font size")
+                {
+                    label.Font = new Font(toolStripComboBoxFonts.SelectedText, float.Parse(toolStripComboBoxFontSize.Text));
+                }
+                int lengthOfText = 0;
+                if (!string.IsNullOrEmpty(label.Text))
+                {
+                    lengthOfText = label.Text.Length;
+                }
+                label.Size = new System.Drawing.Size(lengthOfText * 10 * int.Parse(toolStripComboBoxFontSize.Text), lengthOfText*10);
+                panel1.Controls.Add(label);
+            }
+        }
+
+        private void toolStripBtnNewFile_Click(object sender, EventArgs e)
+        {
+
+            if (toolStripBtnNewFile.CheckState == CheckState.Unchecked)
+            {
+                toolStripBtnNewFile.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnNewFile);
+
+                //wyczyszcenie wszystkich obiektów nowe tło
+                ShapesManagercs.ShapeList.Clear();
+                panel1.BackgroundImage = null;
+                panel1.BackColor = Color.White;
+                panel1.Invalidate();
+            }
+            else if (toolStripBtnNewFile.CheckState == CheckState.Checked)
+            {
+                toolStripBtnNewFile.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void toolStripBtnOpenFile_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnOpenFile.CheckState == CheckState.Unchecked)
+            {
+                toolStripBtnOpenFile.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnOpenFile);
+
+                //wczytanie nowego obrazka
+                ShapesManagercs.ShapeList.Clear();
+                panel1.BackgroundImage = null;
+                panel1.BackColor = Color.White;
+                panel1.Invalidate();
+
+                OpenFileDialog ofd = new OpenFileDialog();
+                ofd.Title = "Open image";
+                ofd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
+                DialogResult result = ofd.ShowDialog();
+                if(result == System.Windows.Forms.DialogResult.OK)
+                {
+                    Image loadedImage = Image.FromFile(ofd.FileName);
+                    panel1.BackgroundImageLayout = ImageLayout.None;
+                    panel1.BackgroundImage = loadedImage;
+                }
+            }
+            else if (toolStripBtnOpenFile.CheckState == CheckState.Checked)
+            {
+                toolStripBtnOpenFile.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        //http://stackoverflow.com/questions/22843369/c-sharp-save-modified-image-in-panel
+        //zapisywanie do pliku
+        private void toolStripBtnSaveFile_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnSaveFile.CheckState == CheckState.Unchecked)
+            {
+                toolStripBtnSaveFile.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnSaveFile);
 
 
+                //zapisywanie pliku
+                Image imageToSave = panel1.BackgroundImage;
+
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Title = "Save image";
+                sfd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
+                DialogResult result = sfd.ShowDialog();
+                if(result == System.Windows.Forms.DialogResult.OK)
+                {
+                    Bitmap b = new Bitmap(panel1.Width,panel1.Height);
+                    panel1.DrawToBitmap(b, new Rectangle(panel1.Location.X, panel1.Location.Y, panel1.Width, panel1.Height));
+                    b.Save(sfd.FileName);
+                }
+            }
+            else if (toolStripBtnSaveFile.CheckState == CheckState.Checked)
+            {
+                toolStripBtnSaveFile.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        private void toolStripBtnCursor_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnCursor.CheckState == CheckState.Unchecked)
+            {
+                toolStripBtnCursor.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnCursor);
+            }
+            else if (toolStripBtnCursor.CheckState == CheckState.Checked)
+            {
+                toolStripBtnCursor.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        //cofanie zmian
+        private void toolStripBtnUndo_Click(object sender, EventArgs e)
+        {
+            if (ShapesManagercs.ShapeList.Count != 0)
+            {
+                Shape undoShape = ShapesManagercs.ShapeList[ShapesManagercs.ShapeList.Count - 1];
+                ShapesManagercs.ShapeListUndo.Add(undoShape);
+                ShapesManagercs.ShapeList.Remove(undoShape);
+                panel1.Invalidate();
+            }
+        }
+
+        //cofanie cofania zmian
+        private void toolStripBtnRedo_Click(object sender, EventArgs e)
+        {
+            if(ShapesManagercs.ShapeListUndo.Count != 0)
+            {
+                Shape redoShape = ShapesManagercs.ShapeListUndo[ShapesManagercs.ShapeListUndo.Count - 1];
+                ShapesManagercs.ShapeList.Add(redoShape);
+                ShapesManagercs.ShapeListUndo.Remove(redoShape);
+                panel1.Invalidate();
+            }
+        }
+
+        
     }
 }
