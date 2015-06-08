@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ScreenAppWinForms
 {
-    class Line
+    class Line:Shape
     {
+        
         private Pen linePen;
 
         public Pen LinePen
@@ -31,11 +32,30 @@ namespace ScreenAppWinForms
             set { endPoint = value; }
         }
 
-        public Line(Pen linePen,Point startPoint,Point endPoint)
+        public Line()
+        {
+            id = 1;
+        }
+
+        public Line(Pen linePen)
+        {
+            LinePen = linePen;
+            id = 1;
+        }
+
+        public Line(Pen linePen, Point startPoint)
+        {
+            LinePen = linePen;
+            StartPoint = startPoint;
+            id = 1;
+        }
+
+        public Line(Pen linePen, Point startPoint, Point endPoint)
         {
             LinePen = linePen;
             StartPoint = startPoint;
             EndPoint = endPoint;
+            id = 1;
         }
     }
 }
