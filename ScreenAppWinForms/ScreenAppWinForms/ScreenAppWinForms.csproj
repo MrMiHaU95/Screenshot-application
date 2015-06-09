@@ -65,6 +65,9 @@
       <DependentUpon>HiddenFormcs.cs</DependentUpon>
     </Compile>
     <Compile Include="Hotkey.cs" />
+    <Compile Include="ImprovedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="InfoAboutScreenshot.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="NotifyIconHelper.cs" />

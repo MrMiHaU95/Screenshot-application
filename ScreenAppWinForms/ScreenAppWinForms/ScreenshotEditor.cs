@@ -22,21 +22,39 @@ namespace ScreenAppWinForms
         private Point currentLocation;
         //private Point lineStartPosition;
         //private Point lineEndPosition;
-        private Graphics g;
+        //private Graphics g;
         private Pen pen;
         private float toolSize;
         //private List<Line> LineListToDraw = new List<Line>();
         private Line newLine;
         private Rectangle1 newRectangle;
         private Ellipse1 newEllipse;
+        private ImprovedPanel panel1;
+        private Bitmap bmp;
+        private Image imgOnBitmap;
 
         public ScreenshotEditor()
         {
             InitializeComponent();
-            g = panel1.CreateGraphics();
+            panel1 = new ImprovedPanel();
+            panel1.Location = new Point(12, 52);
+            panel1.Width = 1880;
+            panel1.Height = 930;
+            panel1.Visible = true;
+            panel1.MouseClick += panel1_MouseClick;
+            panel1.MouseDown += panel1_MouseDown;
+            panel1.MouseMove += panel1_MouseMove;
+            panel1.MouseUp += panel1_MouseUp;
+            panel1.Paint += panel1_Paint;
+            this.Controls.Add(panel1);
+
+
+            //g = panel1.CreateGraphics();
             this.DoubleBuffered = true;
             toolStripComboBoxToolSize.SelectedIndex = 0;
             toolStripComboBoxFontSize.SelectedIndex = 0;
+
+            bmp = new Bitmap(panel1.Width, panel1.Height);
         }
 
        //http://stackoverflow.com/questions/2073519/uploading-to-imgur-com
@@ -52,6 +70,8 @@ namespace ScreenAppWinForms
             if (!string.IsNullOrEmpty(InfoAboutScreenshot.FolderPath))
             {
                 panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                //bmp = new Bitmap(Image.FromFile(InfoAboutScreenshot.FolderPath));
+                //imgOnBitmap = Image.FromFile(InfoAboutScreenshot.FolderPath);
             }
 
             toolStripBtnColor.BackColor = Color.Black;
@@ -115,7 +135,7 @@ namespace ScreenAppWinForms
                     //g.DrawLine(pen, startlocation, currentLocation);
 
                     startlocation = new Point(e.X, e.Y);
-                    this.Invalidate();
+                    panel1.Invalidate();
 
 
                 }
@@ -131,6 +151,10 @@ namespace ScreenAppWinForms
                     //lineEndPosition = new Point(e.X, e.Y);
                     newLine.EndPoint = new Point(e.X, e.Y);
                     panel1.Invalidate();
+                    //if (imgOnBitmap != null)
+                    //{
+                    //    bmp = new Bitmap(imgOnBitmap);
+                    //}
                     
                 }
                 else if(DrawingRectangleHelper.CanDrawRectangle)
@@ -199,15 +223,15 @@ namespace ScreenAppWinForms
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            //g = e.Graphics; 
             if (canDraw)
             {
                 if(penTool)
                 {
+                    
                     //dlaczego to nie działą 
                     //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
                     //g.DrawLine(pen, startlocation, currentLocation);
-                    Graphics g = e.Graphics;
+                    Graphics g = Graphics.FromImage(bmp);
                     pen = new Pen(toolStripBtnColor.BackColor, toolSize);
                     g.DrawLine(pen, startlocation, currentLocation);
                     
@@ -217,51 +241,58 @@ namespace ScreenAppWinForms
                     //Graphics g = e.Graphics;
                     //Pen p = new Pen(toolStripBtnColor.BackColor, toolSize);
                     //g.DrawLine(p, startlocation, currentLocation);
-                    Graphics g = e.Graphics;
+                    Graphics g = Graphics.FromImage(bmp);
+                    g.Clear(Color.Transparent);
                     //g.DrawLine(new Pen(toolStripBtnColor.BackColor, toolSize), lineStartPosition, lineEndPosition);
                     g.DrawLine(newLine.LinePen, newLine.StartPoint, newLine.EndPoint);
+                    
                 }
                 else if(DrawingRectangleHelper.CanDrawRectangle)
                 {
-
+                    Graphics g = Graphics.FromImage(bmp);
+                    g.Clear(Color.Transparent);
                     g.DrawRectangle(newRectangle.RectPen, newRectangle.StartPosition.X, newRectangle.StartPosition.Y, newRectangle.Width, newRectangle.Height);
                 }
                 else if(DrawEllipseHelper.CanDrawEllipse)
                 {
+                    Graphics g = Graphics.FromImage(bmp);
+                    g.Clear(Color.Transparent);
                     g.DrawEllipse(newEllipse.EllipsePen, newEllipse.StartPosition.X, newEllipse.StartPosition.Y, newEllipse.Width, newEllipse.Height);
                 }
+
+                
             }
-            Graphics gr = panel1.CreateGraphics();
-            //foreach (Line l in ShapesManagercs.ShapeList)
-            //{
-            //    gr.DrawLine(l.LinePen, l.StartPoint, l.EndPoint);
-            //}
-            //foreach(Rectangle1 r in ShapesManagercs.ShapeList)
-            //{
-            //    g.DrawRectangle(r.RectPen, r.StartPosition.X, r.StartPosition.Y, r.Width, r.Height);
-            //}
-            
-            foreach(Shape s in ShapesManagercs.ShapeList)
+
+
+
+
+            foreach (Shape s in ShapesManagercs.ShapeList)
             {
                 //linia
-                if(s.id == 1)
+                if (s.id == 1)
                 {
+                    Graphics gr = Graphics.FromImage(bmp);
                     Line l = s as Line;
                     gr.DrawLine(l.LinePen, l.StartPoint, l.EndPoint);
                 }
-                    //prostokąt
-                else if(s.id == 2)
+                //prostokąt
+                else if (s.id == 2)
                 {
+                    Graphics gr = Graphics.FromImage(bmp);
                     Rectangle1 r = s as Rectangle1;
-                    g.DrawRectangle(r.RectPen, r.StartPosition.X, r.StartPosition.Y, r.Width, r.Height);
+                    gr.DrawRectangle(r.RectPen, r.StartPosition.X, r.StartPosition.Y, r.Width, r.Height);
                 }
-                    //elipsa
-                else if(s.id == 3)
+                //elipsa
+                else if (s.id == 3)
                 {
+                    Graphics gr = Graphics.FromImage(bmp);
                     Ellipse1 ee = s as Ellipse1;
-                    g.DrawEllipse(ee.EllipsePen, ee.StartPosition.X, ee.StartPosition.Y, ee.Width, ee.Height);
+                    gr.DrawEllipse(ee.EllipsePen, ee.StartPosition.X, ee.StartPosition.Y, ee.Width, ee.Height);
                 }
             }
+
+
+            e.Graphics.DrawImage(bmp, Point.Empty);
         }
 
         private void toolStripBtnColor_Click(object sender, EventArgs e)
@@ -305,10 +336,6 @@ namespace ScreenAppWinForms
                 DrawingLineHelper.CanDrawLine = false;
                 toolStripBtnDrawLine.CheckState = CheckState.Unchecked;
             }
-        }
-
-        private void panel1_MouseEnter(object sender, EventArgs e)
-        {
         }
 
         private void toolStripBtnPenTool_Click(object sender, EventArgs e)
@@ -480,25 +507,34 @@ namespace ScreenAppWinForms
         {
             if (AddTextHelper.CanAddText)
             {
-                Label label = new Label();
-                label.Location = new Point(e.X, e.Y);
-                Add_Text txt = new Add_Text();
-                txt.ShowDialog();
-
-                label.Text = txt.TxtToAdd;
-                label.Visible = true;
-                label.ForeColor = toolStripBtnColor.BackColor;
-                if(toolStripComboBoxFonts.SelectedText != "Select Font" && toolStripComboBoxFontSize.SelectedText != "Select font size")
+                if ((toolStripComboBoxFonts.Text != "" && toolStripComboBoxFonts.Text != "Select Font") && toolStripComboBoxFontSize.Text != "Select font size")
                 {
+                    Label label = new Label();
+                    label.Location = new Point(e.X, e.Y);
+                    Add_Text txt = new Add_Text();
+                    txt.ShowDialog();
+                    label.Text = txt.TxtToAdd;
+                    label.Visible = true;
+                    label.BackColor = Color.Transparent;
+                    label.ForeColor = toolStripBtnColor.BackColor;
                     label.Font = new Font(toolStripComboBoxFonts.SelectedText, float.Parse(toolStripComboBoxFontSize.Text));
+
+                    int lengthOfText = 0;
+                    if (!string.IsNullOrEmpty(label.Text))
+                    {
+                        lengthOfText = label.Text.Length;
+                    }
+                    if(lengthOfText < 3)
+                    {
+                        lengthOfText *= 4;
+                    }
+                    label.Size = new System.Drawing.Size(lengthOfText * 10 * int.Parse(toolStripComboBoxFontSize.Text), lengthOfText * 10);
+                    panel1.Controls.Add(label);
                 }
-                int lengthOfText = 0;
-                if (!string.IsNullOrEmpty(label.Text))
+                else
                 {
-                    lengthOfText = label.Text.Length;
+                    MessageBox.Show("Select font size and font family first", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                label.Size = new System.Drawing.Size(lengthOfText * 10 * int.Parse(toolStripComboBoxFontSize.Text), lengthOfText*10);
-                panel1.Controls.Add(label);
             }
         }
 
@@ -514,6 +550,7 @@ namespace ScreenAppWinForms
                 ShapesManagercs.ShapeList.Clear();
                 panel1.BackgroundImage = null;
                 panel1.BackColor = Color.White;
+                bmp = new Bitmap(panel1.Width, panel1.Height);
                 panel1.Invalidate();
             }
             else if (toolStripBtnNewFile.CheckState == CheckState.Checked)
@@ -569,11 +606,21 @@ namespace ScreenAppWinForms
                 sfd.Title = "Save image";
                 sfd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
                 DialogResult result = sfd.ShowDialog();
-                if(result == System.Windows.Forms.DialogResult.OK)
+                if (result == System.Windows.Forms.DialogResult.OK)
                 {
-                    Bitmap b = new Bitmap(panel1.Width,panel1.Height);
-                    panel1.DrawToBitmap(b, new Rectangle(panel1.Location.X, panel1.Location.Y, panel1.Width, panel1.Height));
-                    b.Save(sfd.FileName);
+                    //jesli jest tło i kształty
+                    if (imageToSave != null)
+                    {
+                        using (Graphics g = Graphics.FromImage(imageToSave))
+                        {
+                            g.DrawImage(bmp, 0, 0);
+                        }
+                        imageToSave.Save(sfd.FileName);
+                    }
+                    else
+                    {
+                        bmp.Save(sfd.FileName);
+                    }
                 }
             }
             else if (toolStripBtnSaveFile.CheckState == CheckState.Checked)
@@ -603,6 +650,8 @@ namespace ScreenAppWinForms
                 Shape undoShape = ShapesManagercs.ShapeList[ShapesManagercs.ShapeList.Count - 1];
                 ShapesManagercs.ShapeListUndo.Add(undoShape);
                 ShapesManagercs.ShapeList.Remove(undoShape);
+                Graphics g = Graphics.FromImage(bmp);
+                g.Clear(Color.Transparent);
                 panel1.Invalidate();
             }
         }
@@ -615,6 +664,8 @@ namespace ScreenAppWinForms
                 Shape redoShape = ShapesManagercs.ShapeListUndo[ShapesManagercs.ShapeListUndo.Count - 1];
                 ShapesManagercs.ShapeList.Add(redoShape);
                 ShapesManagercs.ShapeListUndo.Remove(redoShape);
+                Graphics g = Graphics.FromImage(bmp);
+                g.Clear(Color.Transparent);
                 panel1.Invalidate();
             }
         }
