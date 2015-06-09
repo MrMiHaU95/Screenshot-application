@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace ScreenAppWinForms
 {
+    /// <summary>
+    /// zawiera listę kształtów już narysowanych przez usera i który muszą być rysowane przy każdym paint evencie 
+    /// oraz drugą listę zawierającą listę kształtów redo czyli już cofniętych
+    /// </summary>
     static class ShapesManagercs
     {
         private static List<Shape> shapeList = new List<Shape>();

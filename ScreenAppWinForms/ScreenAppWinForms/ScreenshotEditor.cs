@@ -13,29 +13,21 @@ namespace ScreenAppWinForms
 {
     public partial class ScreenshotEditor : Form
     {
-        private bool canDraw;
-        private bool penTool;
-        //private bool drawLine;
-        //private bool drawRectangle;
-        //private bool drawEllipse;
         private Point startlocation = new Point(0, 0);
         private Point currentLocation;
-        //private Point lineStartPosition;
-        //private Point lineEndPosition;
-        //private Graphics g;
         private Pen pen;
         private float toolSize;
-        //private List<Line> LineListToDraw = new List<Line>();
         private Line newLine;
         private Rectangle1 newRectangle;
         private Ellipse1 newEllipse;
         private ImprovedPanel panel1;
         private Bitmap bmp;
-        private Image imgOnBitmap;
 
         public ScreenshotEditor()
         {
             InitializeComponent();
+
+            #region inicjalizacja panela i comboboxa
             panel1 = new ImprovedPanel();
             panel1.Location = new Point(12, 52);
             panel1.Width = 1880;
@@ -48,54 +40,29 @@ namespace ScreenAppWinForms
             panel1.Paint += panel1_Paint;
             panel1.BackColor = Color.White;
             this.Controls.Add(panel1);
-
-
-            //g = panel1.CreateGraphics();
             this.DoubleBuffered = true;
             toolStripComboBoxToolSize.SelectedIndex = 0;
             toolStripComboBoxFontSize.SelectedIndex = 0;
-
             bmp = new Bitmap(panel1.Width, panel1.Height);
+            #endregion 
         }
-
-       //http://stackoverflow.com/questions/2073519/uploading-to-imgur-com
-
-        //http://www.codeproject.com/Tips/811495/Simple-Paint-Application-in-Csharp
-
-        //http://www.codeproject.com/Articles/22776/WPF-DrawTools
-
-        
-
+        #region event handlery Formsa
         private void ScreenshotEditor_Load(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(InfoAboutScreenshot.FolderPath))
             {
                 panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
-                //bmp = new Bitmap(Image.FromFile(InfoAboutScreenshot.FolderPath));
-                //imgOnBitmap = Image.FromFile(InfoAboutScreenshot.FolderPath);
             }
-
             toolStripBtnColor.BackColor = Color.Black;
-
             LoadFonts();
-
         }
+        #endregion
 
-        public void LoadFonts()
-        {
-            toolStripComboBoxFonts.Items.Add("Select Font");
-            foreach (FontFamily font in System.Drawing.FontFamily.Families)
-            {
-                toolStripComboBoxFonts.Items.Add(font.Name);
-            }
-            
-        }
-
+        #region event handlery panelu
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
-            canDraw = true;
+            DrawingHelper.CanDraw = true;
             startlocation = new Point(e.X, e.Y);
-            //lineStartPosition = new Point(e.X, e.Y);
             
             if(DrawingLineHelper.CanDrawLine)
             {
@@ -115,65 +82,35 @@ namespace ScreenAppWinForms
                 newEllipse.EllipsePen = new Pen(toolStripBtnColor.BackColor, toolSize);
             }
         }
-
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (penTool)
-            //{
-            //    Cursor lineCursor = new Cursor(@"Cursors\Pencil.cur");
-            //    Cursor.Current = lineCursor;
-            //}
-
-            if (canDraw)
+            if (DrawingHelper.CanDraw)
             {
-                if (penTool)
+                if (PenToolHelper.CanUsePenTool)
                 {
                     Cursor penToolCursor = new Cursor(@"Cursors\Pencil.cur");
                     Cursor.Current = penToolCursor;
-
                     currentLocation = new Point(e.X, e.Y);
                     //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
                     //g.DrawLine(pen, startlocation, currentLocation);
-
                     startlocation = new Point(e.X, e.Y);
                     panel1.Invalidate();
-
-
                 }
                 else if(DrawingLineHelper.CanDrawLine)
                 {
                     Cursor drawLineCursor = new Cursor(@"Cursors\Line.cur");
                     Cursor.Current = drawLineCursor;
-
-                    //currentLocation = new Point(e.X, e.Y);
-                    //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
-                    //g.DrawLine(pen, startlocation, currentLocation);
-
-                    //lineEndPosition = new Point(e.X, e.Y);
                     newLine.EndPoint = new Point(e.X, e.Y);
                     panel1.Invalidate();
-                    //if (imgOnBitmap != null)
-                    //{
-                    //    bmp = new Bitmap(imgOnBitmap);
-                    //}
                     
                 }
                 else if(DrawingRectangleHelper.CanDrawRectangle)
                 {
                     Cursor drawRectangleCursor = new Cursor(@"Cursors\Rectangle.cur");
                     Cursor.Current = drawRectangleCursor;
-
                     newRectangle.CurrentPosition = new Point(e.X, e.Y);
-
-                    int x = Math.Min(newRectangle.StartPosition.X, newRectangle.CurrentPosition.X);
-                    int y = Math.Min(newRectangle.StartPosition.Y, newRectangle.CurrentPosition.Y);
-
-                    //newRectangle.StartPosition = new Point(x, y);
-
-                    int width = Math.Abs(newRectangle.CurrentPosition.X - newRectangle.StartPosition.X);
-                    int height = Math.Abs(newRectangle.CurrentPosition.Y - newRectangle.StartPosition.Y);
-                    newRectangle.Width = width;
-                    newRectangle.Height = height;
+                    newRectangle.Width = Math.Abs(newRectangle.CurrentPosition.X - newRectangle.StartPosition.X);
+                    newRectangle.Height = Math.Abs(newRectangle.CurrentPosition.Y - newRectangle.StartPosition.Y);
                     panel1.Invalidate();
 
                 }
@@ -181,32 +118,19 @@ namespace ScreenAppWinForms
                 {
                     Cursor drawEllipseCursor = new Cursor(@"Cursors\Ellipse.cur");
                     Cursor.Current = drawEllipseCursor;
-
                     newEllipse.Endposition = new Point(e.X, e.Y);
-
                     newEllipse.Width = Math.Abs(newEllipse.Endposition.X - newEllipse.StartPosition.X);
                     newEllipse.Height = Math.Abs(newEllipse.Endposition.Y - newEllipse.StartPosition.Y);
-
                     panel1.Invalidate();
                 }
-                //else
-                //{
-                //    Cursor.Current = Cursors.Default;
-                //}
             }
-
-            //panel1.Refresh();
-            
         }
 
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
-            canDraw = false;
-
+            DrawingHelper.CanDraw = false;
             if (DrawingLineHelper.CanDrawLine)
             {
-                //LineListToDraw.Add(new Line(new Pen(toolStripBtnColor.BackColor, toolSize), lineStartPosition, lineEndPosition));
-                //LineListToDraw.Add(newLine);
                 ShapesManagercs.ShapeList.Add(newLine);
                 newLine = new Line();
             }
@@ -221,32 +145,25 @@ namespace ScreenAppWinForms
                 newEllipse = new Ellipse1();
             }
         }
-
+        
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-            if (canDraw)
+            if (DrawingHelper.CanDraw)
             {
-                if(penTool)
+                if (PenToolHelper.CanUsePenTool)
                 {
-                    
                     //dlaczego to nie działą 
                     //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
                     //g.DrawLine(pen, startlocation, currentLocation);
                     Graphics g = Graphics.FromImage(bmp);
                     pen = new Pen(toolStripBtnColor.BackColor, toolSize);
-                    g.DrawLine(pen, startlocation, currentLocation);
-                    
+                    g.DrawLine(pen, startlocation, currentLocation);                
                 }
                 else if (DrawingLineHelper.CanDrawLine)
                 {
-                    //Graphics g = e.Graphics;
-                    //Pen p = new Pen(toolStripBtnColor.BackColor, toolSize);
-                    //g.DrawLine(p, startlocation, currentLocation);
                     Graphics g = Graphics.FromImage(bmp);
                     g.Clear(Color.Transparent);
-                    //g.DrawLine(new Pen(toolStripBtnColor.BackColor, toolSize), lineStartPosition, lineEndPosition);
                     g.DrawLine(newLine.LinePen, newLine.StartPoint, newLine.EndPoint);
-                    
                 }
                 else if(DrawingRectangleHelper.CanDrawRectangle)
                 {
@@ -260,13 +177,8 @@ namespace ScreenAppWinForms
                     g.Clear(Color.Transparent);
                     g.DrawEllipse(newEllipse.EllipsePen, newEllipse.StartPosition.X, newEllipse.StartPosition.Y, newEllipse.Width, newEllipse.Height);
                 }
-
-                
             }
-
-
-
-
+            //rysowanie kształtów już narysowanych przez użytkownika
             foreach (Shape s in ShapesManagercs.ShapeList)
             {
                 //linia
@@ -291,218 +203,11 @@ namespace ScreenAppWinForms
                     gr.DrawEllipse(ee.EllipsePen, ee.StartPosition.X, ee.StartPosition.Y, ee.Width, ee.Height);
                 }
             }
-
-
             e.Graphics.DrawImage(bmp, Point.Empty);
         }
-
-        private void toolStripBtnColor_Click(object sender, EventArgs e)
-        {
-            colorDialog1.ShowDialog();
-
-            toolStripBtnColor.BackColor = colorDialog1.Color;
-        }
-
-        private void toolStripComboBoxToolSize_TextChanged(object sender, EventArgs e)
-        {
-            float result;
-            if(toolStripComboBoxToolSize.Text != "Select size")
-            {
-                if (float.TryParse(toolStripComboBoxToolSize.Text,out result))
-                {
-                    toolSize = result;
-                }
-                else
-                {
-                    MessageBox.Show("invalid tool size");
-                    toolStripComboBoxToolSize.Text = "Select size";
-                }
-            }
-            
-        }
-
-        private void toolStripBtnDrawLine_Click(object sender, EventArgs e)
-        {
-            if (toolStripBtnDrawLine.CheckState == CheckState.Unchecked)
-            {
-                //drawLine = true;
-                DrawingLineHelper.CanDrawLine = true;
-                newLine = new Line();
-                toolStripBtnDrawLine.CheckState = CheckState.Checked;
-                UncheckRestOfButtons(toolStripBtnDrawLine);
-            }
-            else if (toolStripBtnDrawLine.CheckState == CheckState.Checked)
-            {
-                //drawLine = false;
-                DrawingLineHelper.CanDrawLine = false;
-                toolStripBtnDrawLine.CheckState = CheckState.Unchecked;
-            }
-        }
-
-        private void toolStripBtnPenTool_Click(object sender, EventArgs e)
-        {
-            if (toolStripBtnPenTool.CheckState == CheckState.Unchecked)
-            {
-                penTool = true;
-                toolStripBtnPenTool.CheckState = CheckState.Checked;
-                UncheckRestOfButtons(toolStripBtnPenTool);
-            }
-            else if (toolStripBtnPenTool.CheckState == CheckState.Checked)
-            {
-                penTool = false;
-                toolStripBtnPenTool.CheckState = CheckState.Unchecked;
-            }
-        }
-
-        public void UncheckRestOfButtons(ToolStripButton checkedButton)
-        {
-            List<ToolStripButton> Buttons = new List<ToolStripButton>();
-            Buttons.Add(toolStripBtnDrawLine);
-            Buttons.Add(toolStripBtnDrawRectangle);
-            Buttons.Add(toolStripBtnDrawEllipse);
-            Buttons.Add(toolStripBtnPenTool);
-            Buttons.Add(toolStripBtnAddText);
-            Buttons.Add(toolStripBtnNewFile);
-            Buttons.Add(toolStripBtnOpenFile);
-            Buttons.Add(toolStripBtnSaveFile);
-            Buttons.Add(toolStripBtnCursor);
-            Buttons.Add(toolStripBtnUndo);
-            Buttons.Add(toolStripBtnRedo);
-            Buttons.Add(toolStripBtnPrint);
-            Buttons.Add(toolStripBtnUploadToImgur);
-            Buttons.Add(toolStripBtnInfo);
-
-            foreach(ToolStripButton btn in Buttons)
-            {
-                if(btn != checkedButton)
-                {
-                    btn.CheckState = CheckState.Unchecked;
-                }
-            }
-        }
-
-        private void toolStripBtnDrawRectangle_Click(object sender, EventArgs e)
-        {
-            if (toolStripBtnDrawRectangle.CheckState == CheckState.Unchecked)
-            {
-                //drawRectangle = true;
-                DrawingRectangleHelper.CanDrawRectangle = true;
-                toolStripBtnDrawRectangle.CheckState = CheckState.Checked;
-                UncheckRestOfButtons(toolStripBtnDrawRectangle);
-            }
-            else if (toolStripBtnDrawRectangle.CheckState == CheckState.Checked)
-            {
-                //drawRectangle = false;
-                DrawingRectangleHelper.CanDrawRectangle = false;
-                toolStripBtnDrawRectangle.CheckState = CheckState.Unchecked;
-            }
-        }
-
-        private void toolStripBtnDrawEllipse_Click(object sender, EventArgs e)
-        {
-            if (toolStripBtnDrawEllipse.CheckState == CheckState.Unchecked)
-            {
-                //drawEllipse = true;
-                DrawEllipseHelper.CanDrawEllipse = true;
-                toolStripBtnDrawEllipse.CheckState = CheckState.Checked;
-                UncheckRestOfButtons(toolStripBtnDrawEllipse);
-            }
-            else if (toolStripBtnDrawEllipse.CheckState == CheckState.Checked)
-            {
-                //drawEllipse = false;
-                DrawEllipseHelper.CanDrawEllipse = false;
-                toolStripBtnDrawEllipse.CheckState = CheckState.Unchecked;
-            }
-        }
-
-        private void toolStripBtnDrawLine_CheckStateChanged(object sender, EventArgs e)
-        {
-            ToolStripButton btn = (ToolStripButton)sender;
-            if(btn.CheckState == CheckState.Checked)
-            {
-                DrawingLineHelper.CanDrawLine = true;
-                UncheckRestOfButtons(toolStripBtnDrawLine);
-            }
-            else
-            {
-                DrawingLineHelper.CanDrawLine = false;
-            }
-        }
-
-        private void toolStripBtnDrawRectangle_CheckStateChanged(object sender, EventArgs e)
-        {
-            ToolStripButton btn = (ToolStripButton)sender;
-            if (btn.CheckState == CheckState.Checked)
-            {
-                //drawRectangle = true;
-                DrawingRectangleHelper.CanDrawRectangle = true;
-                UncheckRestOfButtons(toolStripBtnDrawRectangle);
-            }
-            else
-            {
-                //drawRectangle = false;
-                DrawingRectangleHelper.CanDrawRectangle = false;
-            }
-        }
-
-        private void toolStripBtnDrawEllipse_CheckStateChanged(object sender, EventArgs e)
-        {
-            ToolStripButton btn = (ToolStripButton)sender;
-            if (btn.CheckState == CheckState.Checked)
-            {
-                //drawEllipse = true;
-                DrawEllipseHelper.CanDrawEllipse = true;
-            }
-            else
-            {
-                //drawEllipse = false;
-                DrawEllipseHelper.CanDrawEllipse = false;
-            }
-        }
-
-        private void toolStripBtnPenTool_CheckStateChanged(object sender, EventArgs e)
-        {
-            ToolStripButton btn = (ToolStripButton)sender;
-            if (btn.CheckState == CheckState.Checked)
-            {
-                penTool = true;
-            }
-            else
-            {
-                penTool = false;
-            }
-        }
-
-        private void toolStripBtnAddText_Click(object sender, EventArgs e)
-        {
-            if (toolStripBtnAddText.CheckState == CheckState.Unchecked)
-            {
-                AddTextHelper.CanAddText = true;
-                toolStripBtnAddText.CheckState = CheckState.Checked;
-                UncheckRestOfButtons(toolStripBtnAddText);
-            }
-            else if (toolStripBtnAddText.CheckState == CheckState.Checked)
-            {
-                AddTextHelper.CanAddText = false;
-                toolStripBtnAddText.CheckState = CheckState.Unchecked;
-            }
-        }
-
-        private void toolStripBtnAddText_CheckStateChanged(object sender, EventArgs e)
-        {
-            ToolStripButton btn = (ToolStripButton)sender;
-            if (btn.CheckState == CheckState.Checked)
-            {
-                AddTextHelper.CanAddText = true;
-            }
-            else
-            {
-                AddTextHelper.CanAddText = false;
-            }
-        }
-
-        //http://stackoverflow.com/questions/3426089/fill-combobox-with-list-of-available-fonts
-
+        
+        
+        
         //dodawania tekstu
         private void panel1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -538,16 +243,169 @@ namespace ScreenAppWinForms
                 }
             }
         }
+        #endregion
 
+        #region event handlery ToolStripButton
+        private void toolStripBtnColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.ShowDialog();
+            toolStripBtnColor.BackColor = colorDialog1.Color;
+        }
+        private void toolStripComboBoxToolSize_TextChanged(object sender, EventArgs e)
+        {
+            float result;
+            if (toolStripComboBoxToolSize.Text != "Select size")
+            {
+                if (float.TryParse(toolStripComboBoxToolSize.Text, out result))
+                {
+                    toolSize = result;
+                }
+                else
+                {
+                    MessageBox.Show("invalid tool size");
+                    toolStripComboBoxToolSize.Text = "Select size";
+                }
+            }
+        }
+        private void toolStripBtnDrawLine_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnDrawLine.CheckState == CheckState.Unchecked)
+            {
+                DrawingLineHelper.CanDrawLine = true;
+                newLine = new Line();
+                toolStripBtnDrawLine.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnDrawLine);
+            }
+            else if (toolStripBtnDrawLine.CheckState == CheckState.Checked)
+            {
+                DrawingLineHelper.CanDrawLine = false;
+                toolStripBtnDrawLine.CheckState = CheckState.Unchecked;
+            }
+        }
+        private void toolStripBtnPenTool_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnPenTool.CheckState == CheckState.Unchecked)
+            {
+                PenToolHelper.CanUsePenTool = true;
+                toolStripBtnPenTool.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnPenTool);
+            }
+            else if (toolStripBtnPenTool.CheckState == CheckState.Checked)
+            {
+                PenToolHelper.CanUsePenTool = false;
+                toolStripBtnPenTool.CheckState = CheckState.Unchecked;
+            }
+        }
+        private void toolStripBtnDrawRectangle_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnDrawRectangle.CheckState == CheckState.Unchecked)
+            {
+                DrawingRectangleHelper.CanDrawRectangle = true;
+                toolStripBtnDrawRectangle.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnDrawRectangle);
+            }
+            else if (toolStripBtnDrawRectangle.CheckState == CheckState.Checked)
+            {
+                DrawingRectangleHelper.CanDrawRectangle = false;
+                toolStripBtnDrawRectangle.CheckState = CheckState.Unchecked;
+            }
+        }
+        private void toolStripBtnDrawEllipse_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnDrawEllipse.CheckState == CheckState.Unchecked)
+            {
+                DrawEllipseHelper.CanDrawEllipse = true;
+                toolStripBtnDrawEllipse.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnDrawEllipse);
+            }
+            else if (toolStripBtnDrawEllipse.CheckState == CheckState.Checked)
+            {
+                DrawEllipseHelper.CanDrawEllipse = false;
+                toolStripBtnDrawEllipse.CheckState = CheckState.Unchecked;
+            }
+        }
+        private void toolStripBtnDrawLine_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                DrawingLineHelper.CanDrawLine = true;
+                UncheckRestOfButtons(toolStripBtnDrawLine);
+            }
+            else
+            {
+                DrawingLineHelper.CanDrawLine = false;
+            }
+        }
+        private void toolStripBtnDrawRectangle_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                DrawingRectangleHelper.CanDrawRectangle = true;
+                UncheckRestOfButtons(toolStripBtnDrawRectangle);
+            }
+            else
+            {
+                DrawingRectangleHelper.CanDrawRectangle = false;
+            }
+        }
+        private void toolStripBtnDrawEllipse_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                DrawEllipseHelper.CanDrawEllipse = true;
+            }
+            else
+            {
+                DrawEllipseHelper.CanDrawEllipse = false;
+            }
+        }
+        private void toolStripBtnPenTool_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                PenToolHelper.CanUsePenTool = true;
+            }
+            else
+            {
+                PenToolHelper.CanUsePenTool = false;
+            }
+        }
+        private void toolStripBtnAddText_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnAddText.CheckState == CheckState.Unchecked)
+            {
+                AddTextHelper.CanAddText = true;
+                toolStripBtnAddText.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnAddText);
+            }
+            else if (toolStripBtnAddText.CheckState == CheckState.Checked)
+            {
+                AddTextHelper.CanAddText = false;
+                toolStripBtnAddText.CheckState = CheckState.Unchecked;
+            }
+        }
+        private void toolStripBtnAddText_CheckStateChanged(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            if (btn.CheckState == CheckState.Checked)
+            {
+                AddTextHelper.CanAddText = true;
+            }
+            else
+            {
+                AddTextHelper.CanAddText = false;
+            }
+        }
         private void toolStripBtnNewFile_Click(object sender, EventArgs e)
         {
-
             if (toolStripBtnNewFile.CheckState == CheckState.Unchecked)
             {
                 toolStripBtnNewFile.CheckState = CheckState.Checked;
                 UncheckRestOfButtons(toolStripBtnNewFile);
-
-                //wyczyszcenie wszystkich obiektów nowe tło
                 NewEmptyDrawingSpace();
             }
             else if (toolStripBtnNewFile.CheckState == CheckState.Checked)
@@ -555,14 +413,12 @@ namespace ScreenAppWinForms
                 toolStripBtnNewFile.CheckState = CheckState.Unchecked;
             }
         }
-
         private void toolStripBtnOpenFile_Click(object sender, EventArgs e)
         {
             if (toolStripBtnOpenFile.CheckState == CheckState.Unchecked)
             {
                 toolStripBtnOpenFile.CheckState = CheckState.Checked;
                 UncheckRestOfButtons(toolStripBtnOpenFile);
-
                 OpenNewImage();
             }
             else if (toolStripBtnOpenFile.CheckState == CheckState.Checked)
@@ -570,8 +426,6 @@ namespace ScreenAppWinForms
                 toolStripBtnOpenFile.CheckState = CheckState.Unchecked;
             }
         }
-
-        //http://stackoverflow.com/questions/22843369/c-sharp-save-modified-image-in-panel
         //zapisywanie do pliku
         private void toolStripBtnSaveFile_Click(object sender, EventArgs e)
         {
@@ -579,8 +433,6 @@ namespace ScreenAppWinForms
             {
                 toolStripBtnSaveFile.CheckState = CheckState.Checked;
                 UncheckRestOfButtons(toolStripBtnSaveFile);
-
-
                 SaveDrawingsTo();
             }
             else if (toolStripBtnSaveFile.CheckState == CheckState.Checked)
@@ -588,7 +440,6 @@ namespace ScreenAppWinForms
                 toolStripBtnSaveFile.CheckState = CheckState.Unchecked;
             }
         }
-
         private void toolStripBtnCursor_Click(object sender, EventArgs e)
         {
             if (toolStripBtnCursor.CheckState == CheckState.Unchecked)
@@ -601,19 +452,14 @@ namespace ScreenAppWinForms
                 toolStripBtnCursor.CheckState = CheckState.Unchecked;
             }
         }
-
-        //cofanie zmian
         private void toolStripBtnUndo_Click(object sender, EventArgs e)
         {
             Undo();
         }
-
-        //cofanie cofania zmian
         private void toolStripBtnRedo_Click(object sender, EventArgs e)
         {
             Redo();
         }
-
         private void toolStripBtnUploadToImgur_Click(object sender, EventArgs e)
         {
             if (toolStripBtnUploadToImgur.CheckState == CheckState.Unchecked)
@@ -627,6 +473,7 @@ namespace ScreenAppWinForms
                 toolStripBtnUploadToImgur.CheckState = CheckState.Unchecked;
             }
         }
+        #endregion
 
         #region event handlery ToolStripMenu
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -657,10 +504,53 @@ namespace ScreenAppWinForms
         {
             UploadToImgurHandler();
         }
-        
         #endregion
 
-        #region kilka metod z refaktoringu ToolStripMenuItem i ToolStripButtons
+        #region metody z refactoringu ToolStripMenuItem i ToolStripButtons
+        /// <summary>
+        /// Wczytuje czcionki zapisane na dysku
+        /// </summary>
+        public void LoadFonts()
+        {
+            toolStripComboBoxFonts.Items.Add("Select Font");
+            foreach (FontFamily font in System.Drawing.FontFamily.Families)
+            {
+                toolStripComboBoxFonts.Items.Add(font.Name);
+            }
+        }
+        /// <summary>
+        /// Odznacza wszystkie przyciski po za podanym służy to temu aby w danym momencie tylko jeden z nich był aktywny
+        /// </summary>
+        /// <param name="checkedButton">przycisk który ma pozostać zaznaczony</param>
+        public void UncheckRestOfButtons(ToolStripButton checkedButton)
+        {
+            List<ToolStripButton> Buttons = new List<ToolStripButton>();
+            Buttons.Add(toolStripBtnDrawLine);
+            Buttons.Add(toolStripBtnDrawRectangle);
+            Buttons.Add(toolStripBtnDrawEllipse);
+            Buttons.Add(toolStripBtnPenTool);
+            Buttons.Add(toolStripBtnAddText);
+            Buttons.Add(toolStripBtnNewFile);
+            Buttons.Add(toolStripBtnOpenFile);
+            Buttons.Add(toolStripBtnSaveFile);
+            Buttons.Add(toolStripBtnCursor);
+            Buttons.Add(toolStripBtnUndo);
+            Buttons.Add(toolStripBtnRedo);
+            Buttons.Add(toolStripBtnPrint);
+            Buttons.Add(toolStripBtnUploadToImgur);
+            Buttons.Add(toolStripBtnInfo);
+
+            foreach (ToolStripButton btn in Buttons)
+            {
+                if (btn != checkedButton)
+                {
+                    btn.CheckState = CheckState.Unchecked;
+                }
+            }
+        }
+        /// <summary>
+        /// czysczenie przestrzenie do rysowania oraz obrazka tła
+        /// </summary>
         private void NewEmptyDrawingSpace()
         {
             ShapesManagercs.ShapeList.Clear();
@@ -714,6 +604,9 @@ namespace ScreenAppWinForms
                 }
             }
         }
+        /// <summary>
+        /// Cofanie operacji tylko rysowanie linii, prostokąta lub elipsy
+        /// </summary>
         private void Undo()
         {
             if (ShapesManagercs.ShapeList.Count != 0)
@@ -726,6 +619,9 @@ namespace ScreenAppWinForms
                 panel1.Invalidate();
             }
         }
+        /// <summary>
+        /// ponowianie operacji tylko rysowanie linii, prostokąta lub elipsy
+        /// </summary>
         private void Redo()
         {
             if (ShapesManagercs.ShapeListUndo.Count != 0)
@@ -759,23 +655,5 @@ namespace ScreenAppWinForms
             }
         }
         #endregion
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
     }
 }

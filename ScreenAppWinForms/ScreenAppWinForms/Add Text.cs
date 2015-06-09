@@ -31,7 +31,7 @@ namespace ScreenAppWinForms
             {
                 TxtToAdd = textBox1.Text;
             }
-            this.Hide();
+            this.Close();
         }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="ButtonsHelper.cs" />
     <Compile Include="ContextMenuStripHelper.cs" />
     <Compile Include="DrawEllipseHelper.cs" />
+    <Compile Include="DrawingHelper.cs" />
     <Compile Include="DrawingLineHelper.cs" />
     <Compile Include="DrawingRectangleHelper.cs" />
     <Compile Include="Ellipse1.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="InfoAboutScreenshot.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="NotifyIconHelper.cs" />
+    <Compile Include="PenToolHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rectangl1.cs" />
