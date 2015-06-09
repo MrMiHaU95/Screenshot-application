@@ -46,6 +46,7 @@ namespace ScreenAppWinForms
             panel1.MouseMove += panel1_MouseMove;
             panel1.MouseUp += panel1_MouseUp;
             panel1.Paint += panel1_Paint;
+            panel1.BackColor = Color.White;
             this.Controls.Add(panel1);
 
 
@@ -547,11 +548,7 @@ namespace ScreenAppWinForms
                 UncheckRestOfButtons(toolStripBtnNewFile);
 
                 //wyczyszcenie wszystkich obiektów nowe tło
-                ShapesManagercs.ShapeList.Clear();
-                panel1.BackgroundImage = null;
-                panel1.BackColor = Color.White;
-                bmp = new Bitmap(panel1.Width, panel1.Height);
-                panel1.Invalidate();
+                NewEmptyDrawingSpace();
             }
             else if (toolStripBtnNewFile.CheckState == CheckState.Checked)
             {
@@ -566,22 +563,7 @@ namespace ScreenAppWinForms
                 toolStripBtnOpenFile.CheckState = CheckState.Checked;
                 UncheckRestOfButtons(toolStripBtnOpenFile);
 
-                //wczytanie nowego obrazka
-                ShapesManagercs.ShapeList.Clear();
-                panel1.BackgroundImage = null;
-                panel1.BackColor = Color.White;
-                panel1.Invalidate();
-
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Title = "Open image";
-                ofd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
-                DialogResult result = ofd.ShowDialog();
-                if(result == System.Windows.Forms.DialogResult.OK)
-                {
-                    Image loadedImage = Image.FromFile(ofd.FileName);
-                    panel1.BackgroundImageLayout = ImageLayout.None;
-                    panel1.BackgroundImage = loadedImage;
-                }
+                OpenNewImage();
             }
             else if (toolStripBtnOpenFile.CheckState == CheckState.Checked)
             {
@@ -599,29 +581,7 @@ namespace ScreenAppWinForms
                 UncheckRestOfButtons(toolStripBtnSaveFile);
 
 
-                //zapisywanie pliku
-                Image imageToSave = panel1.BackgroundImage;
-
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Title = "Save image";
-                sfd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
-                DialogResult result = sfd.ShowDialog();
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    //jesli jest tło i kształty
-                    if (imageToSave != null)
-                    {
-                        using (Graphics g = Graphics.FromImage(imageToSave))
-                        {
-                            g.DrawImage(bmp, 0, 0);
-                        }
-                        imageToSave.Save(sfd.FileName);
-                    }
-                    else
-                    {
-                        bmp.Save(sfd.FileName);
-                    }
-                }
+                SaveDrawingsTo();
             }
             else if (toolStripBtnSaveFile.CheckState == CheckState.Checked)
             {
@@ -645,6 +605,117 @@ namespace ScreenAppWinForms
         //cofanie zmian
         private void toolStripBtnUndo_Click(object sender, EventArgs e)
         {
+            Undo();
+        }
+
+        //cofanie cofania zmian
+        private void toolStripBtnRedo_Click(object sender, EventArgs e)
+        {
+            Redo();
+        }
+
+        private void toolStripBtnUploadToImgur_Click(object sender, EventArgs e)
+        {
+            if (toolStripBtnUploadToImgur.CheckState == CheckState.Unchecked)
+            {
+                toolStripBtnUploadToImgur.CheckState = CheckState.Checked;
+                UncheckRestOfButtons(toolStripBtnUploadToImgur);
+                UploadToImgurHandler();
+            }
+            else if (toolStripBtnUploadToImgur.CheckState == CheckState.Checked)
+            {
+                toolStripBtnUploadToImgur.CheckState = CheckState.Unchecked;
+            }
+        }
+
+        #region event handlery ToolStripMenu
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenNewImage();
+        }
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveDrawingsTo();
+        }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void clearDrawingsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            NewEmptyDrawingSpace();
+        }
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Undo();
+        }
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Redo();
+        }
+        private void toImgurToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UploadToImgurHandler();
+        }
+        
+        #endregion
+
+        #region kilka metod z refaktoringu ToolStripMenuItem i ToolStripButtons
+        private void NewEmptyDrawingSpace()
+        {
+            ShapesManagercs.ShapeList.Clear();
+            panel1.BackgroundImage = null;
+            panel1.BackColor = Color.White;
+            bmp = new Bitmap(panel1.Width, panel1.Height);
+            panel1.Invalidate();
+        }
+        private void OpenNewImage()
+        {
+            //wczytanie nowego obrazka
+            ShapesManagercs.ShapeList.Clear();
+            panel1.BackgroundImage = null;
+            panel1.BackColor = Color.White;
+            panel1.Invalidate();
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Open image";
+            ofd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
+            DialogResult result = ofd.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                Image loadedImage = Image.FromFile(ofd.FileName);
+                panel1.BackgroundImageLayout = ImageLayout.None;
+                panel1.BackgroundImage = loadedImage;
+            }
+        }
+        private void SaveDrawingsTo()
+        {
+            //zapisywanie pliku
+            Image imageToSave = panel1.BackgroundImage;
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = "Save image";
+            sfd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
+            DialogResult result = sfd.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                //jesli jest tło i kształty
+                if (imageToSave != null)
+                {
+                    using (Graphics g = Graphics.FromImage(imageToSave))
+                    {
+                        g.DrawImage(bmp, 0, 0);
+                    }
+                    imageToSave.Save(sfd.FileName);
+                }
+                else
+                {
+                    bmp.Save(sfd.FileName);
+                }
+            }
+        }
+        private void Undo()
+        {
             if (ShapesManagercs.ShapeList.Count != 0)
             {
                 Shape undoShape = ShapesManagercs.ShapeList[ShapesManagercs.ShapeList.Count - 1];
@@ -655,11 +726,9 @@ namespace ScreenAppWinForms
                 panel1.Invalidate();
             }
         }
-
-        //cofanie cofania zmian
-        private void toolStripBtnRedo_Click(object sender, EventArgs e)
+        private void Redo()
         {
-            if(ShapesManagercs.ShapeListUndo.Count != 0)
+            if (ShapesManagercs.ShapeListUndo.Count != 0)
             {
                 Shape redoShape = ShapesManagercs.ShapeListUndo[ShapesManagercs.ShapeListUndo.Count - 1];
                 ShapesManagercs.ShapeList.Add(redoShape);
@@ -669,6 +738,43 @@ namespace ScreenAppWinForms
                 panel1.Invalidate();
             }
         }
+        private void UploadToImgurHandler()
+        {
+            Image imageToSave = panel1.BackgroundImage;
+            string directory = AppDomain.CurrentDomain.BaseDirectory;
+            //upload na imgur
+            if (imageToSave != null)
+            {
+                using (Graphics g = Graphics.FromImage(imageToSave))
+                {
+                    g.DrawImage(bmp, 0, 0);
+                }
+                imageToSave.Save(directory + @"\\1.png");
+                UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
+            }
+            else
+            {
+                bmp.Save(directory + @"\\1.png");
+                UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
+            }
+        }
+        #endregion
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
 
         
     }
