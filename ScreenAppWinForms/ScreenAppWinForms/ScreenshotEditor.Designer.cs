@@ -35,9 +35,13 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearDrawingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toImgurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripBtnNewFile = new System.Windows.Forms.ToolStripButton();
@@ -67,10 +71,6 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripBtnInfo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.clearDrawingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -101,21 +101,21 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openToolStripMenuItem.Text = "Open image";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveAsToolStripMenuItem.Text = "Save to";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -129,6 +129,27 @@
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
+            // clearDrawingsToolStripMenuItem
+            // 
+            this.clearDrawingsToolStripMenuItem.Name = "clearDrawingsToolStripMenuItem";
+            this.clearDrawingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearDrawingsToolStripMenuItem.Text = "Clear drawings";
+            this.clearDrawingsToolStripMenuItem.Click += new System.EventHandler(this.clearDrawingsToolStripMenuItem_Click_1);
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redoToolStripMenuItem
+            // 
+            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            // 
             // uploadToolStripMenuItem
             // 
             this.uploadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -140,7 +161,7 @@
             // toImgurToolStripMenuItem
             // 
             this.toImgurToolStripMenuItem.Name = "toImgurToolStripMenuItem";
-            this.toImgurToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.toImgurToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.toImgurToolStripMenuItem.Text = "to Imgur";
             this.toImgurToolStripMenuItem.Click += new System.EventHandler(this.toImgurToolStripMenuItem_Click);
             // 
@@ -151,6 +172,12 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // toolStrip1
             // 
@@ -436,6 +463,7 @@
             this.toolStripBtnPrint.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnPrint.Text = "toolStripButton1";
             this.toolStripBtnPrint.ToolTipText = "Print image";
+            this.toolStripBtnPrint.Click += new System.EventHandler(this.toolStripBtnPrint_Click);
             // 
             // toolStripSeparator6
             // 
@@ -472,33 +500,6 @@
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
-            // 
-            // clearDrawingsToolStripMenuItem
-            // 
-            this.clearDrawingsToolStripMenuItem.Name = "clearDrawingsToolStripMenuItem";
-            this.clearDrawingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.clearDrawingsToolStripMenuItem.Text = "Clear drawings";
-            this.clearDrawingsToolStripMenuItem.Click += new System.EventHandler(this.clearDrawingsToolStripMenuItem_Click_1);
-            // 
-            // undoToolStripMenuItem
-            // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
-            // 
-            // redoToolStripMenuItem
-            // 
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.redoToolStripMenuItem.Text = "Redo";
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "About";
             // 
             // ScreenshotEditor
             // 

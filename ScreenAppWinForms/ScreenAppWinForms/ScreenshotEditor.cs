@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ namespace ScreenAppWinForms
             panel1.MouseUp += panel1_MouseUp;
             panel1.Paint += panel1_Paint;
             panel1.BackColor = Color.White;
+            panel1.BackgroundImageLayout = ImageLayout.Stretch;
             this.Controls.Add(panel1);
             this.DoubleBuffered = true;
             toolStripComboBoxToolSize.SelectedIndex = 0;
@@ -51,7 +53,17 @@ namespace ScreenAppWinForms
         {
             if (!string.IsNullOrEmpty(InfoAboutScreenshot.FolderPath))
             {
-                panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                Image img = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                if(img.Height > panel1.Height || img.Width > panel1.Width)
+                {
+                    panel1.BackgroundImageLayout = ImageLayout.Stretch;
+                    panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                }
+                else
+                {
+                    panel1.BackgroundImageLayout = ImageLayout.None;
+                    panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                }
             }
             toolStripBtnColor.BackColor = Color.Black;
             LoadFonts();
@@ -655,5 +667,32 @@ namespace ScreenAppWinForms
             }
         }
         #endregion
+
+        private void toolStripBtnPrint_Click(object sender, EventArgs e)
+        {
+            PrintDocument pd = new PrintDocument();
+            pd.DefaultPageSettings.Landscape = true;
+            pd.PrintPage += pd_PrintPage;
+            pd.Print();
+        }
+
+        void pd_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Image imageToSave = panel1.BackgroundImage;
+            Point loc = new Point(100, 100);
+
+            if (imageToSave != null)
+            {
+                using (Graphics g = Graphics.FromImage(imageToSave))
+                {
+                    g.DrawImage(bmp, 0, 0);
+                }
+                e.Graphics.DrawImage(imageToSave, loc);
+            }
+            else
+            {
+                e.Graphics.DrawImage(bmp, loc);
+            }
+        }
     }
 }
