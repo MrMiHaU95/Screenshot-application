@@ -23,6 +23,16 @@ namespace ScreenAppWinForms
         public Add_Text()
         {
             InitializeComponent();
+            if (SettingsHelper.CurrentLanguage == "en")
+            {
+                button1.Text = "Add";
+                this.Text = "Add text";
+            }
+            else
+            {
+                button1.Text = "Dodaj";
+                this.Text = "Dodaj tekst";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

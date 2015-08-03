@@ -256,7 +256,7 @@
             this.toolStripBtnCursor.Name = "toolStripBtnCursor";
             this.toolStripBtnCursor.Size = new System.Drawing.Size(23, 22);
             this.toolStripBtnCursor.Text = "toolStripButton1";
-            this.toolStripBtnCursor.ToolTipText = "Mouse pointer";
+            this.toolStripBtnCursor.ToolTipText = "Cursor";
             this.toolStripBtnCursor.Click += new System.EventHandler(this.toolStripBtnCursor_Click);
             // 
             // toolStripBtnDrawLine

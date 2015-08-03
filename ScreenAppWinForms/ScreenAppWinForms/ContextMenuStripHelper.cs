@@ -18,7 +18,7 @@ namespace ScreenAppWinForms
     /// </summary>
     static class ContextMenuStripHelper
     {
-        public static ContextMenuStrip GetContext()
+        public static ContextMenuStrip GetContextEnglish()
         {
             ContextMenuStrip CMS = new ContextMenuStrip();
 
@@ -27,21 +27,51 @@ namespace ScreenAppWinForms
             Image imgExit = Image.FromFile(@"Images\exit2.ico");
             Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
             Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
+            Image imgSettings = Image.FromFile(@"Images\setting.ico");
 
-            CMS.Items.Add("Screenshot of entire screen", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
-            CMS.Items.Add("Upload Screenshot of entire screen to Imgur", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
-            CMS.Items.Add("Screenshot of user selection", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
+            CMS.Items.Add("Capture screen", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
+            CMS.Items.Add("Capture screen and upload", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
+            CMS.Items.Add("Capture area", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
             CMS.Items.Add("Screenshot Editor", imgScreenshotEditor, ScreenshotEditor_Click);
-            CMS.Items.Add("Upload image to Imgur", imgUploadFullScreenScreenshot, UploadImage_Click);
+            CMS.Items.Add("Upload from disc", imgUploadFullScreenScreenshot, UploadImage_Click);
+            CMS.Items.Add("Settings", imgSettings, Settings_Click);
             CMS.Items.Add("Exit", imgExit, Exit_Click);
+
+            return CMS;
+        }
+        public static ContextMenuStrip GetContextPolish()
+        {
+            ContextMenuStrip CMS = new ContextMenuStrip();
+
+            Image imgScreenOfUserSelection = Image.FromFile(@"Images\rectScreen2.ico");
+            Image imgFullScreenScreenshot = Image.FromFile(@"Images\fullscreen2.ico");
+            Image imgExit = Image.FromFile(@"Images\exit2.ico");
+            Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
+            Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
+            Image imgSettings = Image.FromFile(@"Images\setting.ico");
+
+            CMS.Items.Add("Screen ekranu", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
+            CMS.Items.Add("Screen ekranu i automatyczny upload", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
+            CMS.Items.Add("Screen zaznaczenia", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
+            CMS.Items.Add("Edytor screenów", imgScreenshotEditor, ScreenshotEditor_Click);
+            CMS.Items.Add("Upload z dysku", imgUploadFullScreenScreenshot, UploadImage_Click);
+            CMS.Items.Add("Ustawienia", imgSettings, Settings_Click);
+            CMS.Items.Add("Wyjdź", imgExit, Exit_Click);
 
             return CMS;
         }
 
         
+        
 
         
         #region event handlery ContextMenuStrip
+        private static void Settings_Click(object sender, EventArgs e)
+        {
+            Settings sett = new Settings();
+            sett.Show();
+        }
+
         private static void UploadImage_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();

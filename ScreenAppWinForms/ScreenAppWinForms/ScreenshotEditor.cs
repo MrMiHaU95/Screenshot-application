@@ -47,8 +47,96 @@ namespace ScreenAppWinForms
             toolStripComboBoxFontSize.SelectedIndex = 0;
             bmp = new Bitmap(panel1.Width, panel1.Height);
             #endregion 
+            if(SettingsHelper.CurrentLanguage == "en")
+            {
+                ChangeLanguageToEnglish();
+            }
+            else
+            {
+                ChangeLanguageToPolish();
+            }
         }
-        #region event handlery Formsa
+
+        private void ChangeLanguageToPolish()
+        {
+            fileToolStripMenuItem.Text = "Plik";
+            openToolStripMenuItem.Text = "Otwórz obraz";
+            saveAsToolStripMenuItem.Text = "Zapisz jako";
+            exitToolStripMenuItem.Text = "Wyjdź";
+            editToolStripMenuItem.Text = "Edytuj";
+            clearDrawingsToolStripMenuItem.Text = "Wyczyść rysunki";
+            undoToolStripMenuItem.Text = "Cofnij";
+            redoToolStripMenuItem.Text = "Ponów";
+            uploadToolStripMenuItem.Text = "Uploaduj";
+            toImgurToolStripMenuItem.Text = "do Imgur";
+            helpToolStripMenuItem.Text = "Pomoc";
+            aboutToolStripMenuItem.Text = "O";
+            toolStripBtnColorText.Text = "Kolor";
+            toolStripComboBoxFontSize.Items.RemoveAt(0);
+            toolStripComboBoxFontSize.Items.Insert(0, "Wybierz rozmiar czcionki");
+            toolStripComboBoxToolSize.Items.RemoveAt(0);
+            toolStripComboBoxToolSize.Items.Insert(0, "Wybierz kolor");
+            toolStripBtnNewFile.ToolTipText = "Nowy rysunek";
+            toolStripBtnOpenFile.ToolTipText = "Otwórz plik";
+            toolStripBtnSaveFile.ToolTipText = "Zapisz...";
+            toolStripBtnCursor.ToolTipText = "Kursor";
+            toolStripBtnDrawLine.ToolTipText = "Rysuj linię";
+            toolStripBtnDrawRectangle.ToolTipText = "Rysuj prostokąt";
+            toolStripBtnDrawEllipse.ToolTipText = "Rysuj elipsę";
+            toolStripBtnPenTool.ToolTipText = "Narzędzie pióro";
+            toolStripBtnUndo.ToolTipText = "Cofnij";
+            toolStripBtnRedo.ToolTipText = "Ponów";
+            toolStripBtnAddText.ToolTipText = "Dodaj tekst";
+            toolStripComboBoxFonts.ToolTipText = "Czcionki";
+            toolStripComboBoxFontSize.ToolTipText = "Rozmiar Czcionki";
+            toolStripBtnColor.ToolTipText = "Wybierz kolor";
+            toolStripComboBoxToolSize.ToolTipText = "Rozmiarz narzędzia";
+            toolStripBtnPrint.ToolTipText = "Drukuj";
+            toolStripBtnUploadToImgur.ToolTipText = "Upload na imgur";
+            toolStripBtnInfo.ToolTipText = "Info";
+            this.Text = "Edytor Screenów";
+        }
+
+        private void ChangeLanguageToEnglish()
+        {
+            fileToolStripMenuItem.Text = "File";
+            openToolStripMenuItem.Text = "open Image";
+            saveAsToolStripMenuItem.Text = "Save as";
+            exitToolStripMenuItem.Text = "Exit";
+            editToolStripMenuItem.Text = "Edit";
+            clearDrawingsToolStripMenuItem.Text = "Clear drawings";
+            undoToolStripMenuItem.Text = "Undo";
+            redoToolStripMenuItem.Text = "Redo";
+            uploadToolStripMenuItem.Text = "Upload";
+            toImgurToolStripMenuItem.Text = "to Imgur";
+            helpToolStripMenuItem.Text = "Help";
+            aboutToolStripMenuItem.Text = "About";
+            toolStripBtnColorText.Text = "Color";
+            toolStripComboBoxFontSize.Items.RemoveAt(0);
+            toolStripComboBoxFontSize.Items.Insert(0, "Select font size");
+            toolStripComboBoxToolSize.Items.RemoveAt(0);
+            toolStripComboBoxToolSize.Items.Insert(0, "Select color");
+            toolStripBtnNewFile.ToolTipText = "New drawing";
+            toolStripBtnOpenFile.ToolTipText = "Open file";
+            toolStripBtnSaveFile.ToolTipText = "Save...";
+            toolStripBtnCursor.ToolTipText = "Cursor";
+            toolStripBtnDrawLine.ToolTipText = "Draw line";
+            toolStripBtnDrawRectangle.ToolTipText = "Draw rectangle";
+            toolStripBtnDrawEllipse.ToolTipText = "Draw Ellipse";
+            toolStripBtnPenTool.ToolTipText = "Pen tool";
+            toolStripBtnUndo.ToolTipText = "Undo";
+            toolStripBtnRedo.ToolTipText = "Redo";
+            toolStripBtnAddText.ToolTipText = "Add text";
+            toolStripComboBoxFonts.ToolTipText = "Fonts";
+            toolStripComboBoxFontSize.ToolTipText = "Font size";
+            toolStripBtnColor.ToolTipText = "Select color";
+            toolStripComboBoxToolSize.ToolTipText = "Tool size";
+            toolStripBtnPrint.ToolTipText = "Print";
+            toolStripBtnUploadToImgur.ToolTipText = "Upload to imgur";
+            toolStripBtnInfo.ToolTipText = "Info";
+            this.Text = "Screenshot editor";
+        }
+        #region event handlery Form
         private void ScreenshotEditor_Load(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(InfoAboutScreenshot.FolderPath))

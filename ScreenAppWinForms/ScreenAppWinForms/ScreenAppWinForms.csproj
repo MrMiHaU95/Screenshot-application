@@ -89,6 +89,13 @@
     <Compile Include="ScreenshotEditor.Designer.cs">
       <DependentUpon>ScreenshotEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsHelper.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="ShapesManagercs.cs" />
     <Compile Include="UploadToImgurHelper.cs" />
@@ -113,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScreenshotEditor.resx">
       <DependentUpon>ScreenshotEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -243,6 +253,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\screenshotEditor2.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\setting.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

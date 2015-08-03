@@ -1,4 +1,5 @@
-﻿using registerHotkey;
+﻿
+using registerHotkey;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,7 +23,7 @@ namespace ScreenAppWinForms
             Application.SetCompatibleTextRenderingDefault(false);
             
             //tworzenie nowego notify icon 
-            NotifyIconHelper.CreateNotifyIcon();
+            NotifyIconHelper.CreateNotifyIconEnglish();
             
             Application.Run(new HiddenFormcs());
         }

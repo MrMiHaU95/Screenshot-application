@@ -29,12 +29,31 @@ namespace ScreenAppWinForms
         /// <summary>
         /// Przypisuje wartości do pól obiektu klasy NotifyIcon 
         /// </summary>
-        public static void CreateNotifyIcon()
+        public static void CreateNotifyIconEnglish()
         {
+            if (NotifyIconObject != null)
+            {
+                NotifyIconObject.Visible = false;
+                NotifyIconObject.Dispose();
+            }
             NotifyIconObject = new NotifyIcon();
-            NotifyIconObject.ContextMenuStrip = ContextMenuStripHelper.GetContext();
+            NotifyIconObject.ContextMenuStrip = ContextMenuStripHelper.GetContextEnglish();
             NotifyIconObject.Icon = new Icon(@"Images\screenShoot3.ico");
             NotifyIconObject.Visible = true;
+            SettingsHelper.CurrentLanguage = "en";
+        }
+        public static void CreateNotifyIconPolish()
+        {
+            if (NotifyIconObject != null)
+            {
+                NotifyIconObject.Visible = false;
+                NotifyIconObject.Dispose();
+            }
+            NotifyIconObject = new NotifyIcon();
+            NotifyIconObject.ContextMenuStrip = ContextMenuStripHelper.GetContextPolish();
+            NotifyIconObject.Icon = new Icon(@"Images\screenShoot3.ico");
+            NotifyIconObject.Visible = true;
+            SettingsHelper.CurrentLanguage = "pl";
         }
         /// <summary>
         /// pokazuje BallonTip wykorzystuje statyczną klasę InfoAboutScreenshot
