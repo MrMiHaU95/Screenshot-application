@@ -41,6 +41,17 @@ namespace ScreenAppWinForms
             {
                 TxtToAdd = textBox1.Text;
             }
+            else
+            {
+                if(SettingsHelper.CurrentLanguage == "en")
+                {
+                    MessageBox.Show("textbox cannot be empty");
+                }
+                else
+                {
+                    MessageBox.Show("pole tekstowe nie może być puste");
+                }
+            }
             this.Close();
         }
     }

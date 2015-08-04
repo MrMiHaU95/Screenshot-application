@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -131,30 +132,43 @@ namespace ScreenAppWinForms
                 {
                     BtnSaveSelectedArea.Location = new Point(selectedArea.X + selectedArea.Width - minusX, selectedArea.Y + selectedArea.Height + plusOnScreen);
                 }
+                try
+                {
+                    string sourceAcceptImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\accept2.png";
+                    BtnSaveSelectedArea.Image = Image.FromFile(sourceAcceptImage);
+                    BtnSaveSelectedArea.Width = 27;
+                    BtnSaveSelectedArea.Height = 27;
+                    BtnSaveSelectedArea.Click += btnZapiszScreenaObszaru_Click;
 
-                string sourceAcceptImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\accept2.png";
-                BtnSaveSelectedArea.Image = Image.FromFile(sourceAcceptImage);
-                BtnSaveSelectedArea.Width = 27;
-                BtnSaveSelectedArea.Height = 27;
-                BtnSaveSelectedArea.Click += btnZapiszScreenaObszaru_Click;
+                    BtnUploadToImgur.Location = new Point(BtnSaveSelectedArea.Location.X + BtnSaveSelectedArea.Width, BtnSaveSelectedArea.Location.Y);
+                    string sourceUploadImage = @"D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\Images\imgurButton2.png";
+                    BtnUploadToImgur.Image = Image.FromFile(sourceUploadImage);
+                    BtnUploadToImgur.Height = 27;
+                    BtnUploadToImgur.Width = 27;
+                    BtnUploadToImgur.Click += BtnUploadToImgur_Click;
 
-                BtnUploadToImgur.Location = new Point(BtnSaveSelectedArea.Location.X + BtnSaveSelectedArea.Width, BtnSaveSelectedArea.Location.Y);
-                string sourceUploadImage = @"D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\Images\imgurButton2.png";
-                BtnUploadToImgur.Image = Image.FromFile(sourceUploadImage);
-                BtnUploadToImgur.Height = 27;
-                BtnUploadToImgur.Width = 27;
-                BtnUploadToImgur.Click += BtnUploadToImgur_Click;
+                    BtnDeleteSelectedArea.Location = new Point(BtnUploadToImgur.Location.X + BtnUploadToImgur.Width, BtnUploadToImgur.Location.Y);
+                    string sourceDeleteImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\decline3.png";
+                    BtnDeleteSelectedArea.Image = Image.FromFile(sourceDeleteImage);
+                    BtnDeleteSelectedArea.Width = 27;
+                    BtnDeleteSelectedArea.Height = 27;
+                    BtnDeleteSelectedArea.Click += btnUsunZaznaczenieObszaru_Click;
 
-                BtnDeleteSelectedArea.Location = new Point(BtnUploadToImgur.Location.X + BtnUploadToImgur.Width, BtnUploadToImgur.Location.Y);
-                string sourceDeleteImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\decline3.png";
-                BtnDeleteSelectedArea.Image = Image.FromFile(sourceDeleteImage);
-                BtnDeleteSelectedArea.Width = 27;
-                BtnDeleteSelectedArea.Height = 27;
-                BtnDeleteSelectedArea.Click += btnUsunZaznaczenieObszaru_Click;
-                
-                Background.Controls.Add(BtnSaveSelectedArea);
-                Background.Controls.Add(BtnUploadToImgur);
-                Background.Controls.Add(BtnDeleteSelectedArea);
+                    Background.Controls.Add(BtnSaveSelectedArea);
+                    Background.Controls.Add(BtnUploadToImgur);
+                    Background.Controls.Add(BtnDeleteSelectedArea);
+                }
+                catch(FileNotFoundException e)
+                {
+                    if(SettingsHelper.CurrentLanguage == "en")
+                    {
+                        MessageBox.Show("buttons images not found", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("nie znaleziono obrazków tła przycisków", "błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
         }
 
         

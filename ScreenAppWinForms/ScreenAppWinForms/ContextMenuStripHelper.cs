@@ -21,43 +21,71 @@ namespace ScreenAppWinForms
         public static ContextMenuStrip GetContextEnglish()
         {
             ContextMenuStrip CMS = new ContextMenuStrip();
+            try
+            {
+                
 
-            Image imgScreenOfUserSelection = Image.FromFile(@"Images\rectScreen2.ico");
-            Image imgFullScreenScreenshot = Image.FromFile(@"Images\fullscreen2.ico");
-            Image imgExit = Image.FromFile(@"Images\exit2.ico");
-            Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
-            Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
-            Image imgSettings = Image.FromFile(@"Images\setting.ico");
+                Image imgScreenOfUserSelection = Image.FromFile(@"Images\rectScreen2.ico");
+                Image imgFullScreenScreenshot = Image.FromFile(@"Images\fullscreen2.ico");
+                Image imgExit = Image.FromFile(@"Images\exit2.ico");
+                Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
+                Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
+                Image imgSettings = Image.FromFile(@"Images\setting.ico");
 
-            CMS.Items.Add("Capture screen", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
-            CMS.Items.Add("Capture screen and upload", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
-            CMS.Items.Add("Capture area", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
-            CMS.Items.Add("Screenshot Editor", imgScreenshotEditor, ScreenshotEditor_Click);
-            CMS.Items.Add("Upload from disc", imgUploadFullScreenScreenshot, UploadImage_Click);
-            CMS.Items.Add("Settings", imgSettings, Settings_Click);
-            CMS.Items.Add("Exit", imgExit, Exit_Click);
+                CMS.Items.Add("Capture screen", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
+                CMS.Items.Add("Capture screen and upload", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
+                CMS.Items.Add("Capture area", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
+                CMS.Items.Add("Screenshot Editor", imgScreenshotEditor, ScreenshotEditor_Click);
+                CMS.Items.Add("Upload from disc", imgUploadFullScreenScreenshot, UploadImage_Click);
+                CMS.Items.Add("Settings", imgSettings, Settings_Click);
+                CMS.Items.Add("Exit", imgExit, Exit_Click);
 
+                
+            }
+            catch(FileNotFoundException e)
+            {
+                if (SettingsHelper.CurrentLanguage == "en")
+                {
+                    MessageBox.Show("icons not found");
+                }
+                else
+                {
+                    MessageBox.Show("ikony nie znalezione");
+                }
+            }
             return CMS;
         }
         public static ContextMenuStrip GetContextPolish()
         {
             ContextMenuStrip CMS = new ContextMenuStrip();
+            try
+            {
+                Image imgScreenOfUserSelection = Image.FromFile(@"Images\rectScreen2.ico");
+                Image imgFullScreenScreenshot = Image.FromFile(@"Images\fullscreen2.ico");
+                Image imgExit = Image.FromFile(@"Images\exit2.ico");
+                Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
+                Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
+                Image imgSettings = Image.FromFile(@"Images\setting.ico");
 
-            Image imgScreenOfUserSelection = Image.FromFile(@"Images\rectScreen2.ico");
-            Image imgFullScreenScreenshot = Image.FromFile(@"Images\fullscreen2.ico");
-            Image imgExit = Image.FromFile(@"Images\exit2.ico");
-            Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
-            Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
-            Image imgSettings = Image.FromFile(@"Images\setting.ico");
-
-            CMS.Items.Add("Screen ekranu", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
-            CMS.Items.Add("Screen ekranu i automatyczny upload", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
-            CMS.Items.Add("Screen zaznaczenia", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
-            CMS.Items.Add("Edytor screenów", imgScreenshotEditor, ScreenshotEditor_Click);
-            CMS.Items.Add("Upload z dysku", imgUploadFullScreenScreenshot, UploadImage_Click);
-            CMS.Items.Add("Ustawienia", imgSettings, Settings_Click);
-            CMS.Items.Add("Wyjdź", imgExit, Exit_Click);
-
+                CMS.Items.Add("Screen ekranu", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
+                CMS.Items.Add("Screen ekranu i automatyczny upload", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
+                CMS.Items.Add("Screen zaznaczenia", imgScreenOfUserSelection, ScreenshotOfUserSelection_Click);
+                CMS.Items.Add("Edytor screenów", imgScreenshotEditor, ScreenshotEditor_Click);
+                CMS.Items.Add("Upload z dysku", imgUploadFullScreenScreenshot, UploadImage_Click);
+                CMS.Items.Add("Ustawienia", imgSettings, Settings_Click);
+                CMS.Items.Add("Wyjdź", imgExit, Exit_Click);
+            }
+            catch (FileNotFoundException e)
+            {
+                if (SettingsHelper.CurrentLanguage == "en")
+                {
+                    MessageBox.Show("icons not found");
+                }
+                else
+                {
+                    MessageBox.Show("ikony nie znalezione");
+                }
+            }
             return CMS;
         }
 
@@ -86,13 +114,20 @@ namespace ScreenAppWinForms
 
         private static void UploadScreenshotOfEntireScreen_Click(object sender, EventArgs e)
         {
-            //odczytuje ścieżke do wykonywanego exe
-            string directory = AppDomain.CurrentDomain.BaseDirectory;
-            //aby zuploadować screena do imgur trzeba go najpierw zapisać na dysku 
-            Bitmap screenShotFullScreen;
-            screenShotFullScreen = (Bitmap)ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            screenShotFullScreen.Save( directory+@"\\1.png", System.Drawing.Imaging.ImageFormat.Png);
-            UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
+            try
+            {
+                //odczytuje ścieżke do wykonywanego exe
+                string directory = AppDomain.CurrentDomain.BaseDirectory;
+                //aby zuploadować screena do imgur trzeba go najpierw zapisać na dysku 
+                Bitmap screenShotFullScreen;
+                screenShotFullScreen = (Bitmap)ScreenshotHelper.TakeScreenshotOfEntireScreen(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                screenShotFullScreen.Save(directory + @"\\1.png", System.Drawing.Imaging.ImageFormat.Png);
+                UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
+            }
+            catch(FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private static void Exit_Click(object sender, EventArgs e)

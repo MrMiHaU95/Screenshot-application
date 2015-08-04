@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using ScreenAppWinForms;
 
 namespace registerHotkey
 {
@@ -17,7 +18,7 @@ namespace registerHotkey
         /// <summary>
         /// window handle 
         /// </summary>
-        private readonly IntPtr _hwnd;
+        public readonly IntPtr _hwnd;
 
         #region deklaracje metod windows API 
         /// <summary>
@@ -48,6 +49,7 @@ namespace registerHotkey
         public Hotkey(IntPtr hwnd)
         {
             _hwnd = hwnd;
+            SettingsHelper.WindowHandle = hwnd;
         }
         
 
@@ -68,9 +70,14 @@ namespace registerHotkey
         /// </summary>
         public void RegisterHotKeys()
         {
-            RegisterHotKey(_hwnd, 1, (int)WindowKeys.None, (uint)Keys.F10);
-            RegisterHotKey(_hwnd, 2,(int)WindowKeys.None, (uint)Keys.F11);
-            RegisterHotKey(_hwnd, 3, (int)WindowKeys.None, (uint)Keys.F9);
+            KeysConverter converter = new KeysConverter();
+            SettingsHelper.InitializeShortucts();
+            RegisterHotKey(_hwnd, 1, (int)WindowKeys.None, SettingsHelper.CaptureScreenShortcut);
+            RegisterHotKey(_hwnd, 2, (int)WindowKeys.None, SettingsHelper.CaptureAreaShortcut);
+            RegisterHotKey(_hwnd, 3, (int)WindowKeys.None, SettingsHelper.CapureScreenUploadShortcut);
+            //RegisterHotKey(_hwnd, 1, (int)WindowKeys.None, (uint)Keys.F10 );
+            //RegisterHotKey(_hwnd, 1, (int)WindowKeys.None, (uint)Keys.F11);
+            //RegisterHotKey(_hwnd, 1, (int)WindowKeys.None, (uint)Keys.F9);
         }
 
         /// <summary>
@@ -82,5 +89,26 @@ namespace registerHotkey
             UnregisterHotKey(_hwnd, 2);
             UnregisterHotKey(_hwnd, 3);
         }
-    }
+
+        /// <summary>
+        /// rejestrowanie nowego skrótu 
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="id"></param>
+        /// <param name="fsModifiers"></param>
+        /// <param name="vk"></param>
+        public static void RegisterNewHotkey(IntPtr hWnd, int id, uint fsModifiers, uint vk)
+        {
+            RegisterHotKey(hWnd, id, fsModifiers, vk);
+        }
+        /// <summary>
+        /// usuwanie starego skrótu
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="id"></param>
+        public static void UnregisterOldHotkey(IntPtr hWnd, int id)
+        {
+            UnregisterHotKey(hWnd, id);
+        }
+        }
 }
