@@ -75,7 +75,7 @@ namespace ScreenAppWinForms
             toolStripComboBoxFontSize.Items.RemoveAt(0);
             toolStripComboBoxFontSize.Items.Insert(0, "Wybierz rozmiar czcionki");
             toolStripComboBoxToolSize.Items.RemoveAt(0);
-            toolStripComboBoxToolSize.Items.Insert(0, "Wybierz kolor");
+            toolStripComboBoxToolSize.Items.Insert(0, "Wybierz rozmiar narzędzia");
             toolStripBtnNewFile.ToolTipText = "Nowy rysunek";
             toolStripBtnOpenFile.ToolTipText = "Otwórz plik";
             toolStripBtnSaveFile.ToolTipText = "Zapisz...";
@@ -115,7 +115,7 @@ namespace ScreenAppWinForms
             toolStripComboBoxFontSize.Items.RemoveAt(0);
             toolStripComboBoxFontSize.Items.Insert(0, "Select font size");
             toolStripComboBoxToolSize.Items.RemoveAt(0);
-            toolStripComboBoxToolSize.Items.Insert(0, "Select color");
+            toolStripComboBoxToolSize.Items.Insert(0, "Select tool size");
             toolStripBtnNewFile.ToolTipText = "New drawing";
             toolStripBtnOpenFile.ToolTipText = "Open file";
             toolStripBtnSaveFile.ToolTipText = "Save...";
@@ -136,21 +136,33 @@ namespace ScreenAppWinForms
             toolStripBtnInfo.ToolTipText = "Info";
             this.Text = "Screenshot editor";
         }
+
         #region event handlery Form
         private void ScreenshotEditor_Load(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(InfoAboutScreenshot.FolderPath))
             {
-                Image img = Image.FromFile(InfoAboutScreenshot.FolderPath);
-                if(img.Height > panel1.Height || img.Width > panel1.Width)
+                try
                 {
-                    panel1.BackgroundImageLayout = ImageLayout.Stretch;
-                    panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                    Image img = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                    if (img.Height > panel1.Height || img.Width > panel1.Width)
+                    {
+                        panel1.BackgroundImageLayout = ImageLayout.Stretch;
+                        panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                    }
+                    else
+                    {
+                        panel1.BackgroundImageLayout = ImageLayout.None;
+                        panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                    }
                 }
-                else
+                catch(FileNotFoundException ex)
                 {
-                    panel1.BackgroundImageLayout = ImageLayout.None;
-                    panel1.BackgroundImage = Image.FromFile(InfoAboutScreenshot.FolderPath);
+                    MessageBox.Show(ex.Message);
+                }
+                catch(FileLoadException exx)
+                {
+                    MessageBox.Show(exx.Message);
                 }
             }
             toolStripBtnColor.BackColor = Color.Black;
@@ -186,42 +198,49 @@ namespace ScreenAppWinForms
         {
             if (DrawingHelper.CanDraw)
             {
-                if (PenToolHelper.CanUsePenTool)
+                try
                 {
-                    Cursor penToolCursor = new Cursor(@"Cursors\Pencil.cur");
-                    Cursor.Current = penToolCursor;
-                    currentLocation = new Point(e.X, e.Y);
-                    //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
-                    //g.DrawLine(pen, startlocation, currentLocation);
-                    startlocation = new Point(e.X, e.Y);
-                    panel1.Invalidate();
-                }
-                else if(DrawingLineHelper.CanDrawLine)
-                {
-                    Cursor drawLineCursor = new Cursor(@"Cursors\Line.cur");
-                    Cursor.Current = drawLineCursor;
-                    newLine.EndPoint = new Point(e.X, e.Y);
-                    panel1.Invalidate();
-                    
-                }
-                else if(DrawingRectangleHelper.CanDrawRectangle)
-                {
-                    Cursor drawRectangleCursor = new Cursor(@"Cursors\Rectangle.cur");
-                    Cursor.Current = drawRectangleCursor;
-                    newRectangle.CurrentPosition = new Point(e.X, e.Y);
-                    newRectangle.Width = Math.Abs(newRectangle.CurrentPosition.X - newRectangle.StartPosition.X);
-                    newRectangle.Height = Math.Abs(newRectangle.CurrentPosition.Y - newRectangle.StartPosition.Y);
-                    panel1.Invalidate();
+                    if (PenToolHelper.CanUsePenTool)
+                    {
+                        Cursor penToolCursor = new Cursor(@"Cursors\Pencil.cur");
+                        Cursor.Current = penToolCursor;
+                        currentLocation = new Point(e.X, e.Y);
+                        //pen = new Pen(toolStripBtnColor.BackColor, toolSize);
+                        //g.DrawLine(pen, startlocation, currentLocation);
+                        startlocation = new Point(e.X, e.Y);
+                        panel1.Invalidate();
+                    }
+                    else if (DrawingLineHelper.CanDrawLine)
+                    {
+                        Cursor drawLineCursor = new Cursor(@"Cursors\Line.cur");
+                        Cursor.Current = drawLineCursor;
+                        newLine.EndPoint = new Point(e.X, e.Y);
+                        panel1.Invalidate();
 
+                    }
+                    else if (DrawingRectangleHelper.CanDrawRectangle)
+                    {
+                        Cursor drawRectangleCursor = new Cursor(@"Cursors\Rectangle.cur");
+                        Cursor.Current = drawRectangleCursor;
+                        newRectangle.CurrentPosition = new Point(e.X, e.Y);
+                        newRectangle.Width = Math.Abs(newRectangle.CurrentPosition.X - newRectangle.StartPosition.X);
+                        newRectangle.Height = Math.Abs(newRectangle.CurrentPosition.Y - newRectangle.StartPosition.Y);
+                        panel1.Invalidate();
+
+                    }
+                    else if (DrawEllipseHelper.CanDrawEllipse)
+                    {
+                        Cursor drawEllipseCursor = new Cursor(@"Cursors\Ellipse.cur");
+                        Cursor.Current = drawEllipseCursor;
+                        newEllipse.Endposition = new Point(e.X, e.Y);
+                        newEllipse.Width = Math.Abs(newEllipse.Endposition.X - newEllipse.StartPosition.X);
+                        newEllipse.Height = Math.Abs(newEllipse.Endposition.Y - newEllipse.StartPosition.Y);
+                        panel1.Invalidate();
+                    }
                 }
-                else if(DrawEllipseHelper.CanDrawEllipse)
+                catch(FileNotFoundException ex)
                 {
-                    Cursor drawEllipseCursor = new Cursor(@"Cursors\Ellipse.cur");
-                    Cursor.Current = drawEllipseCursor;
-                    newEllipse.Endposition = new Point(e.X, e.Y);
-                    newEllipse.Width = Math.Abs(newEllipse.Endposition.X - newEllipse.StartPosition.X);
-                    newEllipse.Height = Math.Abs(newEllipse.Endposition.Y - newEllipse.StartPosition.Y);
-                    panel1.Invalidate();
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
@@ -687,21 +706,28 @@ namespace ScreenAppWinForms
             sfd.Title = "Save image";
             sfd.Filter = "JPEG|*.jpg|Bitmapa|*.bmp|Gif|*.gif|PNG|*.png";
             DialogResult result = sfd.ShowDialog();
-            if (result == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                //jesli jest tło i kształty
-                if (imageToSave != null)
+                if (result == System.Windows.Forms.DialogResult.OK)
                 {
-                    using (Graphics g = Graphics.FromImage(imageToSave))
+                    //jesli jest tło i kształty
+                    if (imageToSave != null)
                     {
-                        g.DrawImage(bmp, 0, 0);
+                        using (Graphics g = Graphics.FromImage(imageToSave))
+                        {
+                            g.DrawImage(bmp, 0, 0);
+                        }
+                        imageToSave.Save(sfd.FileName);
                     }
-                    imageToSave.Save(sfd.FileName);
+                    else
+                    {
+                        bmp.Save(sfd.FileName);
+                    }
                 }
-                else
-                {
-                    bmp.Save(sfd.FileName);
-                }
+            }
+            catch(IOException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         /// <summary>
@@ -738,20 +764,27 @@ namespace ScreenAppWinForms
         {
             Image imageToSave = panel1.BackgroundImage;
             string directory = AppDomain.CurrentDomain.BaseDirectory;
-            //upload na imgur
-            if (imageToSave != null)
+            try
             {
-                using (Graphics g = Graphics.FromImage(imageToSave))
+                //upload na imgur
+                if (imageToSave != null)
                 {
-                    g.DrawImage(bmp, 0, 0);
+                    using (Graphics g = Graphics.FromImage(imageToSave))
+                    {
+                        g.DrawImage(bmp, 0, 0);
+                    }
+                    imageToSave.Save(directory + @"\\1.png");
+                    UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
                 }
-                imageToSave.Save(directory + @"\\1.png");
-                UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
+                else
+                {
+                    bmp.Save(directory + @"\\1.png");
+                    UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                bmp.Save(directory + @"\\1.png");
-                UploadToImgurHelper.UploadScreenshot(directory + @"\\1.png");
+                MessageBox.Show(ex.Message);
             }
         }
         #endregion

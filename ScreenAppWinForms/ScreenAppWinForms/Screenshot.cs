@@ -59,26 +59,33 @@ namespace ScreenAppWinForms
             InfoAboutScreenshot.CheckIfUserSavedScreenshot(result);
 
             //switch w zależności od wyboru użytkownika formatu screena
-            if (sfd.FileName != "")
+            try
             {
-                if (screenshot != null)
+                if (sfd.FileName != "")
                 {
-                    switch (sfd.FilterIndex)
+                    if (screenshot != null)
                     {
-                        case 1:
-                            screenshot.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-                            break;
-                        case 2:
-                            screenshot.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
-                            break;
-                        case 3:
-                            screenshot.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Gif);
-                            break;
-                        case 4:
-                            screenshot.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                            break;
+                        switch (sfd.FilterIndex)
+                        {
+                            case 1:
+                                screenshot.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                break;
+                            case 2:
+                                screenshot.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+                                break;
+                            case 3:
+                                screenshot.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Gif);
+                                break;
+                            case 4:
+                                screenshot.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                                break;
+                        }
                     }
                 }
+            }
+            catch(IOException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

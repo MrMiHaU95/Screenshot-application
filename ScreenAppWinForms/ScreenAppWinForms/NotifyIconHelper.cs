@@ -36,11 +36,18 @@ namespace ScreenAppWinForms
                 NotifyIconObject.Visible = false;
                 NotifyIconObject.Dispose();
             }
-            NotifyIconObject = new NotifyIcon();
-            NotifyIconObject.ContextMenuStrip = ContextMenuStripHelper.GetContextEnglish();
-            NotifyIconObject.Icon = new Icon(@"Images\screenShoot3.ico");
-            NotifyIconObject.Visible = true;
-            SettingsHelper.CurrentLanguage = "en";
+            try
+            {
+                NotifyIconObject = new NotifyIcon();
+                NotifyIconObject.ContextMenuStrip = ContextMenuStripHelper.GetContextEnglish();
+                NotifyIconObject.Icon = new Icon(@"Images\screenShoot3.ico");
+                NotifyIconObject.Visible = true;
+                SettingsHelper.CurrentLanguage = "en";
+            }
+            catch(FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         public static void CreateNotifyIconPolish()
         {
@@ -49,22 +56,37 @@ namespace ScreenAppWinForms
                 NotifyIconObject.Visible = false;
                 NotifyIconObject.Dispose();
             }
-            NotifyIconObject = new NotifyIcon();
-            NotifyIconObject.ContextMenuStrip = ContextMenuStripHelper.GetContextPolish();
-            NotifyIconObject.Icon = new Icon(@"Images\screenShoot3.ico");
-            NotifyIconObject.Visible = true;
-            SettingsHelper.CurrentLanguage = "pl";
+            try
+            {
+                NotifyIconObject = new NotifyIcon();
+                NotifyIconObject.ContextMenuStrip = ContextMenuStripHelper.GetContextPolish();
+                NotifyIconObject.Icon = new Icon(@"Images\screenShoot3.ico");
+                NotifyIconObject.Visible = true;
+                SettingsHelper.CurrentLanguage = "pl";
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         /// <summary>
         /// pokazuje BallonTip wykorzystuje statyczną klasę InfoAboutScreenshot
         /// </summary>
         public static void ShowBallonTip()
         {
-            NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
+            if (SettingsHelper.CurrentLanguage == "pl")
+            {
+                NotifyIconObject.BalloonTipText = "Nowy screen zapisano jako " + InfoAboutScreenshot.FileName + " Kliknij aby otworzyć folder zapisu";
+            }
+            else
+            {
+                NotifyIconObject.BalloonTipText = "New screenshot saved as " + InfoAboutScreenshot.FileName + " Click to open save folder";
+            }
             NotifyIconObject.BalloonTipTitle = "Screen App";
             NotifyIconObject.BalloonTipIcon = ToolTipIcon.Info;
             NotifyIconObject.BalloonTipClicked += notifyIcon_BalloonTipClicked;
             NotifyIconObject.ShowBalloonTip(2000);
+            
         }
 
         //event handler obsługujący Click event na elemencie ContextMenuStrip

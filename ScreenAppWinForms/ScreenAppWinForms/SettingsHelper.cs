@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace ScreenAppWinForms
 {
+    /// <summary>
+    /// zawiera ustawienia języka i skrótów klawiszowych
+    /// </summary>
     public static class SettingsHelper
     {
         private static string currentLanguage;

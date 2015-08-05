@@ -79,10 +79,13 @@ namespace ScreenAppWinForms
         {
             try
             {
+                //konwerter do zamieniania stringa w element enumeracji Keys
                 KeysConverter converter = new KeysConverter();
                 string txtFromTxtBox = textBoxCaptureScreen.Text;
+                //ponieważ nie ma małych liter w enumeracji
                 txtFromTxtBox = txtFromTxtBox.ToUpper();
                 object key = converter.ConvertFromString(txtFromTxtBox);
+                //najpierw trzeba wyrejestrować poprzedni skrót przed zarejestrowaniem nowego
                 Hotkey.UnregisterOldHotkey(SettingsHelper.WindowHandle, 1);
                 Hotkey.RegisterNewHotkey(SettingsHelper.WindowHandle, 1, (int)registerHotkey.Hotkey.WindowKeys.None, Convert.ToUInt32(key));
             }
