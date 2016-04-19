@@ -134,21 +134,21 @@ namespace ScreenAppWinForms
                 }
                 try
                 {
-                    string sourceAcceptImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\accept2.png";
+                    string sourceAcceptImage = @"Images\accept2.png";
                     BtnSaveSelectedArea.Image = Image.FromFile(sourceAcceptImage);
                     BtnSaveSelectedArea.Width = 27;
                     BtnSaveSelectedArea.Height = 27;
                     BtnSaveSelectedArea.Click += btnZapiszScreenaObszaru_Click;
 
                     BtnUploadToImgur.Location = new Point(BtnSaveSelectedArea.Location.X + BtnSaveSelectedArea.Width, BtnSaveSelectedArea.Location.Y);
-                    string sourceUploadImage = @"D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\Images\imgurButton2.png";
+                    string sourceUploadImage = @"Images\imgurButton2.png";
                     BtnUploadToImgur.Image = Image.FromFile(sourceUploadImage);
                     BtnUploadToImgur.Height = 27;
                     BtnUploadToImgur.Width = 27;
                     BtnUploadToImgur.Click += BtnUploadToImgur_Click;
 
                     BtnDeleteSelectedArea.Location = new Point(BtnUploadToImgur.Location.X + BtnUploadToImgur.Width, BtnUploadToImgur.Location.Y);
-                    string sourceDeleteImage = @"C:\Users\Win7\Documents\Visual Studio 2013\Projects\DrawingRectanglesOnForm\DrawingRectanglesOnForm\Images\decline3.png";
+                    string sourceDeleteImage = @"Images\decline3.png";
                     BtnDeleteSelectedArea.Image = Image.FromFile(sourceDeleteImage);
                     BtnDeleteSelectedArea.Width = 27;
                     BtnDeleteSelectedArea.Height = 27;
