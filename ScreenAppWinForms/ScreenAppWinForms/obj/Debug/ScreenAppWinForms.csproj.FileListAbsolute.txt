@@ -63,3 +63,10 @@ D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Imag
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Add_Text.resources
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\setting.ico
 D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Settings.resources
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Images\help.ico
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\Interop.ShockwaveFlashObjects.dll
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\bin\Debug\AxInterop.ShockwaveFlashObjects.dll
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\Interop.ShockwaveFlashObjects.dll
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\AxInterop.ShockwaveFlashObjects.dll
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.csproj.ResolveComReference.cache
+D:\GIT\Screenshot-application\ScreenAppWinForms\ScreenAppWinForms\obj\Debug\ScreenAppWinForms.Help.resources

@@ -31,6 +31,7 @@ namespace ScreenAppWinForms
                 Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
                 Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
                 Image imgSettings = Image.FromFile(@"Images\setting.ico");
+                Image imgHelp = Image.FromFile(@"Images\help.ico");
 
                 CMS.Items.Add("Capture screen", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
                 CMS.Items.Add("Capture screen and upload", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
@@ -38,6 +39,7 @@ namespace ScreenAppWinForms
                 CMS.Items.Add("Screenshot Editor", imgScreenshotEditor, ScreenshotEditor_Click);
                 CMS.Items.Add("Upload from disc", imgUploadFullScreenScreenshot, UploadImage_Click);
                 CMS.Items.Add("Settings", imgSettings, Settings_Click);
+                CMS.Items.Add("Help", imgHelp, Help_Click);
                 CMS.Items.Add("Exit", imgExit, Exit_Click);
 
                 
@@ -66,6 +68,7 @@ namespace ScreenAppWinForms
                 Image imgScreenshotEditor = Image.FromFile(@"Images\screenshotEditor2.ico");
                 Image imgUploadFullScreenScreenshot = Image.FromFile(@"Images\imgur.ico");
                 Image imgSettings = Image.FromFile(@"Images\setting.ico");
+                Image imgHelp = Image.FromFile(@"Images\help.ico");
 
                 CMS.Items.Add("Screen ekranu", imgFullScreenScreenshot, ScreenshotOfEntireScreen_Click);
                 CMS.Items.Add("Screen ekranu i automatyczny upload", imgUploadFullScreenScreenshot, UploadScreenshotOfEntireScreen_Click);
@@ -73,6 +76,7 @@ namespace ScreenAppWinForms
                 CMS.Items.Add("Edytor screenów", imgScreenshotEditor, ScreenshotEditor_Click);
                 CMS.Items.Add("Upload z dysku", imgUploadFullScreenScreenshot, UploadImage_Click);
                 CMS.Items.Add("Ustawienia", imgSettings, Settings_Click);
+                CMS.Items.Add("Pomoc", imgHelp, Help_Click);
                 CMS.Items.Add("Wyjdź", imgExit, Exit_Click);
             }
             catch (FileNotFoundException e)
@@ -90,10 +94,19 @@ namespace ScreenAppWinForms
         }
 
         
+
+        
         
 
         
         #region event handlery ContextMenuStrip
+        private static void Help_Click(object sender, EventArgs e)
+        {
+            //wywolanie nowego okna z filmikiem
+            Help newHelpWindow = new Help();
+            newHelpWindow.Show();
+        }
+
         private static void Settings_Click(object sender, EventArgs e)
         {
             Settings sett = new Settings();
