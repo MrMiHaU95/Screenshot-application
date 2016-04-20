@@ -21,26 +21,26 @@ User Selection Drawn on screen:
 ![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection2.png)
 
 ### To do List: (here you can help)
--~~ new feature called Screenshot Editor where user will be able edit Screenshots and Images loaded from hard drive.~~
+~~- new feature called Screenshot Editor where user will be able edit Screenshots and Images loaded from hard drive.~~
 ~~For example add text to existing screenshot or draw a line, shape, or change size of screenshot.~~
 - ~~upload screenshot to imgur~~
 - ~~upload images from hard drive to Imgur~~
 - dual monitor support.
 
 ###To do features of Screenshot Editor (here you can help)
--~~ load new file to drawing area~~
--~~ saving changes~~
--~~ draw line (straight)~~
--~~ draw rectangle~~
--~~ draw ellipse~~
--~~ pen tool~~
--~~ add text~~
--~~ undo ~~
--~~ redo~~
--~~ change color~~
--~~ change font~~
--~~ print~~
--~~ upload to Imgur~~
+~~- load new file to drawing area~~
+~~- saving changes~~
+~~- draw line (straight)~~
+~~- draw rectangle~~
+~~- draw ellipse~~
+~~- pen tool~~
+~~- add text~~
+~~- undo ~~
+~~- redo~~
+~~- change color~~
+~~- change font~~
+~~- print~~
+~~- upload to Imgur~~
 
 Preview image of Screenshot Editor
 
