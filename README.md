@@ -14,32 +14,33 @@ ContextMenuStrip:
 - notifications (BallonTip)
 - upload screenshot to imgur 
 - upload images from hard drive to Imgur
+- -screenshot editor with a lot of options
 
 User Selection Drawn on screen:
 
 ![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection2.png)
 
 ### To do List: (here you can help)
-- new feature called Screenshot Editor where user will be able edit Screenshots and Images loaded from hard drive.
-For example add text to existing screenshot or draw a line, shape, or change size of screenshot.
+~~- new feature called Screenshot Editor where user will be able edit Screenshots and Images loaded from hard drive.~~
+~~For example add text to existing screenshot or draw a line, shape, or change size of screenshot.~~
 - ~~upload screenshot to imgur~~
 - ~~upload images from hard drive to Imgur~~
 - dual monitor support.
 
 ###To do features of Screenshot Editor (here you can help)
-- load new file to drawing area
-- saving changes
-- draw line (straight)
-- draw rectangle
-- draw ellipse
-- pen tool
-- add text
-- undo 
-- redo
-- change color
-- change font
-- print
-- upload to Imgur
+~~- load new file to drawing area~~
+~~- saving changes~~
+~~- draw line (straight)~~
+~~- draw rectangle~~
+~~- draw ellipse~~
+~~- pen tool~~
+~~- add text~~
+~~- undo ~~
+~~- redo~~
+~~- change color~~
+~~- change font~~
+~~- print~~
+~~- upload to Imgur~~
 
 Preview image of Screenshot Editor
 
@@ -63,14 +64,15 @@ ContextMenuStrip:
 - "globalne" skrótky klawiszowe tzn applikacja nie musi być zaznaczona aby skrót dzialal cokolwiek robisz wystarczy nacisnac F10 aby zrobić screena calego ekranu lub F11 aby narysować zaznaczenie (RegisterHotKey)
 - powiadomienia w postaci BallonTip
 - upload screena na imgur
+- edytor screena z wieloma opcjami (rysowanie,dodawanie tekstu, rysowanie zaznaczeń, drukowanie screena i wiele wiele innych)
 
 Zaznaczenie narysowane przez usera którego aplikacja może zrobić screena:
 
 ![](https://github.com/MrMichal95/Screenshot-application/blob/master/ScreenAppWinForms/Images%20README/userSelection2.png)
 
 ### Lista funkcji które zostan dodane w przyszlosci: (tutaj możesz pomóc)
-- nowa funkcja nazwana roboczo Menedżer Screenshotów, gdzie user bedzie mógl przegladać poprzednie screeny oraz je edytować dodać linie ksztaty tekst czy kadrować
-- funkcja wyslania screena na serwer aby mozna bylo w latwy sposób przeslac screena innej osobie po prostu podajac linka do screena
+- ~~nowa funkcja nazwana roboczo Menedżer Screenshotów, gdzie user bedzie mógl przegladać poprzednie screeny oraz je edytować dodać~~ ~~linie ksztaty tekst czy kadrować~~
+- ~~funkcja wyslania screena na serwer aby mozna bylo w latwy sposób przeslac screena innej osobie po prostu podajac linka do screena~~
 - wsparcie dla dwóch monitorów
 - ~~upload screena na imgur~~
 
